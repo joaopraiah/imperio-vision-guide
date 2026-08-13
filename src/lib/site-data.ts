@@ -36,7 +36,7 @@ export const STORES: Store[] = [
   },
 ];
 
-export const WHATSAPP_PRINCIPAL = STORES[0].whatsapp;
+export const WHATSAPP_PRINCIPAL = "https://wa.me/5519984475265";
 
 export const SOCIAL = {
   instagram: "https://instagram.com/oticaimperiopaulinia",
