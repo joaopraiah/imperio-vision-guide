@@ -67,7 +67,46 @@ function DotMosaic({ digit, hue }: { digit: string; hue: number }) {
   );
 }
 
+function ScoreRing({ pct }: { pct: number }) {
+  const r = 52;
+  const c = 2 * Math.PI * r;
+  return (
+    <motion.div
+      className="relative mx-auto size-32 shrink-0 sm:mx-0"
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <svg viewBox="0 0 120 120" className="size-full -rotate-90">
+        <circle cx="60" cy="60" r={r} fill="none" stroke="var(--color-border)" strokeWidth="4" />
+        <motion.circle
+          cx="60"
+          cy="60"
+          r={r}
+          fill="none"
+          stroke="var(--color-gold)"
+          strokeWidth="4"
+          strokeLinecap="round"
+          strokeDasharray={c}
+          initial={{ strokeDashoffset: c }}
+          animate={{ strokeDashoffset: c * (1 - pct) }}
+          transition={{ duration: 1.4, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        />
+      </svg>
+      <motion.span
+        className="absolute inset-0 grid place-items-center font-mono text-xl tracking-tight text-ink"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.9, duration: 0.6 }}
+      >
+        {Math.round(pct * 100)}%
+      </motion.span>
+    </motion.div>
+  );
+}
+
 const QUESTIONS: Question[] = [
+
   {
     id: "acuidade-1",
     kind: "acuidade",
