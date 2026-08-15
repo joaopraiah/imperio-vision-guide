@@ -215,7 +215,13 @@ export function VisionTest() {
   }
 
   return (
-    <div className="border border-border bg-card">
+    <div className="relative overflow-hidden border border-border bg-card">
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-gold/10 blur-3xl"
+        animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.9, 0.5] }}
+        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+      />
       <div className="h-px w-full bg-border">
         <motion.div
           className="h-px bg-gold"
@@ -224,6 +230,26 @@ export function VisionTest() {
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         />
       </div>
+
+      {stage !== "intro" ? (
+        <div className="flex items-center gap-1.5 px-7 pt-6 sm:px-10">
+          {QUESTIONS.map((q, i) => (
+            <motion.span
+              key={q.id}
+              className="h-1 flex-1 origin-left bg-border"
+              animate={{
+                backgroundColor:
+                  stage === "result" || i < index || answers[q.id] !== undefined
+                    ? "var(--color-gold)"
+                    : "var(--color-border)",
+                scaleY: i === index && stage === "quiz" ? 2.2 : 1,
+              }}
+              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            />
+          ))}
+        </div>
+      ) : null}
+
 
       <div className="p-7 sm:p-10">
         <div className="mb-8 flex items-start gap-3 border border-gold/40 bg-gold/10 p-4">
