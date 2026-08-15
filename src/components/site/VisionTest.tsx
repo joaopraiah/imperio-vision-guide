@@ -67,7 +67,46 @@ function DotMosaic({ digit, hue }: { digit: string; hue: number }) {
   );
 }
 
+function ScoreRing({ pct }: { pct: number }) {
+  const r = 52;
+  const c = 2 * Math.PI * r;
+  return (
+    <motion.div
+      className="relative mx-auto size-32 shrink-0 sm:mx-0"
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <svg viewBox="0 0 120 120" className="size-full -rotate-90">
+        <circle cx="60" cy="60" r={r} fill="none" stroke="var(--color-border)" strokeWidth="4" />
+        <motion.circle
+          cx="60"
+          cy="60"
+          r={r}
+          fill="none"
+          stroke="var(--color-gold)"
+          strokeWidth="4"
+          strokeLinecap="round"
+          strokeDasharray={c}
+          initial={{ strokeDashoffset: c }}
+          animate={{ strokeDashoffset: c * (1 - pct) }}
+          transition={{ duration: 1.4, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        />
+      </svg>
+      <motion.span
+        className="absolute inset-0 grid place-items-center font-mono text-xl tracking-tight text-ink"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.9, duration: 0.6 }}
+      >
+        {Math.round(pct * 100)}%
+      </motion.span>
+    </motion.div>
+  );
+}
+
 const QUESTIONS: Question[] = [
+
   {
     id: "acuidade-1",
     kind: "acuidade",
@@ -215,7 +254,13 @@ export function VisionTest() {
   }
 
   return (
-    <div className="border border-border bg-card">
+    <div className="relative overflow-hidden border border-border bg-card">
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-gold/10 blur-3xl"
+        animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.9, 0.5] }}
+        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+      />
       <div className="h-px w-full bg-border">
         <motion.div
           className="h-px bg-gold"
@@ -224,6 +269,26 @@ export function VisionTest() {
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         />
       </div>
+
+      {stage !== "intro" ? (
+        <div className="flex items-center gap-1.5 px-7 pt-6 sm:px-10">
+          {QUESTIONS.map((q, i) => (
+            <motion.span
+              key={q.id}
+              className="h-1 flex-1 origin-left bg-border"
+              animate={{
+                backgroundColor:
+                  stage === "result" || i < index || answers[q.id] !== undefined
+                    ? "var(--color-gold)"
+                    : "var(--color-border)",
+                scaleY: i === index && stage === "quiz" ? 2.2 : 1,
+              }}
+              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            />
+          ))}
+        </div>
+      ) : null}
+
 
       <div className="p-7 sm:p-10">
         <div className="mb-8 flex items-start gap-3 border border-gold/40 bg-gold/10 p-4">
@@ -300,9 +365,20 @@ export function VisionTest() {
               <p className="mt-3 text-sm text-muted-foreground">{question.ajuda}</p>
 
               {question.render ? (
-                <div className="mt-8 grid min-h-40 place-items-center border border-border bg-background px-6 py-10 text-center">
+                <motion.div
+                  className="relative mt-8 grid min-h-40 place-items-center overflow-hidden border border-border bg-background px-6 py-10 text-center"
+                  initial={{ opacity: 0, scale: 0.96, filter: "blur(10px)" }}
+                  animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                  transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <motion.span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-y-0 w-1/3 bg-linear-to-r from-transparent via-gold/10 to-transparent"
+                    animate={{ x: ["-120%", "320%"] }}
+                    transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", repeatDelay: 1.4 }}
+                  />
                   {question.render(question.id)}
-                </div>
+                </motion.div>
               ) : null}
 
               <div className="mt-7 grid gap-3 sm:grid-cols-2">
@@ -313,18 +389,36 @@ export function VisionTest() {
                       key={o.label}
                       type="button"
                       onClick={() => answer(i)}
-                      whileHover={{ x: 4 }}
+                      initial={{ opacity: 0, y: 14 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.12 + i * 0.07, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                      whileHover={{ x: 5 }}
+                      whileTap={{ scale: 0.98 }}
                       className={cn(
-                        "flex items-center justify-between border px-5 py-4 text-left text-sm transition-colors",
+                        "group relative flex items-center justify-between overflow-hidden border px-5 py-4 text-left text-sm transition-colors",
                         selected ? "border-gold bg-gold/10 text-ink" : "border-border hover:border-gold",
                       )}
                     >
-                      {o.label}
-                      <ArrowRight className="size-4 text-gold" />
+                      <span className="relative z-10">{o.label}</span>
+                      <motion.span
+                        aria-hidden
+                        className="absolute inset-0 origin-left bg-gold/10"
+                        initial={false}
+                        animate={{ scaleX: selected ? 1 : 0 }}
+                        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                      />
+                      <motion.span
+                        className="relative z-10 text-gold"
+                        animate={selected ? { rotate: 90, scale: 1.15 } : { rotate: 0, scale: 1 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 18 }}
+                      >
+                        {selected ? <Check className="size-4" /> : <ArrowRight className="size-4" />}
+                      </motion.span>
                     </motion.button>
                   );
                 })}
               </div>
+
             </motion.div>
           ) : (
             <motion.div
@@ -334,10 +428,28 @@ export function VisionTest() {
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
               <span className="label-mono">Resultado orientativo</span>
-              <h3 className="mt-4 text-3xl sm:text-4xl">{resultado.titulo}</h3>
-              <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground">
-                {resultado.texto}
-              </p>
+              <div className="mt-6 grid gap-8 sm:grid-cols-[auto_1fr] sm:items-center">
+                <ScoreRing pct={pct} />
+                <div>
+                  <motion.h3
+                    className="text-3xl sm:text-4xl"
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.25, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    {resultado.titulo}
+                  </motion.h3>
+                  <motion.p
+                    className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground"
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    {resultado.texto}
+                  </motion.p>
+                </div>
+              </div>
+
 
               <div className="mt-8 border border-border bg-background p-6">
                 <p className="label-mono">Próximo passo</p>
