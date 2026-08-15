@@ -389,10 +389,28 @@ export function VisionTest() {
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
               <span className="label-mono">Resultado orientativo</span>
-              <h3 className="mt-4 text-3xl sm:text-4xl">{resultado.titulo}</h3>
-              <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground">
-                {resultado.texto}
-              </p>
+              <div className="mt-6 grid gap-8 sm:grid-cols-[auto_1fr] sm:items-center">
+                <ScoreRing pct={pct} />
+                <div>
+                  <motion.h3
+                    className="text-3xl sm:text-4xl"
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.25, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    {resultado.titulo}
+                  </motion.h3>
+                  <motion.p
+                    className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground"
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    {resultado.texto}
+                  </motion.p>
+                </div>
+              </div>
+
 
               <div className="mt-8 border border-border bg-background p-6">
                 <p className="label-mono">Próximo passo</p>
