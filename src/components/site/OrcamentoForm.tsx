@@ -38,19 +38,40 @@ export function OrcamentoForm() {
   const field =
     "w-full border border-border bg-background px-4 py-3 text-sm outline-none transition-colors focus:border-gold";
 
+  const completo = [nome, unidade, interesse, receita].filter(Boolean).length / 4;
+
   return (
-    <form
+    <motion.form
       onSubmit={(e) => e.preventDefault()}
-      className="border border-border bg-card p-7 sm:p-10"
+      className="relative overflow-hidden border border-border bg-card p-7 sm:p-10"
       aria-label="Solicitação de orçamento"
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute -left-24 -top-24 size-64 rounded-full bg-gold/10 blur-3xl"
+        animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0.8, 0.4] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      />
       <span className="label-mono">Solicitar orçamento</span>
       <h3 className="mt-4 text-2xl sm:text-3xl">Conte o que você precisa</h3>
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
         Preencha os campos e continue a conversa no WhatsApp da unidade mais próxima. Sem compromisso.
       </p>
 
+      <div className="mt-7 h-px w-full bg-border">
+        <motion.div
+          className="h-px origin-left bg-gold"
+          animate={{ scaleX: completo }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        />
+      </div>
+
       <div className="mt-8 grid gap-5">
+
         <div>
           <label htmlFor="nome" className="label-mono">
             Seu nome
