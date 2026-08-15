@@ -10,33 +10,141 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AOticaRouteImport } from './routes/a-otica'
+import { Route as ContatoRouteImport } from './routes/contato'
+import { Route as ExperienciaRouteImport } from './routes/experiencia'
+import { Route as LojasRouteImport } from './routes/lojas'
+import { Route as MarcasRouteImport } from './routes/marcas'
+import { Route as OrcamentoRouteImport } from './routes/orcamento'
+import { Route as ServicosRouteImport } from './routes/servicos'
+import { Route as TesteDeVisaoRouteImport } from './routes/teste-de-visao'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AOticaRoute = AOticaRouteImport.update({
+  id: '/a-otica',
+  path: '/a-otica',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContatoRoute = ContatoRouteImport.update({
+  id: '/contato',
+  path: '/contato',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExperienciaRoute = ExperienciaRouteImport.update({
+  id: '/experiencia',
+  path: '/experiencia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LojasRoute = LojasRouteImport.update({
+  id: '/lojas',
+  path: '/lojas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarcasRoute = MarcasRouteImport.update({
+  id: '/marcas',
+  path: '/marcas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrcamentoRoute = OrcamentoRouteImport.update({
+  id: '/orcamento',
+  path: '/orcamento',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicosRoute = ServicosRouteImport.update({
+  id: '/servicos',
+  path: '/servicos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TesteDeVisaoRoute = TesteDeVisaoRouteImport.update({
+  id: '/teste-de-visao',
+  path: '/teste-de-visao',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/a-otica': typeof AOticaRoute
+  '/contato': typeof ContatoRoute
+  '/experiencia': typeof ExperienciaRoute
+  '/lojas': typeof LojasRoute
+  '/marcas': typeof MarcasRoute
+  '/orcamento': typeof OrcamentoRoute
+  '/servicos': typeof ServicosRoute
+  '/teste-de-visao': typeof TesteDeVisaoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/a-otica': typeof AOticaRoute
+  '/contato': typeof ContatoRoute
+  '/experiencia': typeof ExperienciaRoute
+  '/lojas': typeof LojasRoute
+  '/marcas': typeof MarcasRoute
+  '/orcamento': typeof OrcamentoRoute
+  '/servicos': typeof ServicosRoute
+  '/teste-de-visao': typeof TesteDeVisaoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/a-otica': typeof AOticaRoute
+  '/contato': typeof ContatoRoute
+  '/experiencia': typeof ExperienciaRoute
+  '/lojas': typeof LojasRoute
+  '/marcas': typeof MarcasRoute
+  '/orcamento': typeof OrcamentoRoute
+  '/servicos': typeof ServicosRoute
+  '/teste-de-visao': typeof TesteDeVisaoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/a-otica'
+    | '/contato'
+    | '/experiencia'
+    | '/lojas'
+    | '/marcas'
+    | '/orcamento'
+    | '/servicos'
+    | '/teste-de-visao'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/a-otica'
+    | '/contato'
+    | '/experiencia'
+    | '/lojas'
+    | '/marcas'
+    | '/orcamento'
+    | '/servicos'
+    | '/teste-de-visao'
+  id:
+    | '__root__'
+    | '/'
+    | '/a-otica'
+    | '/contato'
+    | '/experiencia'
+    | '/lojas'
+    | '/marcas'
+    | '/orcamento'
+    | '/servicos'
+    | '/teste-de-visao'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AOticaRoute: typeof AOticaRoute
+  ContatoRoute: typeof ContatoRoute
+  ExperienciaRoute: typeof ExperienciaRoute
+  LojasRoute: typeof LojasRoute
+  MarcasRoute: typeof MarcasRoute
+  OrcamentoRoute: typeof OrcamentoRoute
+  ServicosRoute: typeof ServicosRoute
+  TesteDeVisaoRoute: typeof TesteDeVisaoRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +156,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/a-otica': {
+      id: '/a-otica'
+      path: '/a-otica'
+      fullPath: '/a-otica'
+      preLoaderRoute: typeof AOticaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contato': {
+      id: '/contato'
+      path: '/contato'
+      fullPath: '/contato'
+      preLoaderRoute: typeof ContatoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/experiencia': {
+      id: '/experiencia'
+      path: '/experiencia'
+      fullPath: '/experiencia'
+      preLoaderRoute: typeof ExperienciaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lojas': {
+      id: '/lojas'
+      path: '/lojas'
+      fullPath: '/lojas'
+      preLoaderRoute: typeof LojasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/marcas': {
+      id: '/marcas'
+      path: '/marcas'
+      fullPath: '/marcas'
+      preLoaderRoute: typeof MarcasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/orcamento': {
+      id: '/orcamento'
+      path: '/orcamento'
+      fullPath: '/orcamento'
+      preLoaderRoute: typeof OrcamentoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/servicos': {
+      id: '/servicos'
+      path: '/servicos'
+      fullPath: '/servicos'
+      preLoaderRoute: typeof ServicosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teste-de-visao': {
+      id: '/teste-de-visao'
+      path: '/teste-de-visao'
+      fullPath: '/teste-de-visao'
+      preLoaderRoute: typeof TesteDeVisaoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AOticaRoute: AOticaRoute,
+  ContatoRoute: ContatoRoute,
+  ExperienciaRoute: ExperienciaRoute,
+  LojasRoute: LojasRoute,
+  MarcasRoute: MarcasRoute,
+  OrcamentoRoute: OrcamentoRoute,
+  ServicosRoute: ServicosRoute,
+  TesteDeVisaoRoute: TesteDeVisaoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
