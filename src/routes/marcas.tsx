@@ -6,13 +6,13 @@ import { ClosingCta } from "@/components/site/ClosingCta";
 export const Route = createFileRoute("/marcas")({
   head: () => ({
     meta: [
-      { title: "Marcas e coleções — Ótica Império Glasses" },
+      { title: "Marcas — Ótica Império Glasses" },
       {
         name: "description",
         content:
           "Grifes internacionais, marcas nacionais de qualidade e linhas acessíveis: variedade de armações e lentes para provar nas lojas de Sumaré e Hortolândia.",
       },
-      { property: "og:title", content: "Marcas e coleções — Ótica Império Glasses" },
+      { property: "og:title", content: "Marcas — Ótica Império Glasses" },
       {
         property: "og:description",
         content: "Do clássico ao autoral: variedade de armações para todos os estilos e orçamentos.",
@@ -66,7 +66,7 @@ function Marcas() {
 
       <Section>
         <SectionHeading
-          label="Coleções"
+          label="Curadoria"
           title="O que você encontra nas lojas"
           intro="O catálogo completo fica nas unidades: provar é parte da escolha. Fale com a equipe para saber o que temos disponível hoje."
         />

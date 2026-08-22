@@ -4,11 +4,19 @@ import { useRef } from "react";
 import { ArrowRight, Eye, Glasses, HeartHandshake, Leaf } from "lucide-react";
 import hero from "@/assets/hero-loja.jpg";
 import atendimento from "@/assets/atendimento.jpg";
+import visagismo from "@/assets/visagismo.jpg";
 import { DEPOIMENTOS, DIFERENCIAIS, STORES, WHATSAPP_PRINCIPAL } from "@/lib/site-data";
 import { Parallax, Reveal, RevealWords } from "@/components/site/motion-primitives";
+import { HeroSlideshow } from "@/components/site/HeroSlideshow";
 import { BtnAnchor, BtnLink, Section, SectionHeading, SectionLabel } from "@/components/site/ui-bits";
 import { StoreCard } from "@/components/site/StoreCard";
 import { ClosingCta } from "@/components/site/ClosingCta";
+
+const HERO_SLIDES = [
+  { src: hero, alt: "Interior da loja Ótica Império Glasses" },
+  { src: atendimento, alt: "Atendimento personalizado na Ótica Império" },
+  { src: visagismo, alt: "Consultoria de visagismo na Ótica Império" },
+];
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -52,11 +60,7 @@ function Home() {
     <>
       <section ref={ref} className="relative flex min-h-[100svh] items-end overflow-hidden bg-ink">
         <motion.div style={{ y, scale }} className="absolute inset-0">
-          <img
-            src={hero}
-            alt="Interior da loja Ótica Império Glasses"
-            className="size-full object-cover opacity-55"
-          />
+          <HeroSlideshow slides={HERO_SLIDES} className="absolute inset-0" />
         </motion.div>
         <div className="grain absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/30" />
 

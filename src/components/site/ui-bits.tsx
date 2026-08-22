@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import { Reveal, RevealWords } from "./motion-primitives";
+import { FloatingRings, Reveal, RevealWords } from "./motion-primitives";
 
 const base =
   "inline-flex items-center justify-center gap-2 rounded-none px-7 py-3.5 text-[0.8rem] font-medium uppercase tracking-[0.16em] transition-all duration-300";
@@ -134,8 +134,9 @@ export function PageHero({
   intro: string;
 }) {
   return (
-    <header className="grain border-b border-border bg-ink px-5 pb-20 pt-36 text-ink-foreground sm:px-8 md:pb-28 md:pt-44">
-      <div className="mx-auto w-full max-w-6xl">
+    <header className="grain relative overflow-hidden border-b border-border bg-ink px-5 pb-20 pt-36 text-ink-foreground sm:px-8 md:pb-28 md:pt-44">
+      <FloatingRings className="-right-16 -top-16 text-gold sm:right-0 sm:top-0" />
+      <div className="relative mx-auto w-full max-w-6xl">
         <Reveal>
           <SectionLabel>{label}</SectionLabel>
         </Reveal>

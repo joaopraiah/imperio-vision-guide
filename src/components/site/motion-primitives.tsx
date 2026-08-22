@@ -1,5 +1,6 @@
 import { motion, useScroll, useSpring, useTransform, type MotionProps } from "motion/react";
 import { useRef, type ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 export function Reveal({
   children,
@@ -17,7 +18,7 @@ export function Reveal({
       className={className}
       initial={{ opacity: 0, y, filter: "blur(6px)" }}
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      viewport={{ once: true, margin: "-80px" }}
+      viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.85, delay, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
@@ -25,7 +26,16 @@ export function Reveal({
   );
 }
 
-/** Word-by-word entrance for display headings. */
+/**
+ * Word-by-word entrance for display headings.
+ *
+ * The intersection trigger lives on the outer, unclipped `motion.span` and
+ * propagates to each word via variants. Individual words can't carry their
+ * own `whileInView`: they start translated out of their own overflow-hidden
+ * clip box, so the IntersectionObserver \u2014 which clips the target's rect by
+ * every ancestor's overflow \u2014 permanently reads 0% visible on them and the
+ * animation never fires.
+ */
 export function RevealWords({
   text,
   className,
@@ -37,14 +47,17 @@ export function RevealWords({
 }) {
   const words = text.split(" ");
   return (
-    <span className={className}>
+    <motion.span
+      className={className}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+    >
       {words.map((w, i) => (
         <span key={`${w}-${i}`} className="inline-block overflow-hidden align-bottom">
           <motion.span
             className="inline-block"
-            initial={{ y: "110%", opacity: 0 }}
-            whileInView={{ y: "0%", opacity: 1 }}
-            viewport={{ once: true, margin: "-60px" }}
+            variants={{ hidden: { y: "110%", opacity: 0 }, visible: { y: "0%", opacity: 1 } }}
             transition={{ duration: 0.9, delay: delay + i * 0.055, ease: [0.16, 1, 0.3, 1] }}
           >
             {w}
@@ -52,7 +65,7 @@ export function RevealWords({
           </motion.span>
         </span>
       ))}
-    </span>
+    </motion.span>
   );
 }
 
@@ -89,6 +102,29 @@ export function Magnetic({ children, ...rest }: { children: ReactNode } & Motion
     >
       {children}
     </motion.div>
+  );
+}
+
+/** Ambient drifting rings used behind dark sections for quiet depth/motion. */
+export function FloatingRings({ className }: { className?: string }) {
+  return (
+    <div className={cn("pointer-events-none absolute size-64", className)} aria-hidden="true">
+      <motion.div
+        className="absolute inset-0 rounded-full border border-gold/25"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+      />
+      <motion.div
+        className="absolute inset-0 m-10 rounded-full border border-gold/15"
+        animate={{ rotate: -360 }}
+        transition={{ duration: 44, repeat: Infinity, ease: "linear" }}
+      />
+      <motion.div
+        className="absolute inset-0 -m-4 rounded-full bg-gold/10 blur-3xl"
+        animate={{ opacity: [0.5, 0.9, 0.5], scale: [1, 1.08, 1] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      />
+    </div>
   );
 }
 

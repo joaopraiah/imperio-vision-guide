@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Instagram, Facebook, MessageCircle } from "lucide-react";
+import { Instagram, Facebook, MessageCircle, Plus } from "lucide-react";
 import { PageHero, Section, SectionHeading, BtnAnchor, BtnLink } from "@/components/site/ui-bits";
 import { Reveal } from "@/components/site/motion-primitives";
 import { FAQ, SOCIAL, STORES } from "@/lib/site-data";
@@ -91,8 +91,9 @@ function Contato() {
           {FAQ.map((f, i) => (
             <Reveal key={f.q} delay={i * 0.06}>
               <details className="group py-6">
-                <summary className="cursor-pointer list-none font-display text-lg leading-snug transition-colors group-open:text-gold">
+                <summary className="flex cursor-pointer items-center justify-between gap-6 font-display text-lg leading-snug transition-colors group-open:text-gold">
                   {f.q}
+                  <Plus className="size-4 shrink-0 text-gold transition-transform duration-300 group-open:rotate-45" />
                 </summary>
                 <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">{f.a}</p>
               </details>

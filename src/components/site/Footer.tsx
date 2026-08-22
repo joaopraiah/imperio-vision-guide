@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Instagram, Facebook } from "lucide-react";
-import logo from "@/assets/logo-imperio.png.asset.json";
+import { Logo } from "@/components/site/Logo";
 import { NAV, SOCIAL, STORES } from "@/lib/site-data";
 
 export function Footer() {
@@ -8,15 +8,8 @@ export function Footer() {
     <footer className="grain bg-ink px-5 py-16 text-ink-foreground sm:px-8">
       <div className="mx-auto grid w-full max-w-6xl gap-12 md:grid-cols-[1.2fr_1fr_1.2fr]">
         <div>
-          <img
-            src={logo.url}
-            alt="Ótica Império Glasses"
-            width={200}
-            height={120}
-            loading="lazy"
-            className="h-16 w-auto"
-          />
-          <p className="mt-6 max-w-xs text-sm leading-relaxed text-ink-foreground/60">
+          <Logo className="scale-110 origin-left" />
+          <p className="mt-7 max-w-xs text-sm leading-relaxed text-ink-foreground/60">
             Ótica premium com atendimento personalizado em Sumaré e Hortolândia. Aqui, a escolha do seu
             óculos começa por uma conversa.
           </p>

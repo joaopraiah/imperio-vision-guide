@@ -193,6 +193,13 @@
   }
 }
 
+summary {
+  list-style: none;
+}
+summary::-webkit-details-marker {
+  display: none;
+}
+
 @utility grain {
   position: relative;
   &::before {

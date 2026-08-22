@@ -2,7 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import logo from "@/assets/logo-imperio.png.asset.json";
+import { Logo } from "@/components/site/Logo";
 import { NAV, WHATSAPP_PRINCIPAL } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
@@ -32,15 +32,8 @@ export function Header() {
         )}
       >
         <div className="mx-auto grid w-full max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-4 sm:px-8">
-          <Link to="/" className="flex min-w-0 items-center gap-3">
-            <img
-              src={logo.url}
-              alt="Ótica Império Glasses"
-              width={160}
-              height={96}
-              className="h-11 w-auto shrink-0 sm:h-12"
-            />
-            <span className="sr-only">Ótica Império Glasses</span>
+          <Link to="/" className="flex min-w-0 items-center gap-3" aria-label="Ótica Império Glasses — início">
+            <Logo />
           </Link>
 
           <nav className="hidden items-center gap-7 lg:flex">
