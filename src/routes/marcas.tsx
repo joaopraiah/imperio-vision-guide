@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Reveal } from "@/components/site/motion-primitives";
+import produtos from "@/assets/visagismo.jpg";
+import { Parallax, Reveal } from "@/components/site/motion-primitives";
 import { PageHero, Section, SectionHeading } from "@/components/site/ui-bits";
 import { ClosingCta } from "@/components/site/ClosingCta";
 
@@ -65,11 +66,20 @@ function Marcas() {
       />
 
       <Section>
-        <SectionHeading
-          label="Curadoria"
-          title="O que você encontra nas lojas"
-          intro="O catálogo completo fica nas unidades: provar é parte da escolha. Fale com a equipe para saber o que temos disponível hoje."
-        />
+        <div className="grid gap-14 md:grid-cols-2 md:items-center">
+          <Parallax>
+            <img
+              src={produtos}
+              alt="Armações da Ótica Império Glasses"
+              loading="lazy"
+              className="aspect-4/3 w-full object-cover"
+            />
+          </Parallax>
+          <SectionHeading
+            title="O que você encontra nas lojas"
+            intro="O catálogo completo fica nas unidades: provar é parte da escolha. Fale com a equipe para saber o que temos disponível hoje."
+          />
+        </div>
         <div className="mt-14 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
           {LINHAS.map((l, i) => (
             <Reveal key={l.titulo} delay={i * 0.06}>

@@ -1,5 +1,8 @@
 import lojaSumare from "@/assets/loja-sumare.jpg";
 import lojaHortolandia from "@/assets/loja-hortolandia.jpg";
+import reviewAvatar1 from "@/assets/review-avatar-1.png";
+import reviewAvatar2 from "@/assets/review-avatar-2.png";
+import reviewAvatar3 from "@/assets/review-avatar-3.png";
 
 export type Store = {
   id: string;
@@ -127,16 +130,19 @@ export const DEPOIMENTOS = [
     texto: "Ótimo acesso a loja, vendedores ótimos e muito atenciosos, e ótimo preço!",
     autor: "Avaliação no Google",
     nota: 5,
+    avatar: reviewAvatar1,
   },
   {
     texto: "Ótimo atendimento, ótimas condições de pagamento, ótimo pós-venda.",
     autor: "Avaliação no Google",
     nota: 5,
+    avatar: reviewAvatar2,
   },
   {
     texto: "Loja linda, atendimento fantástico e bons produtos... recomendo com exatidão!!",
     autor: "Avaliação no Google",
     nota: 5,
+    avatar: reviewAvatar3,
   },
 ];
 

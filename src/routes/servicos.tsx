@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Reveal } from "@/components/site/motion-primitives";
+import lojaDisplay from "@/assets/hero-loja.jpg";
+import { Parallax, Reveal } from "@/components/site/motion-primitives";
 import { PageHero, Section, SectionHeading } from "@/components/site/ui-bits";
 import { ClosingCta } from "@/components/site/ClosingCta";
 import { SERVICOS } from "@/lib/site-data";
@@ -33,8 +34,17 @@ function Servicos() {
         intro="Do reparo da sua armação atual ao acompanhamento depois da entrega: os serviços existem para que a sua experiência não termine na compra."
       />
 
+      <Parallax className="h-[45vh] min-h-80 overflow-hidden">
+        <img
+          src={lojaDisplay}
+          alt="Prateleira de armações na Ótica Império Glasses"
+          loading="lazy"
+          className="size-full object-cover"
+        />
+      </Parallax>
+
       <Section>
-        <SectionHeading label="O que oferecemos" title="Serviços das duas unidades" />
+        <SectionHeading title="Serviços das duas unidades" />
         <div className="mt-14 grid gap-6 md:grid-cols-2">
           {SERVICOS.map((s, i) => (
             <Reveal key={s.titulo} delay={i * 0.07}>

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import atendimento from "@/assets/atendimento.jpg";
+import lojaAmbiente2 from "@/assets/loja-ambiente-2.jpg";
 import sustentabilidade from "@/assets/sustentabilidade.jpg";
 import { DIFERENCIAIS } from "@/lib/site-data";
 import { Parallax, Reveal } from "@/components/site/motion-primitives";
@@ -38,7 +39,6 @@ function AOtica() {
         <div className="grid gap-14 md:grid-cols-2 md:items-center">
           <div>
             <SectionHeading
-              label="Nossa filosofia"
               title="A escolha certa vem depois de entender você"
               intro="Não vendemos óculos por catálogo. A equipe conversa, observa, sugere e ajusta. Esse cuidado continua depois da entrega, no acompanhamento da adaptação e nos pequenos ajustes que fazem toda a diferença."
             />
@@ -62,7 +62,7 @@ function AOtica() {
       </Section>
 
       <Section className="border-t border-border bg-secondary/40">
-        <SectionHeading label="O que nos define" title="Quatro compromissos" />
+        <SectionHeading title="Quatro compromissos" />
         <div className="mt-14 grid gap-px bg-border sm:grid-cols-2">
           {DIFERENCIAIS.map((d, i) => (
             <Reveal key={d.titulo} delay={i * 0.08}>
@@ -78,6 +78,15 @@ function AOtica() {
         </div>
       </Section>
 
+      <Parallax className="h-[50vh] min-h-96 overflow-hidden">
+        <img
+          src={lojaAmbiente2}
+          alt="Interior de uma das lojas da Ótica Império Glasses"
+          loading="lazy"
+          className="size-full object-cover"
+        />
+      </Parallax>
+
       <Section>
         <div className="grid gap-14 md:grid-cols-2 md:items-center">
           <Parallax>
@@ -89,7 +98,6 @@ function AOtica() {
             />
           </Parallax>
           <SectionHeading
-            label="Responsabilidade ambiental"
             title="Passos concretos, sem promessa vazia"
             intro="Estamos substituindo nossas sacolas por versões recicláveis e estudando uma iniciativa de descarte consciente de óculos antigos. É um caminho em construção, e preferimos contar exatamente onde estamos."
           />

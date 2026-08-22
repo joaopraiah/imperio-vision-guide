@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import visagismo from "@/assets/visagismo.jpg";
+import visagismo from "@/assets/mood-homem-oculos.jpg";
+import especialista from "@/assets/especialista-exame.jpg";
 import { Parallax, Reveal } from "@/components/site/motion-primitives";
 import { PageHero, Section, SectionHeading } from "@/components/site/ui-bits";
 import { ClosingCta } from "@/components/site/ClosingCta";
@@ -92,9 +93,17 @@ function Experiencia() {
         </div>
       </Section>
 
+      <Parallax className="h-[45vh] min-h-80 overflow-hidden">
+        <img
+          src={especialista}
+          alt="Exame de vista realizado por profissional capacitado"
+          loading="lazy"
+          className="size-full object-cover object-top"
+        />
+      </Parallax>
+
       <Section className="border-t border-border bg-secondary/40">
         <SectionHeading
-          label="Formas de pagamento"
           title="Condições pensadas para caber no seu mês"
           intro="Cartão de crédito em até 10x sem juros, débito, Pix, parcelamento em até 24x pela conta de luz e financiamento Brasil Card."
           align="center"

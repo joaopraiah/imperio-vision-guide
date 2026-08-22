@@ -1,28 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
-import { ArrowRight, Eye, Glasses, HeartHandshake, Leaf, Star } from "lucide-react";
-import hero from "@/assets/hero-loja.jpg";
+import { ArrowRight, Eye, Glasses, HeartHandshake, Leaf, Recycle, Star } from "lucide-react";
 import atendimento from "@/assets/atendimento.jpg";
-import visagismo from "@/assets/visagismo.jpg";
+import lojaAmbiente1 from "@/assets/loja-ambiente-1.jpg";
+import moodMulherChapeu from "@/assets/mood-mulher-chapeu.jpg";
+import moodMulherTelefone from "@/assets/mood-mulher-telefone.jpg";
+import sustentabilidade from "@/assets/sustentabilidade.jpg";
 import { DEPOIMENTOS, DIFERENCIAIS, STORES, WHATSAPP_PRINCIPAL } from "@/lib/site-data";
 import { Parallax, Reveal, RevealWords } from "@/components/site/motion-primitives";
 import { HeroSlideshow } from "@/components/site/HeroSlideshow";
-import {
-  BtnAnchor,
-  BtnLink,
-  GoogleRating,
-  Section,
-  SectionHeading,
-  SectionLabel,
-} from "@/components/site/ui-bits";
+import { BtnAnchor, BtnLink, GoogleRating, Section, SectionHeading } from "@/components/site/ui-bits";
 import { StoreCard } from "@/components/site/StoreCard";
 import { ClosingCta } from "@/components/site/ClosingCta";
 
 const HERO_SLIDES = [
-  { src: hero, alt: "Interior da loja Ótica Império Glasses" },
-  { src: atendimento, alt: "Atendimento personalizado na Ótica Império" },
-  { src: visagismo, alt: "Consultoria de visagismo na Ótica Império" },
+  { type: "video" as const, src: "/videos/hero-homem-oculos.mp4", alt: "Homem usando óculos" },
+  { type: "image" as const, src: moodMulherChapeu, alt: "Cliente usando óculos de sol" },
+  { type: "image" as const, src: lojaAmbiente1, alt: "Interior da loja Ótica Império Glasses" },
+  { type: "image" as const, src: moodMulherTelefone, alt: "Cliente usando óculos de grau" },
 ];
 
 export const Route = createFileRoute("/")({
@@ -75,10 +71,7 @@ function Home() {
           style={{ opacity: fade }}
           className="relative mx-auto w-full max-w-6xl px-5 pb-20 pt-40 text-ink-foreground sm:px-8 md:pb-28"
         >
-          <Reveal y={16}>
-            <SectionLabel>Sumaré · Hortolândia</SectionLabel>
-          </Reveal>
-          <h1 className="mt-7 max-w-4xl text-balance text-4xl leading-[1.03] sm:text-6xl md:text-7xl">
+          <h1 className="max-w-4xl text-balance text-4xl leading-[1.03] sm:text-6xl md:text-7xl">
             <RevealWords text="Enxergar bem é também" />
             <br />
             <span className="text-gold">
@@ -133,7 +126,6 @@ function Home() {
           </Parallax>
           <div>
             <SectionHeading
-              label="A Ótica"
               title="Atendimento que começa por escutar você"
               intro="Somos uma ótica premium com duas lojas físicas na região de Campinas. Antes de indicar qualquer modelo, a equipe entende a sua necessidade visual, a sua profissão e o seu dia a dia. O digital é a nossa vitrine; a experiência acontece na loja."
             />
@@ -150,7 +142,7 @@ function Home() {
       </Section>
 
       <Section className="border-t border-border bg-secondary/40">
-        <SectionHeading label="Diferenciais" title="Por que as pessoas voltam" />
+        <SectionHeading title="Por que as pessoas voltam" />
         <div className="mt-14 grid gap-px bg-border sm:grid-cols-2">
           {DIFERENCIAIS.map((d, i) => {
             const Icon = ICONS[i % ICONS.length]!;
@@ -167,8 +159,30 @@ function Home() {
         </div>
       </Section>
 
+      <Section className="border-t border-border">
+        <div className="grid gap-14 md:grid-cols-2 md:items-center">
+          <Parallax>
+            <img
+              src={sustentabilidade}
+              alt="Sacola reciclável da Ótica Império"
+              loading="lazy"
+              className="aspect-4/3 w-full object-cover"
+            />
+          </Parallax>
+          <div>
+            <Reveal>
+              <Recycle className="size-7 text-gold" />
+            </Reveal>
+            <SectionHeading
+              title="Cuidar da sua visão e do planeta"
+              intro="Estamos substituindo nossas sacolas por versões recicláveis — um passo simples que faz diferença. É também um convite: separe seus óculos antigos, e quando a nossa iniciativa de descarte consciente estiver pronta, ajudamos você a dar o destino certo a eles."
+            />
+          </div>
+        </div>
+      </Section>
+
       <Section>
-        <SectionHeading label="Depoimentos" title="Quem já foi atendido" align="center" />
+        <SectionHeading title="Quem já foi atendido" align="center" />
         <Reveal delay={0.1}>
           <div className="mt-6 flex justify-center">
             <GoogleRating />
@@ -186,8 +200,16 @@ function Home() {
                 <blockquote className="mt-4 text-sm leading-relaxed text-muted-foreground">
                   &ldquo;{d.texto}&rdquo;
                 </blockquote>
-                <figcaption className="mt-auto pt-7 font-mono text-[0.68rem] uppercase tracking-[0.18em] text-ink/60">
-                  {d.autor}
+                <figcaption className="mt-auto flex items-center gap-3 pt-7">
+                  <img
+                    src={d.avatar}
+                    alt=""
+                    aria-hidden="true"
+                    className="size-8 rounded-full object-cover"
+                  />
+                  <span className="text-[0.68rem] uppercase tracking-[0.18em] text-ink/60">
+                    {d.autor}
+                  </span>
                 </figcaption>
               </figure>
             </Reveal>
@@ -196,7 +218,7 @@ function Home() {
       </Section>
 
       <Section className="border-t border-border">
-        <SectionHeading label="Lojas" title="Duas unidades para receber você" />
+        <SectionHeading title="Duas unidades para receber você" />
         <div className="mt-14 grid gap-6 md:grid-cols-2">
           {STORES.map((s, i) => (
             <StoreCard key={s.id} store={s} delay={i * 0.1} />

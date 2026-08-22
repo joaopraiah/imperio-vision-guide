@@ -37,7 +37,6 @@ function Contato() {
 
       <Section>
         <SectionHeading
-          label="Nossas unidades"
           title="Escolha por onde prefere falar"
           intro="Cada loja tem o seu próprio número, atendido pela equipe que vai te receber."
         />
@@ -96,7 +95,7 @@ function Contato() {
       </Section>
 
       <Section className="border-t border-border bg-card">
-        <SectionHeading label="Dúvidas frequentes" title="Respostas rápidas antes da sua visita" />
+        <SectionHeading title="Respostas rápidas antes da sua visita" />
         <div className="mt-12 divide-y divide-border border-y border-border">
           {FAQ.map((f, i) => (
             <Reveal key={f.q} delay={i * 0.06}>

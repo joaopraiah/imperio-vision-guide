@@ -1,5 +1,5 @@
 import { FloatingRings, Reveal, RevealWords } from "./motion-primitives";
-import { BtnAnchor, BtnLink, SectionLabel } from "./ui-bits";
+import { BtnAnchor, BtnLink } from "./ui-bits";
 import { STORES } from "@/lib/site-data";
 
 export function ClosingCta({
@@ -13,10 +13,7 @@ export function ClosingCta({
     <section className="grain relative overflow-hidden bg-ink px-5 py-24 text-ink-foreground sm:px-8 md:py-32">
       <FloatingRings className="-left-20 top-1/2 -translate-y-1/2 sm:left-0" />
       <div className="relative mx-auto w-full max-w-4xl text-center">
-        <Reveal>
-          <SectionLabel>Visite uma unidade</SectionLabel>
-        </Reveal>
-        <h2 className="mt-6 text-balance text-3xl leading-[1.1] sm:text-4xl md:text-5xl">
+        <h2 className="text-balance text-3xl leading-[1.1] sm:text-4xl md:text-5xl">
           <RevealWords text={titulo} />
         </h2>
         <Reveal delay={0.12}>

@@ -1,22 +1,23 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useMemo, useState } from "react";
-import { AlertTriangle, ArrowLeft, ArrowRight, Check, Eye, RotateCcw } from "lucide-react";
+import { AlertTriangle, Check, Eye, Lock, RotateCcw } from "lucide-react";
 import { STORES } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
 type Question = {
   id: string;
-  kind: "acuidade" | "contraste" | "cores" | "proximidade" | "sintoma";
   titulo: string;
   ajuda: string;
-  render?: (key: string) => React.ReactNode;
+  render?: () => React.ReactNode;
   opcoes: { label: string; correta?: boolean; peso?: number }[];
 };
+
+type ModuleId = "perto" | "cromatica" | "astigmatismo";
 
 function DotMosaic({ digit, hue }: { digit: string; hue: number }) {
   const dots = useMemo(() => {
     const list: { x: number; y: number; r: number }[] = [];
-    let seed = 7;
+    let seed = hue + digit.length * 13;
     const rand = () => {
       seed = (seed * 9301 + 49297) % 233280;
       return seed / 233280;
@@ -25,7 +26,7 @@ function DotMosaic({ digit, hue }: { digit: string; hue: number }) {
       list.push({ x: rand() * 240, y: rand() * 240, r: 2.2 + rand() * 4.4 });
     }
     return list;
-  }, []);
+  }, [digit, hue]);
 
   const maskId = `mask-${digit}-${hue}`;
   return (
@@ -38,7 +39,7 @@ function DotMosaic({ digit, hue }: { digit: string; hue: number }) {
             y="168"
             textAnchor="middle"
             fontSize="180"
-            fontFamily="Inter, sans-serif"
+            fontFamily="Caviar Dreams, sans-serif"
             fontWeight="700"
             fill="white"
           >
@@ -47,11 +48,9 @@ function DotMosaic({ digit, hue }: { digit: string; hue: number }) {
         </mask>
       </defs>
       <circle cx="120" cy="120" r="118" fill="oklch(0.93 0.017 88)" />
-      <g clipPath="none">
-        {dots.map((d, i) => (
-          <circle key={`b-${i}`} cx={d.x} cy={d.y} r={d.r} fill={`hsl(${hue} 34% ${58 + (i % 5) * 4}%)`} />
-        ))}
-      </g>
+      {dots.map((d, i) => (
+        <circle key={`b-${i}`} cx={d.x} cy={d.y} r={d.r} fill={`hsl(${hue} 34% ${58 + (i % 5) * 4}%)`} />
+      ))}
       <g mask={`url(#${maskId})`}>
         {dots.map((d, i) => (
           <circle
@@ -63,6 +62,42 @@ function DotMosaic({ digit, hue }: { digit: string; hue: number }) {
           />
         ))}
       </g>
+    </svg>
+  );
+}
+
+function AstigmatismChart({ lines, rotate = 0 }: { lines: number; rotate?: number }) {
+  const cx = 120;
+  const cy = 120;
+  const r = 104;
+  const spokes = Array.from({ length: lines }, (_, i) => {
+    const angle = (Math.PI * 2 * i) / lines + (rotate * Math.PI) / 180;
+    return {
+      x2: cx + r * Math.cos(angle),
+      y2: cy + r * Math.sin(angle),
+    };
+  });
+  return (
+    <svg
+      viewBox="0 0 240 240"
+      className="mx-auto size-56 sm:size-64"
+      role="img"
+      aria-label="Gráfico de linhas radiais para teste de astigmatismo"
+    >
+      <circle cx={cx} cy={cy} r={r + 6} fill="var(--color-background)" stroke="var(--color-border)" />
+      {spokes.map((s, i) => (
+        <line
+          key={i}
+          x1={cx}
+          y1={cy}
+          x2={s.x2}
+          y2={s.y2}
+          stroke="var(--color-ink)"
+          strokeWidth={2.5}
+          strokeLinecap="round"
+        />
+      ))}
+      <circle cx={cx} cy={cy} r={4} fill="var(--color-gold)" />
     </svg>
   );
 }
@@ -94,7 +129,7 @@ function ScoreRing({ pct }: { pct: number }) {
         />
       </svg>
       <motion.span
-        className="absolute inset-0 grid place-items-center font-mono text-xl tracking-tight text-ink"
+        className="absolute inset-0 grid place-items-center text-xl tracking-tight text-ink"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.9, duration: 0.6 }}
@@ -105,121 +140,158 @@ function ScoreRing({ pct }: { pct: number }) {
   );
 }
 
-const QUESTIONS: Question[] = [
-
+const MODULES: { id: ModuleId; label: string; intro: string; questions: Question[] }[] = [
   {
-    id: "acuidade-1",
-    kind: "acuidade",
-    titulo: "Qual letra você consegue ler com clareza?",
-    ajuda: "Fique a cerca de 60 cm da tela, com boa iluminação e sem apertar os olhos.",
-    render: () => <span className="font-mono text-[5.5rem] leading-none tracking-widest">E H</span>,
-    opcoes: [
-      { label: "E H", correta: true },
-      { label: "F N" },
-      { label: "B M" },
-      { label: "Não consigo distinguir" },
+    id: "perto",
+    label: "Teste de Perto",
+    intro: "Letras e textos pensados para avaliar a sua leitura de perto, como ler um rótulo ou uma tela.",
+    questions: [
+      {
+        id: "acuidade-1",
+        titulo: "Qual letra você consegue ler com clareza?",
+        ajuda: "Fique a cerca de 60 cm da tela, com boa iluminação e sem apertar os olhos.",
+        render: () => <span className="text-[5.5rem] leading-none font-bold tracking-widest">E H</span>,
+        opcoes: [
+          { label: "E H", correta: true },
+          { label: "F N" },
+          { label: "B M" },
+          { label: "Não consigo distinguir" },
+        ],
+      },
+      {
+        id: "acuidade-2",
+        titulo: "Leia a sequência menor",
+        ajuda: "Mantenha a mesma distância. Não aproxime o rosto da tela.",
+        render: () => <span className="text-2xl leading-none font-bold tracking-widest">Z V T C</span>,
+        opcoes: [
+          { label: "Z V T C", correta: true },
+          { label: "Z U I G" },
+          { label: "S V T G" },
+          { label: "Preciso apertar os olhos" },
+        ],
+      },
+      {
+        id: "contraste",
+        titulo: "Este texto de baixo contraste está legível?",
+        ajuda: "Dificuldade com contraste pode aparecer bem antes de outros sinais.",
+        render: () => (
+          <span className="text-xl leading-relaxed text-muted-foreground/35 sm:text-2xl">
+            Enxergar bem também é conforto no dia a dia.
+          </span>
+        ),
+        opcoes: [
+          { label: "Sim, leio sem esforço", correta: true },
+          { label: "Leio, mas com algum esforço", peso: 0.5 },
+          { label: "Muito difícil de ler" },
+        ],
+      },
+      {
+        id: "proximidade",
+        titulo: "Consegue ler este texto pequeno de perto?",
+        ajuda: "Leia a cerca de 35 cm, como leria uma bula ou um rótulo.",
+        render: () => (
+          <span className="text-[0.7rem] leading-relaxed">
+            A escolha do óculos certo começa por entender a sua rotina, a sua profissão e o seu estilo.
+          </span>
+        ),
+        opcoes: [
+          { label: "Sim, sem dificuldade", correta: true },
+          { label: "Preciso afastar o texto", peso: 0.3 },
+          { label: "Não consigo ler" },
+        ],
+      },
+      {
+        id: "sintoma",
+        titulo: "Com que frequência você sente cansaço visual ou dor de cabeça?",
+        ajuda: "Depois de telas, leitura ou direção à noite.",
+        opcoes: [
+          { label: "Raramente ou nunca", correta: true },
+          { label: "Algumas vezes por semana", peso: 0.4 },
+          { label: "Quase todos os dias" },
+        ],
+      },
     ],
   },
   {
-    id: "acuidade-2",
-    kind: "acuidade",
-    titulo: "E agora, qual sequência aparece?",
-    ajuda: "Mantenha a mesma distância. Não aproxime o rosto da tela.",
-    render: () => <span className="font-mono text-5xl leading-none tracking-widest">R K D</span>,
-    opcoes: [
-      { label: "R K D", correta: true },
-      { label: "P X O" },
-      { label: "R X O" },
-      { label: "Não consigo distinguir" },
+    id: "cromatica",
+    label: "Teste Cromática",
+    intro: "Mosaicos de pontos coloridos, no estilo dos testes de percepção de cores. Apenas orientativo.",
+    questions: [
+      {
+        id: "cores-1",
+        titulo: "Qual número aparece no mosaico?",
+        ajuda: "Olhe o centro do círculo, sem forçar a vista.",
+        render: () => <DotMosaic digit="74" hue={95} />,
+        opcoes: [{ label: "74", correta: true }, { label: "21" }, { label: "17" }, { label: "Nenhum número" }],
+      },
+      {
+        id: "cores-2",
+        titulo: "E agora, qual número você vê?",
+        ajuda: "Se nenhum número for claro, escolha a última opção.",
+        render: () => <DotMosaic digit="6" hue={15} />,
+        opcoes: [{ label: "6", correta: true }, { label: "8" }, { label: "5" }, { label: "Nenhum número" }],
+      },
     ],
   },
   {
-    id: "acuidade-3",
-    kind: "acuidade",
-    titulo: "Leia a sequência menor",
-    ajuda: "Se precisar apertar os olhos para enxergar, escolha a última opção.",
-    render: () => <span className="font-mono text-2xl leading-none tracking-widest">Z V T C</span>,
-    opcoes: [
-      { label: "Z V T C", correta: true },
-      { label: "Z U I G" },
-      { label: "S V T G" },
-      { label: "Preciso apertar os olhos" },
-    ],
-  },
-  {
-    id: "contraste",
-    kind: "contraste",
-    titulo: "Este texto de baixo contraste está legível?",
-    ajuda: "Dificuldade com contraste pode aparecer bem antes de outros sinais.",
-    render: () => (
-      <span className="text-xl leading-relaxed text-muted-foreground/35 sm:text-2xl">
-        Enxergar bem também é conforto no dia a dia.
-      </span>
-    ),
-    opcoes: [
-      { label: "Sim, leio sem esforço", correta: true },
-      { label: "Leio, mas com algum esforço", peso: 0.5 },
-      { label: "Muito difícil de ler" },
-    ],
-  },
-  {
-    id: "cores",
-    kind: "cores",
-    titulo: "Qual número aparece no mosaico?",
-    ajuda: "Teste simples de percepção de cores, apenas orientativo.",
-    render: () => <DotMosaic digit="74" hue={95} />,
-    opcoes: [{ label: "74", correta: true }, { label: "21" }, { label: "17" }, { label: "Nenhum número" }],
-  },
-  {
-    id: "proximidade",
-    kind: "proximidade",
-    titulo: "Consegue ler este texto pequeno de perto?",
-    ajuda: "Leia a cerca de 35 cm, como leria uma bula ou um rótulo.",
-    render: () => (
-      <span className="text-[0.7rem] leading-relaxed">
-        A escolha do óculos certo começa por entender a sua rotina, a sua profissão e o seu estilo.
-      </span>
-    ),
-    opcoes: [
-      { label: "Sim, sem dificuldade", correta: true },
-      { label: "Preciso afastar o texto", peso: 0.3 },
-      { label: "Não consigo ler" },
-    ],
-  },
-  {
-    id: "sintoma",
-    kind: "sintoma",
-    titulo: "Com que frequência você sente cansaço visual ou dor de cabeça?",
-    ajuda: "Depois de telas, leitura ou direção à noite.",
-    opcoes: [
-      { label: "Raramente ou nunca", correta: true },
-      { label: "Algumas vezes por semana", peso: 0.4 },
-      { label: "Quase todos os dias" },
+    id: "astigmatismo",
+    label: "Teste de Astigmatismo",
+    intro: "Um gráfico de linhas radiais, parecido com o usado em consultórios para uma triagem simples de astigmatismo.",
+    questions: [
+      {
+        id: "astig-1",
+        titulo: "Alguma linha parece mais escura, nítida ou grossa que as outras?",
+        ajuda: "Olhe para o centro do gráfico, com os dois olhos abertos.",
+        render: () => <AstigmatismChart lines={24} />,
+        opcoes: [
+          { label: "Não, todas parecem iguais", correta: true },
+          { label: "Sim, uma ou duas se destacam", peso: 0 },
+          { label: "Não sei dizer com certeza", peso: 0.3 },
+        ],
+      },
+      {
+        id: "astig-2",
+        titulo: "Cubra um olho de cada vez: as linhas continuam iguais nos dois?",
+        ajuda: "Teste primeiro com um olho, depois com o outro.",
+        render: () => <AstigmatismChart lines={18} rotate={10} />,
+        opcoes: [
+          { label: "Sim, iguais nos dois olhos", correta: true },
+          { label: "Notei diferença entre os olhos", peso: 0 },
+          { label: "Não percebi diferença clara", peso: 0.3 },
+        ],
+      },
     ],
   },
 ];
 
+const ALL_QUESTIONS = MODULES.flatMap((m) => m.questions);
+
+type Stage = "inicio" | "instrucoes" | ModuleId | "resultado";
+
+const TABS: { id: Stage; label: string }[] = [
+  { id: "inicio", label: "Início" },
+  { id: "instrucoes", label: "Instruções" },
+  ...MODULES.map((m) => ({ id: m.id as Stage, label: m.label })),
+  { id: "resultado", label: "Resultado" },
+];
+
+function scoreOf(questions: Question[], answers: Record<string, number>) {
+  const answered = questions.filter((q) => answers[q.id] !== undefined);
+  const score = answered.reduce((acc, q) => {
+    const opt = q.opcoes[answers[q.id]!]!;
+    return acc + (opt.correta ? 1 : (opt.peso ?? 0));
+  }, 0);
+  return { answered: answered.length, total: questions.length, score };
+}
+
 export function VisionTest() {
-  const [stage, setStage] = useState<"intro" | "quiz" | "result">("intro");
-  const [index, setIndex] = useState(0);
+  const [stage, setStage] = useState<Stage>("inicio");
   const [answers, setAnswers] = useState<Record<string, number>>({});
 
-  const total = QUESTIONS.length;
-  const question = QUESTIONS[index]!;
-  const progress = stage === "result" ? 1 : (index + (answers[question.id] !== undefined ? 1 : 0)) / total;
+  const overall = scoreOf(ALL_QUESTIONS, answers);
+  const completo = overall.answered === overall.total;
+  const pct = overall.total > 0 ? overall.score / overall.total : 0;
 
-  const score = useMemo(
-    () =>
-      QUESTIONS.reduce((acc, q) => {
-        const chosen = answers[q.id];
-        if (chosen === undefined) return acc;
-        const opt = q.opcoes[chosen]!;
-        return acc + (opt.correta ? 1 : (opt.peso ?? 0));
-      }, 0),
-    [answers],
-  );
-
-  const pct = score / total;
   const resultado =
     pct >= 0.85
       ? {
@@ -239,19 +311,16 @@ export function VisionTest() {
               "Suas respostas apontaram dificuldade em vários estímulos. Não é um diagnóstico, mas é um bom motivo para conversar com a nossa equipe e fazer um exame com equipamentos adequados.",
           };
 
-  function answer(optIndex: number) {
+  function answer(question: Question, optIndex: number) {
     setAnswers((prev) => ({ ...prev, [question.id]: optIndex }));
-    window.setTimeout(() => {
-      if (index + 1 < total) setIndex((i) => i + 1);
-      else setStage("result");
-    }, 380);
   }
 
   function reset() {
     setAnswers({});
-    setIndex(0);
-    setStage("intro");
+    setStage("inicio");
   }
+
+  const activeModule = MODULES.find((m) => m.id === stage);
 
   return (
     <div className="relative overflow-hidden border border-border bg-card">
@@ -261,34 +330,40 @@ export function VisionTest() {
         animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.9, 0.5] }}
         transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
       />
+
       <div className="h-px w-full bg-border">
         <motion.div
           className="h-px bg-gold"
-          animate={{ scaleX: progress }}
+          animate={{ scaleX: overall.total > 0 ? overall.answered / overall.total : 0 }}
           style={{ transformOrigin: "left" }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         />
       </div>
 
-      {stage !== "intro" ? (
-        <div className="flex items-center gap-1.5 px-7 pt-6 sm:px-10">
-          {QUESTIONS.map((q, i) => (
-            <motion.span
-              key={q.id}
-              className="h-1 flex-1 origin-left bg-border"
-              animate={{
-                backgroundColor:
-                  stage === "result" || i < index || answers[q.id] !== undefined
-                    ? "var(--color-gold)"
-                    : "var(--color-border)",
-                scaleY: i === index && stage === "quiz" ? 2.2 : 1,
-              }}
-              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            />
-          ))}
-        </div>
-      ) : null}
-
+      <div className="scrollbar-none flex gap-1 overflow-x-auto border-b border-border px-3 py-3 sm:px-6">
+        {TABS.map((t) => {
+          const isResultLocked = t.id === "resultado" && !completo;
+          return (
+            <button
+              key={t.id}
+              type="button"
+              disabled={isResultLocked}
+              onClick={() => setStage(t.id)}
+              className={cn(
+                "flex shrink-0 items-center gap-1.5 whitespace-nowrap px-3.5 py-2 text-[0.68rem] uppercase tracking-[0.14em] transition-colors",
+                stage === t.id
+                  ? "bg-ink text-ink-foreground"
+                  : isResultLocked
+                    ? "cursor-not-allowed text-muted-foreground/40"
+                    : "text-muted-foreground hover:text-gold",
+              )}
+            >
+              {isResultLocked ? <Lock className="size-3" /> : null}
+              {t.label}
+            </button>
+          );
+        })}
+      </div>
 
       <div className="p-7 sm:p-10">
         <div className="mb-8 flex items-start gap-3 border border-gold/40 bg-gold/10 p-4">
@@ -300,9 +375,40 @@ export function VisionTest() {
         </div>
 
         <AnimatePresence mode="wait">
-          {stage === "intro" ? (
+          {stage === "inicio" ? (
             <motion.div
-              key="intro"
+              key="inicio"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <span className="label-mono">Teste de visão online</span>
+              <h3 className="mt-4 text-3xl">Três módulos, um retrato geral da sua visão</h3>
+              <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                O teste é dividido em três partes — perto, percepção de cores e uma triagem simples de
+                astigmatismo. Leva menos de 5 minutos e, ao final, você recebe uma orientação sobre os
+                próximos passos.
+              </p>
+              <div className="mt-8 grid gap-3 sm:grid-cols-3">
+                {MODULES.map((m) => (
+                  <div key={m.id} className="border border-border bg-background p-5">
+                    <p className="text-lg">{m.label}</p>
+                    <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{m.intro}</p>
+                  </div>
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={() => setStage("instrucoes")}
+                className="mt-9 inline-flex items-center gap-2 bg-ink px-7 py-3.5 text-[0.75rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-gold hover:text-ink"
+              >
+                <Eye className="size-4" /> Ver instruções
+              </button>
+            </motion.div>
+          ) : stage === "instrucoes" ? (
+            <motion.div
+              key="instrucoes"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
@@ -316,7 +422,7 @@ export function VisionTest() {
                   "Prefira um ambiente bem iluminado, sem reflexo na tela.",
                   "Se você usa óculos ou lentes no dia a dia, faça o teste com eles.",
                   "Responda sem apertar os olhos e sem aproximar o rosto.",
-                  "São 7 perguntas rápidas, leva menos de 3 minutos.",
+                  "Você pode ir e voltar entre os módulos pelas abas acima.",
                 ].map((t, i) => (
                   <motion.li
                     key={t}
@@ -332,97 +438,81 @@ export function VisionTest() {
               </ul>
               <button
                 type="button"
-                onClick={() => setStage("quiz")}
+                onClick={() => setStage("perto")}
                 className="mt-9 inline-flex items-center gap-2 bg-ink px-7 py-3.5 text-[0.75rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-gold hover:text-ink"
               >
-                <Eye className="size-4" /> Iniciar o teste
+                <Eye className="size-4" /> Iniciar pelo teste de perto
               </button>
             </motion.div>
-          ) : stage === "quiz" ? (
+          ) : activeModule ? (
             <motion.div
-              key={question.id}
+              key={activeModule.id}
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -24 }}
               transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div className="flex items-center justify-between">
-                <span className="label-mono">
-                  Pergunta {index + 1} / {total}
+              <span className="label-mono">{activeModule.label}</span>
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">{activeModule.intro}</p>
+
+              <div className="mt-8 space-y-10">
+                {activeModule.questions.map((q) => (
+                  <div key={q.id} className="border-t border-border pt-8 first:border-t-0 first:pt-0">
+                    <h4 className="text-xl sm:text-2xl">{q.titulo}</h4>
+                    <p className="mt-2 text-sm text-muted-foreground">{q.ajuda}</p>
+
+                    {q.render ? (
+                      <div className="relative mt-6 grid min-h-40 place-items-center overflow-hidden border border-border bg-background px-6 py-8 text-center">
+                        {q.render()}
+                      </div>
+                    ) : null}
+
+                    <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                      {q.opcoes.map((o, i) => {
+                        const selected = answers[q.id] === i;
+                        return (
+                          <button
+                            key={o.label}
+                            type="button"
+                            onClick={() => answer(q, i)}
+                            className={cn(
+                              "group relative flex items-center justify-between overflow-hidden border px-5 py-4 text-left text-sm transition-colors",
+                              selected ? "border-gold bg-gold/10 text-ink" : "border-border hover:border-gold",
+                            )}
+                          >
+                            <span className="relative z-10">{o.label}</span>
+                            {selected ? <Check className="relative z-10 size-4 text-gold" /> : null}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6">
+                <span className="text-xs text-muted-foreground">
+                  {scoreOf(activeModule.questions, answers).answered} de {activeModule.questions.length}{" "}
+                  respondidas neste módulo
                 </span>
-                {index > 0 ? (
-                  <button
-                    type="button"
-                    onClick={() => setIndex((i) => i - 1)}
-                    className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-gold"
-                  >
-                    <ArrowLeft className="size-3.5" /> Voltar
-                  </button>
-                ) : null}
-              </div>
-
-              <h3 className="mt-4 text-2xl sm:text-3xl">{question.titulo}</h3>
-              <p className="mt-3 text-sm text-muted-foreground">{question.ajuda}</p>
-
-              {question.render ? (
-                <motion.div
-                  className="relative mt-8 grid min-h-40 place-items-center overflow-hidden border border-border bg-background px-6 py-10 text-center"
-                  initial={{ opacity: 0, scale: 0.96, filter: "blur(10px)" }}
-                  animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                  transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                <button
+                  type="button"
+                  onClick={() => {
+                    const i = MODULES.findIndex((m) => m.id === activeModule.id);
+                    const next = MODULES[i + 1];
+                    setStage(next ? next.id : "resultado");
+                  }}
+                  className="inline-flex items-center gap-2 bg-ink px-6 py-3 text-[0.72rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-gold hover:text-ink"
                 >
-                  <motion.span
-                    aria-hidden
-                    className="pointer-events-none absolute inset-y-0 w-1/3 bg-linear-to-r from-transparent via-gold/10 to-transparent"
-                    animate={{ x: ["-120%", "320%"] }}
-                    transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", repeatDelay: 1.4 }}
-                  />
-                  {question.render(question.id)}
-                </motion.div>
-              ) : null}
-
-              <div className="mt-7 grid gap-3 sm:grid-cols-2">
-                {question.opcoes.map((o, i) => {
-                  const selected = answers[question.id] === i;
-                  return (
-                    <motion.button
-                      key={o.label}
-                      type="button"
-                      onClick={() => answer(i)}
-                      initial={{ opacity: 0, y: 14 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.12 + i * 0.07, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                      whileHover={{ x: 5 }}
-                      whileTap={{ scale: 0.98 }}
-                      className={cn(
-                        "group relative flex items-center justify-between overflow-hidden border px-5 py-4 text-left text-sm transition-colors",
-                        selected ? "border-gold bg-gold/10 text-ink" : "border-border hover:border-gold",
-                      )}
-                    >
-                      <span className="relative z-10">{o.label}</span>
-                      <motion.span
-                        aria-hidden
-                        className="absolute inset-0 origin-left bg-gold/10"
-                        initial={false}
-                        animate={{ scaleX: selected ? 1 : 0 }}
-                        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                      />
-                      <motion.span
-                        className="relative z-10 text-gold"
-                        animate={selected ? { rotate: 90, scale: 1.15 } : { rotate: 0, scale: 1 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 18 }}
-                      >
-                        {selected ? <Check className="size-4" /> : <ArrowRight className="size-4" />}
-                      </motion.span>
-                    </motion.button>
-                  );
-                })}
+                  {MODULES[MODULES.findIndex((m) => m.id === activeModule.id) + 1]
+                    ? "Próximo módulo"
+                    : "Ver resultado"}
+                </button>
               </div>
-
             </motion.div>
-          ) : (
+          ) : completo ? (
             <motion.div
-              key="result"
+              key="resultado"
               initial={{ opacity: 0, scale: 0.97 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -450,6 +540,26 @@ export function VisionTest() {
                 </div>
               </div>
 
+              <div className="mt-8 grid gap-4 sm:grid-cols-3">
+                {MODULES.map((m) => {
+                  const s = scoreOf(m.questions, answers);
+                  const modPct = s.total > 0 ? s.score / s.total : 0;
+                  return (
+                    <div key={m.id} className="border border-border bg-background p-5">
+                      <p className="text-sm">{m.label}</p>
+                      <div className="mt-3 h-1 w-full bg-border">
+                        <motion.div
+                          className="h-1 bg-gold"
+                          initial={{ scaleX: 0 }}
+                          animate={{ scaleX: modPct }}
+                          style={{ transformOrigin: "left" }}
+                          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
 
               <div className="mt-8 border border-border bg-background p-6">
                 <p className="label-mono">Próximo passo</p>
@@ -479,6 +589,40 @@ export function VisionTest() {
               >
                 <RotateCcw className="size-3.5" /> Refazer o teste
               </button>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="resultado-bloqueado"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+            >
+              <span className="label-mono">Resultado</span>
+              <h3 className="mt-4 text-2xl sm:text-3xl">Responda os três módulos para ver o resultado</h3>
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                Faltam {overall.total - overall.answered} pergunta(s). Use as abas acima para completar o
+                teste de perto, o teste cromática e o teste de astigmatismo.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                {MODULES.map((m) => {
+                  const s = scoreOf(m.questions, answers);
+                  const done = s.answered === s.total;
+                  return (
+                    <button
+                      key={m.id}
+                      type="button"
+                      onClick={() => setStage(m.id)}
+                      className={cn(
+                        "border px-5 py-3 text-xs uppercase tracking-[0.14em] transition-colors",
+                        done ? "border-gold/40 bg-gold/10 text-ink" : "border-border hover:border-gold",
+                      )}
+                    >
+                      {m.label} — {s.answered}/{s.total}
+                    </button>
+                  );
+                })}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

@@ -57,7 +57,6 @@ function Lojas() {
 
       <Section className="border-t border-border bg-secondary/40">
         <SectionHeading
-          label="Como chegar"
           title="Referências que ajudam"
           intro="Na unidade Sumaré há estacionamento em frente à loja. Em Hortolândia, estamos dentro do Supermercado São Vicente, ao lado da lotérica, no centro da cidade."
           align="center"
