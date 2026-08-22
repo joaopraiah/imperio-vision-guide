@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Instagram, Facebook } from "lucide-react";
 import { Logo } from "@/components/site/Logo";
+import { GoogleRating } from "@/components/site/ui-bits";
 import { NAV, SOCIAL, STORES } from "@/lib/site-data";
 
 export function Footer() {
@@ -13,6 +14,7 @@ export function Footer() {
             Ótica premium com atendimento personalizado em Sumaré e Hortolândia. Aqui, a escolha do seu
             óculos começa por uma conversa.
           </p>
+          <GoogleRating tone="light" className="mt-5" />
           <div className="mt-6 flex gap-4">
             <a
               href={SOCIAL.instagram}

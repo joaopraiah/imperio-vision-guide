@@ -1,3 +1,6 @@
+import lojaSumare from "@/assets/loja-sumare.jpg";
+import lojaHortolandia from "@/assets/loja-hortolandia.jpg";
+
 export type Store = {
   id: string;
   nome: string;
@@ -8,6 +11,7 @@ export type Store = {
   whatsapp: string;
   telefoneLabel: string;
   maps: string;
+  foto: string;
 };
 
 export const STORES: Store[] = [
@@ -22,6 +26,7 @@ export const STORES: Store[] = [
     whatsapp: "https://wa.me/5519984475265",
     telefoneLabel: "(19) 98447-5265",
     maps: "https://www.google.com/maps/search/?api=1&query=Av.+Emili+Bosco,+586,+Mat%C3%A3o,+Sumar%C3%A9+SP",
+    foto: lojaSumare,
   },
   {
     id: "hortolandia",
@@ -33,6 +38,7 @@ export const STORES: Store[] = [
     whatsapp: "https://wa.me/5519981131761",
     telefoneLabel: "(19) 98113-1761",
     maps: "https://www.google.com/maps/search/?api=1&query=Supermercado+S%C3%A3o+Vicente+Centro+Hortol%C3%A2ndia+SP",
+    foto: lojaHortolandia,
   },
 ];
 
@@ -111,21 +117,26 @@ export const SERVICOS = [
   },
 ];
 
+export const GOOGLE_RATING = {
+  nota: 5.0,
+  total: 119,
+};
+
 export const DEPOIMENTOS = [
   {
-    texto:
-      "Atendimento diferente do que eu estava acostumada, muita variedade de modelos e o óculos ficou pronto antes do prazo. Já é o segundo que compro aqui.",
-    autor: "Cliente da unidade Sumaré",
+    texto: "Ótimo acesso a loja, vendedores ótimos e muito atenciosos, e ótimo preço!",
+    autor: "Avaliação no Google",
+    nota: 5,
   },
   {
-    texto:
-      "Depois da compra a equipe entrou em contato para saber como estava a adaptação. Sempre que precisei de um ajuste, fui atendida no WhatsApp e também na loja.",
-    autor: "Cliente da unidade Hortolândia",
+    texto: "Ótimo atendimento, ótimas condições de pagamento, ótimo pós-venda.",
+    autor: "Avaliação no Google",
+    nota: 5,
   },
   {
-    texto:
-      "Precisei com urgência: fiz o exame no mesmo dia e em dois dias o óculos estava pronto, com um preço justo.",
-    autor: "Cliente da unidade Sumaré",
+    texto: "Loja linda, atendimento fantástico e bons produtos... recomendo com exatidão!!",
+    autor: "Avaliação no Google",
+    nota: 5,
   },
 ];
 

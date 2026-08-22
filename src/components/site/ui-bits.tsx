@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
+import { Star } from "lucide-react";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { GOOGLE_RATING } from "@/lib/site-data";
 import { FloatingRings, Reveal, RevealWords } from "./motion-primitives";
 
 const base =
@@ -121,6 +123,26 @@ export function Section({
     <section id={id} className={cn("px-5 py-20 sm:px-8 md:py-28", className)}>
       <div className="mx-auto w-full max-w-6xl">{children}</div>
     </section>
+  );
+}
+
+export function GoogleRating({ className, tone = "dark" }: { className?: string; tone?: "dark" | "light" }) {
+  return (
+    <div className={cn("inline-flex items-center gap-2.5", className)}>
+      <div className="flex gap-0.5">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Star key={i} className="size-3.5 fill-gold text-gold" />
+        ))}
+      </div>
+      <span
+        className={cn(
+          "font-mono text-[0.72rem] tracking-[0.08em]",
+          tone === "light" ? "text-ink-foreground/70" : "text-muted-foreground",
+        )}
+      >
+        {GOOGLE_RATING.nota.toFixed(1).replace(".", ",")} · {GOOGLE_RATING.total} avaliações no Google
+      </span>
+    </div>
   );
 }
 

@@ -1,14 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
-import { ArrowRight, Eye, Glasses, HeartHandshake, Leaf } from "lucide-react";
+import { ArrowRight, Eye, Glasses, HeartHandshake, Leaf, Star } from "lucide-react";
 import hero from "@/assets/hero-loja.jpg";
 import atendimento from "@/assets/atendimento.jpg";
 import visagismo from "@/assets/visagismo.jpg";
 import { DEPOIMENTOS, DIFERENCIAIS, STORES, WHATSAPP_PRINCIPAL } from "@/lib/site-data";
 import { Parallax, Reveal, RevealWords } from "@/components/site/motion-primitives";
 import { HeroSlideshow } from "@/components/site/HeroSlideshow";
-import { BtnAnchor, BtnLink, Section, SectionHeading, SectionLabel } from "@/components/site/ui-bits";
+import {
+  BtnAnchor,
+  BtnLink,
+  GoogleRating,
+  Section,
+  SectionHeading,
+  SectionLabel,
+} from "@/components/site/ui-bits";
 import { StoreCard } from "@/components/site/StoreCard";
 import { ClosingCta } from "@/components/site/ClosingCta";
 
@@ -161,18 +168,23 @@ function Home() {
       </Section>
 
       <Section>
-        <SectionHeading
-          label="Depoimentos"
-          title="Quem já foi atendido"
-          align="center"
-        />
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
+        <SectionHeading label="Depoimentos" title="Quem já foi atendido" align="center" />
+        <Reveal delay={0.1}>
+          <div className="mt-6 flex justify-center">
+            <GoogleRating />
+          </div>
+        </Reveal>
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
           {DEPOIMENTOS.map((d, i) => (
             <Reveal key={d.autor + i} delay={i * 0.1}>
               <figure className="flex h-full flex-col border border-border bg-card p-8">
-                <span className="font-display text-4xl leading-none text-gold">“</span>
+                <div className="flex gap-0.5">
+                  {Array.from({ length: d.nota }).map((_, s) => (
+                    <Star key={s} className="size-3.5 fill-gold text-gold" />
+                  ))}
+                </div>
                 <blockquote className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                  {d.texto}
+                  &ldquo;{d.texto}&rdquo;
                 </blockquote>
                 <figcaption className="mt-auto pt-7 font-mono text-[0.68rem] uppercase tracking-[0.18em] text-ink/60">
                   {d.autor}

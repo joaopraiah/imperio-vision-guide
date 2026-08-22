@@ -44,18 +44,28 @@ function Contato() {
         <div className="mt-12 grid gap-6 md:grid-cols-2">
           {STORES.map((s, i) => (
             <Reveal key={s.id} delay={i * 0.1}>
-              <div className="flex h-full flex-col border border-border bg-card p-8">
-                <span className="label-mono">{s.bairro}</span>
-                <h3 className="mt-3 text-2xl">{s.nome}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.endereco}</p>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.detalhes}</p>
-                <div className="mt-7 flex flex-wrap gap-3">
-                  <BtnAnchor href={s.whatsapp} variant="gold">
-                    <MessageCircle className="size-4" /> {s.telefoneLabel}
-                  </BtnAnchor>
-                  <BtnAnchor href={s.maps} variant="outline">
-                    Ver no mapa
-                  </BtnAnchor>
+              <div className="flex h-full flex-col border border-border bg-card">
+                <div className="aspect-video w-full overflow-hidden">
+                  <img
+                    src={s.foto}
+                    alt={`Interior da ${s.nome}`}
+                    loading="lazy"
+                    className="size-full object-cover"
+                  />
+                </div>
+                <div className="flex h-full flex-col p-8">
+                  <span className="label-mono">{s.bairro}</span>
+                  <h3 className="mt-3 text-2xl">{s.nome}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.endereco}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.detalhes}</p>
+                  <div className="mt-7 flex flex-wrap gap-3">
+                    <BtnAnchor href={s.whatsapp} variant="gold">
+                      <MessageCircle className="size-4" /> {s.telefoneLabel}
+                    </BtnAnchor>
+                    <BtnAnchor href={s.maps} variant="outline">
+                      Ver no mapa
+                    </BtnAnchor>
+                  </div>
                 </div>
               </div>
             </Reveal>
