@@ -1,10 +1,44 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { motion } from "motion/react";
+import { Eye, Moon, ShieldCheck, Sparkles } from "lucide-react";
 import lojaDisplay from "@/assets/hero-loja.jpg";
-import { Parallax, Reveal } from "@/components/site/motion-primitives";
-import { PageHero, Section, SectionHeading } from "@/components/site/ui-bits";
+import { FloatingRings, Parallax, Reveal, RevealWords } from "@/components/site/motion-primitives";
+import { BtnAnchor, PageHero, Section, SectionHeading } from "@/components/site/ui-bits";
 import { ClosingCta } from "@/components/site/ClosingCta";
-import { SERVICOS } from "@/lib/site-data";
+import { SERVICOS, WHATSAPP_PRINCIPAL } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
+
+const BENTO_SPANS = [
+  "md:col-span-2 md:row-span-2",
+  "md:col-span-2",
+  "md:col-span-1",
+  "md:col-span-1",
+  "md:col-span-2",
+  "md:col-span-2",
+];
+
+const DIGITAL_MAIS_BENEFICIOS = [
+  {
+    titulo: "Filtro de luz azul",
+    texto: "Reduz a luz HEV emitida por telas, aliviando o cansaço visual do uso prolongado.",
+    icon: Eye,
+  },
+  {
+    titulo: "Antirreflexo premium",
+    texto: "Elimina o reflexo da tela, reduzindo o esforço de foco ao longo do dia.",
+    icon: Sparkles,
+  },
+  {
+    titulo: "Alta transparência",
+    texto: "Mantém a aparência natural da lente, sem o amarelado comum em filtros de luz azul.",
+    icon: ShieldCheck,
+  },
+  {
+    titulo: "Sono mais tranquilo",
+    texto: "Menos supressão de melatonina à noite, ajudando a preservar a qualidade do sono.",
+    icon: Moon,
+  },
+];
 
 export const Route = createFileRoute("/servicos")({
   head: () => ({
@@ -45,12 +79,12 @@ function Servicos() {
 
       <Section>
         <SectionHeading title="Serviços das duas unidades" />
-        <div className="mt-14 grid gap-6 md:grid-cols-2">
+        <div className="mt-14 grid gap-4 md:auto-rows-[180px] md:grid-cols-4">
           {SERVICOS.map((s, i) => (
-            <Reveal key={s.titulo} delay={i * 0.07}>
+            <Reveal key={s.titulo} delay={i * 0.06} className={BENTO_SPANS[i % BENTO_SPANS.length]!}>
               <article
                 className={cn(
-                  "h-full border p-8 transition-colors duration-500 md:p-10",
+                  "flex h-full flex-col justify-center border p-8 transition-colors duration-500 md:p-10",
                   s.destaque
                     ? "grain border-transparent bg-ink text-ink-foreground"
                     : "border-border bg-card hover:border-gold",
@@ -69,6 +103,53 @@ function Servicos() {
               </article>
             </Reveal>
           ))}
+        </div>
+      </Section>
+
+      <Section className="grain relative overflow-hidden border-t border-border bg-ink text-ink-foreground">
+        <FloatingRings className="-right-20 top-10 text-gold sm:right-0" />
+        <div className="relative grid gap-14 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+          <div>
+            <Reveal>
+              <span className="label-mono">Lentes Digital+</span>
+            </Reveal>
+            <h2 className="mt-5 max-w-lg text-balance text-3xl leading-[1.1] sm:text-4xl md:text-5xl">
+              <RevealWords text="O cansaço das 2h da tarde vai embora" />
+            </h2>
+            <Reveal delay={0.12}>
+              <p className="mt-6 max-w-lg text-pretty leading-relaxed text-ink-foreground/70">
+                Lentes com filtro de luz azul e antirreflexo premium, pensadas para quem passa horas
+                em frente a telas. Mais foco durante o dia, menos fadiga visual e sono mais tranquilo
+                à noite — com a transparência de uma lente comum, sem o amarelado.
+              </p>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <div className="mt-9 flex flex-wrap gap-3">
+                <BtnAnchor href="https://digitalmais.oticaimperio.com.br/" variant="gold">
+                  Conhecer a Digital+
+                </BtnAnchor>
+                <BtnAnchor href={WHATSAPP_PRINCIPAL} variant="ghostLight">
+                  Falar no WhatsApp
+                </BtnAnchor>
+              </div>
+            </Reveal>
+          </div>
+
+          <div className="grid gap-px overflow-hidden bg-ink-foreground/10 sm:grid-cols-2">
+            {DIGITAL_MAIS_BENEFICIOS.map((b, i) => (
+              <Reveal key={b.titulo} delay={0.1 + i * 0.08}>
+                <motion.div
+                  whileHover={{ y: -4 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 22 }}
+                  className="h-full bg-ink p-7"
+                >
+                  <b.icon className="size-5 text-gold" />
+                  <h3 className="mt-4 text-lg">{b.titulo}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink-foreground/60">{b.texto}</p>
+                </motion.div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </Section>
 

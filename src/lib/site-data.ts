@@ -1,8 +1,5 @@
 import lojaSumare from "@/assets/loja-sumare.jpg";
 import lojaHortolandia from "@/assets/loja-hortolandia.jpg";
-import reviewAvatar1 from "@/assets/review-avatar-1.png";
-import reviewAvatar2 from "@/assets/review-avatar-2.png";
-import reviewAvatar3 from "@/assets/review-avatar-3.png";
 
 export type Store = {
   id: string;
@@ -127,22 +124,81 @@ export const GOOGLE_RATING = {
 
 export const DEPOIMENTOS = [
   {
-    texto: "Ótimo acesso a loja, vendedores ótimos e muito atenciosos, e ótimo preço!",
-    autor: "Avaliação no Google",
+    texto: "Ótimo preço, fui muito bem atendido. Nota 10!",
+    autor: "Claudinei Santos",
     nota: 5,
-    avatar: reviewAvatar1,
   },
   {
-    texto: "Ótimo atendimento, ótimas condições de pagamento, ótimo pós-venda.",
-    autor: "Avaliação no Google",
+    texto: "Ótimo atendimento, preço excelente e produto de qualidade.",
+    autor: "Juscelino Soares",
     nota: 5,
-    avatar: reviewAvatar2,
   },
   {
-    texto: "Loja linda, atendimento fantástico e bons produtos... recomendo com exatidão!!",
-    autor: "Avaliação no Google",
+    texto: "Muito boa, fui muito bem atendida e foram super educados.",
+    autor: "Andressa Costa",
     nota: 5,
-    avatar: reviewAvatar3,
+  },
+  {
+    texto: "Atendente um amor, produto de qualidade e fácil acessibilidade de compra. Amei!!",
+    autor: "Juliane Paixão",
+    nota: 5,
+  },
+  {
+    texto: "Amei o atendimento, a Fabiana foi muito atenciosa e educada!",
+    autor: "Leonardo Tiago",
+    nota: 5,
+  },
+  {
+    texto: "Ótimo atendimento, melhor da região. Super indico!",
+    autor: "Orlando Pinto Silva",
+    nota: 5,
+  },
+  {
+    texto: "Ótimo atendimento, eu super recomendo.",
+    autor: "Antonio Vanderli Silva",
+    nota: 5,
+  },
+  {
+    texto: "Excelente atendimento e agilidade na entrega! Super recomendo, nota 10.",
+    autor: "Lara Carl",
+    nota: 5,
+  },
+  {
+    texto:
+      "Pessoal muito prestativo, preço justo, várias opções de pagamento e muita qualidade no material oferecido. Recomendo e parabéns pela ótica!",
+    autor: "Rogério Borges",
+    nota: 5,
+  },
+];
+
+export type MarcaExclusiva = {
+  id: string;
+  nome: string;
+  genero: "Masculina" | "Feminina";
+  assinatura: string;
+  texto: string;
+  tone: "dark" | "light";
+};
+
+export const MARCAS_EXCLUSIVAS: MarcaExclusiva[] = [
+  {
+    id: "volpes",
+    nome: "Volpes",
+    genero: "Masculina",
+    assinatura: "V",
+    texto:
+      "O nome carrega uma sonoridade europeia, densa e inteligente. Não é um nome que tenta impressionar, é um nome que resiste ao tempo, como um homem que construiu algo de verdade. Volpes existe para um homem que já provou seu valor no trabalho, na família e na comunidade.",
+    tone: "dark",
+  },
+  {
+    id: "selene",
+    nome: "Selene",
+    genero: "Feminina",
+    assinatura: "S",
+    // TODO: texto provisório — substituir quando o material completo da Selene chegar.
+    texto:
+      "Um nome que não precisa se explicar. Selene é para a mulher segura da própria presença — discreta, precisa, atemporal. A força não está em chamar atenção, está em ficar.",
+    tone: "light",
   },
 ];
 

@@ -108,7 +108,7 @@
   --secondary: #f0f0f0;
   --secondary-foreground: #201e1e;
   --muted: #f0f0f0;
-  --muted-foreground: #848688;
+  --muted-foreground: #6f7173;
   --accent: oklch(0.673 0.077 76.5);
   --accent-foreground: #201e1e;
   --destructive: oklch(0.577 0.245 27.325);
@@ -169,6 +169,15 @@
   h4 {
     font-family: var(--font-display);
     font-weight: 700;
+  }
+
+  /* Caviar Dreams só existe em Regular/Bold — sem peso intermediário para
+     "engrossar" o texto corrido sem sintetizar um bold falso. Um stroke sutil
+     reforça o traço das letras e ganha legibilidade mantendo o peso 400. */
+  p {
+    font-weight: 400;
+    letter-spacing: 0.005em;
+    -webkit-text-stroke: 0.35px currentColor;
   }
 
   ::selection {

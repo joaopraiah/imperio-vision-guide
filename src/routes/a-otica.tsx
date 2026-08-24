@@ -6,6 +6,7 @@ import { DIFERENCIAIS } from "@/lib/site-data";
 import { Parallax, Reveal } from "@/components/site/motion-primitives";
 import { PageHero, Section, SectionHeading } from "@/components/site/ui-bits";
 import { ClosingCta } from "@/components/site/ClosingCta";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/a-otica")({
   head: () => ({
@@ -62,17 +63,29 @@ function AOtica() {
       </Section>
 
       <Section className="border-t border-border bg-secondary/40">
-        <SectionHeading title="Quatro compromissos" />
-        <div className="mt-14 grid gap-px bg-border sm:grid-cols-2">
+        <SectionHeading title="Quatro compromissos" align="center" />
+        <div className="mt-16 divide-y divide-border">
           {DIFERENCIAIS.map((d, i) => (
             <Reveal key={d.titulo} delay={i * 0.08}>
-              <article className="h-full bg-background p-8 md:p-10">
-                <span className="font-mono text-[0.7rem] tracking-[0.2em] text-gold">
+              <div
+                className={cn(
+                  "flex flex-col items-start gap-4 py-10 md:flex-row md:items-center md:gap-14",
+                  i % 2 === 1 && "md:flex-row-reverse md:text-right",
+                )}
+              >
+                <span
+                  aria-hidden="true"
+                  className="shrink-0 font-display text-7xl leading-none text-gold/15 md:text-8xl"
+                >
                   0{i + 1}
                 </span>
-                <h3 className="mt-5 text-2xl">{d.titulo}</h3>
-                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{d.texto}</p>
-              </article>
+                <div className="max-w-xl">
+                  <h3 className="text-2xl md:text-3xl">{d.titulo}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
+                    {d.texto}
+                  </p>
+                </div>
+              </div>
             </Reveal>
           ))}
         </div>

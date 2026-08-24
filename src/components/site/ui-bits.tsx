@@ -126,6 +126,27 @@ export function Section({
   );
 }
 
+export function InitialsAvatar({ name, className }: { name: string; className?: string }) {
+  const initials = name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase();
+  return (
+    <span
+      aria-hidden="true"
+      className={cn(
+        "grid size-9 shrink-0 place-items-center rounded-full bg-ink font-display text-[0.7rem] text-gold",
+        className,
+      )}
+    >
+      {initials}
+    </span>
+  );
+}
+
 export function GoogleRating({ className, tone = "dark" }: { className?: string; tone?: "dark" | "light" }) {
   return (
     <div className={cn("inline-flex items-center gap-2.5", className)}>

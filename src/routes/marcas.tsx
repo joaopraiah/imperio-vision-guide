@@ -1,8 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { motion } from "motion/react";
 import produtos from "@/assets/visagismo.jpg";
 import { Parallax, Reveal } from "@/components/site/motion-primitives";
 import { PageHero, Section, SectionHeading } from "@/components/site/ui-bits";
 import { ClosingCta } from "@/components/site/ClosingCta";
+import { MARCAS_EXCLUSIVAS } from "@/lib/site-data";
+import { cn } from "@/lib/utils";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 
 export const Route = createFileRoute("/marcas")({
   head: () => ({
@@ -80,20 +84,78 @@ function Marcas() {
             intro="O catálogo completo fica nas unidades: provar é parte da escolha. Fale com a equipe para saber o que temos disponível hoje."
           />
         </div>
-        <div className="mt-14 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
-          {LINHAS.map((l, i) => (
-            <Reveal key={l.titulo} delay={i * 0.06}>
-              <article className="group h-full bg-background p-8 transition-colors duration-500 hover:bg-card">
-                <span className="font-mono text-[0.68rem] tracking-[0.2em] text-gold">
-                  0{i + 1}
-                </span>
-                <h3 className="mt-5 text-2xl">{l.titulo}</h3>
-                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{l.texto}</p>
-              </article>
-            </Reveal>
-          ))}
-        </div>
+
+        <Reveal delay={0.15}>
+          <div className="mt-14">
+            <Carousel opts={{ align: "start", dragFree: true }}>
+              <CarouselContent>
+                {LINHAS.map((l, i) => (
+                  <CarouselItem key={l.titulo} className="basis-[78%] sm:basis-1/2 lg:basis-1/3">
+                    <article className="group flex h-full flex-col border border-border bg-card p-8 transition-colors duration-500 hover:border-gold">
+                      <span className="font-mono text-[0.68rem] tracking-[0.2em] text-gold">
+                        0{i + 1}
+                      </span>
+                      <h3 className="mt-5 text-2xl">{l.titulo}</h3>
+                      <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{l.texto}</p>
+                      <span className="mt-8 h-px w-10 bg-border transition-all duration-500 group-hover:w-16 group-hover:bg-gold" />
+                    </article>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+            <p className="mt-4 text-right text-[0.68rem] uppercase tracking-[0.18em] text-muted-foreground/70">
+              Arraste para o lado →
+            </p>
+          </div>
+        </Reveal>
       </Section>
+
+      <section className="grid border-t border-border md:grid-cols-2">
+        {MARCAS_EXCLUSIVAS.map((m, i) => (
+          <motion.div
+            key={m.id}
+            initial={{ opacity: 0, x: i === 0 ? -32 : 32 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className={cn(
+              "grain relative flex min-h-[26rem] flex-col justify-center overflow-hidden px-8 py-16 sm:px-12 md:min-h-[30rem]",
+              m.tone === "dark" ? "bg-ink text-ink-foreground" : "bg-background text-ink",
+            )}
+          >
+            <span
+              className={cn(
+                "label-mono",
+                m.tone === "light" && "text-gold",
+              )}
+            >
+              Marca exclusiva · {m.genero}
+            </span>
+            <h2
+              className={cn(
+                "mt-6 font-display text-6xl uppercase leading-none sm:text-7xl",
+                m.tone === "dark" ? "tracking-[0.02em]" : "tracking-[0.28em]",
+              )}
+            >
+              {m.tone === "dark" ? m.nome : m.nome.split("").join(" ")}
+            </h2>
+            <span
+              className={cn(
+                "mt-6 block h-px w-14",
+                m.tone === "dark" ? "bg-gold" : "bg-gold/70",
+              )}
+            />
+            <p
+              className={cn(
+                "mt-7 max-w-md text-pretty text-sm leading-relaxed sm:text-base",
+                m.tone === "dark" ? "text-ink-foreground/70" : "text-muted-foreground",
+              )}
+            >
+              {m.texto}
+            </p>
+          </motion.div>
+        ))}
+      </section>
 
       <ClosingCta
         titulo="Prove antes de decidir"

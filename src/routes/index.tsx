@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { ArrowRight, Eye, Glasses, HeartHandshake, Leaf, Recycle, Star } from "lucide-react";
 import atendimento from "@/assets/atendimento.jpg";
 import lojaAmbiente1 from "@/assets/loja-ambiente-1.jpg";
@@ -10,15 +10,31 @@ import sustentabilidade from "@/assets/sustentabilidade.jpg";
 import { DEPOIMENTOS, DIFERENCIAIS, STORES, WHATSAPP_PRINCIPAL } from "@/lib/site-data";
 import { Parallax, Reveal, RevealWords } from "@/components/site/motion-primitives";
 import { HeroSlideshow } from "@/components/site/HeroSlideshow";
-import { BtnAnchor, BtnLink, GoogleRating, Section, SectionHeading } from "@/components/site/ui-bits";
+import {
+  BtnAnchor,
+  BtnLink,
+  GoogleRating,
+  InitialsAvatar,
+  Section,
+  SectionHeading,
+} from "@/components/site/ui-bits";
 import { StoreCard } from "@/components/site/StoreCard";
 import { ClosingCta } from "@/components/site/ClosingCta";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 
 const HERO_SLIDES = [
   { type: "video" as const, src: "/videos/hero-homem-oculos.mp4", alt: "Homem usando óculos" },
   { type: "image" as const, src: moodMulherChapeu, alt: "Cliente usando óculos de sol" },
   { type: "image" as const, src: lojaAmbiente1, alt: "Interior da loja Ótica Império Glasses" },
   { type: "image" as const, src: moodMulherTelefone, alt: "Cliente usando óculos de grau" },
+  { type: "video" as const, src: "/videos/hero-cliente-oculos.mp4", alt: "Cliente experimentando óculos na loja" },
 ];
 
 export const Route = createFileRoute("/")({
@@ -51,6 +67,56 @@ const MARQUEE = [
 ];
 
 const ICONS = [HeartHandshake, Eye, Glasses, Leaf];
+
+function TestimonialCarousel() {
+  const apiRef = useRef<CarouselApi | null>(null);
+
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      const api = apiRef.current;
+      if (!api) return;
+      if (api.canScrollNext()) api.scrollNext();
+      else api.scrollTo(0);
+    }, 5000);
+    return () => window.clearInterval(id);
+  }, []);
+
+  return (
+    <Carousel
+      opts={{ align: "start", loop: true }}
+      setApi={(api) => {
+        apiRef.current = api ?? null;
+      }}
+    >
+      <CarouselContent>
+        {DEPOIMENTOS.map((d, i) => (
+          <CarouselItem key={d.autor + i} className="sm:basis-1/2 lg:basis-1/3">
+            <figure className="flex h-full flex-col border border-border bg-card p-8">
+              <div className="flex gap-0.5">
+                {Array.from({ length: d.nota }).map((_, s) => (
+                  <Star key={s} className="size-3.5 fill-gold text-gold" />
+                ))}
+              </div>
+              <blockquote className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                &ldquo;{d.texto}&rdquo;
+              </blockquote>
+              <figcaption className="mt-auto flex items-center gap-3 pt-7">
+                <InitialsAvatar name={d.autor} />
+                <span className="text-[0.68rem] uppercase tracking-[0.18em] text-ink/60">
+                  {d.autor}
+                </span>
+              </figcaption>
+            </figure>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <div className="mt-8 flex justify-center gap-3">
+        <CarouselPrevious className="static size-10 translate-y-0 rounded-full border-ink/25 bg-transparent text-ink shadow-none hover:border-gold hover:bg-transparent hover:text-gold" />
+        <CarouselNext className="static size-10 translate-y-0 rounded-full border-ink/25 bg-transparent text-ink shadow-none hover:border-gold hover:bg-transparent hover:text-gold" />
+      </div>
+    </Carousel>
+  );
+}
 
 function Home() {
   const ref = useRef<HTMLDivElement>(null);
@@ -148,11 +214,15 @@ function Home() {
             const Icon = ICONS[i % ICONS.length]!;
             return (
               <Reveal key={d.titulo} delay={i * 0.08}>
-                <article className="group h-full bg-background p-8 transition-colors duration-500 hover:bg-card md:p-10">
-                  <Icon className="size-6 text-gold transition-transform duration-500 group-hover:-translate-y-1" />
-                  <h3 className="mt-6 text-2xl">{d.titulo}</h3>
-                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{d.texto}</p>
-                </article>
+                <Parallax distance={18} className="h-full">
+                  <article className="group h-full bg-background p-8 transition-colors duration-500 hover:bg-card md:p-10">
+                    <span className="grid size-12 place-items-center rounded-full bg-gold/10 transition-colors duration-500 group-hover:bg-gold/20">
+                      <Icon className="size-6 text-gold transition-transform duration-500 group-hover:-translate-y-1" />
+                    </span>
+                    <h3 className="mt-6 text-2xl">{d.titulo}</h3>
+                    <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{d.texto}</p>
+                  </article>
+                </Parallax>
               </Reveal>
             );
           })}
@@ -188,33 +258,11 @@ function Home() {
             <GoogleRating />
           </div>
         </Reveal>
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {DEPOIMENTOS.map((d, i) => (
-            <Reveal key={d.autor + i} delay={i * 0.1}>
-              <figure className="flex h-full flex-col border border-border bg-card p-8">
-                <div className="flex gap-0.5">
-                  {Array.from({ length: d.nota }).map((_, s) => (
-                    <Star key={s} className="size-3.5 fill-gold text-gold" />
-                  ))}
-                </div>
-                <blockquote className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                  &ldquo;{d.texto}&rdquo;
-                </blockquote>
-                <figcaption className="mt-auto flex items-center gap-3 pt-7">
-                  <img
-                    src={d.avatar}
-                    alt=""
-                    aria-hidden="true"
-                    className="size-8 rounded-full object-cover"
-                  />
-                  <span className="text-[0.68rem] uppercase tracking-[0.18em] text-ink/60">
-                    {d.autor}
-                  </span>
-                </figcaption>
-              </figure>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal delay={0.18}>
+          <div className="mt-10">
+            <TestimonialCarousel />
+          </div>
+        </Reveal>
       </Section>
 
       <Section className="border-t border-border">
