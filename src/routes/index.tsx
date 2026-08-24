@@ -3,9 +3,9 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { useEffect, useRef } from "react";
 import { ArrowRight, Eye, Glasses, HeartHandshake, Leaf, Recycle, Star } from "lucide-react";
 import atendimento from "@/assets/atendimento.jpg";
-import lojaAmbiente1 from "@/assets/loja-ambiente-1.jpg";
-import moodMulherChapeu from "@/assets/mood-mulher-chapeu.jpg";
-import moodMulherTelefone from "@/assets/mood-mulher-telefone.jpg";
+import heroBg1 from "@/assets/hero-bg-1.jpg";
+import heroBg2 from "@/assets/hero-bg-2.jpg";
+import heroBg3 from "@/assets/hero-bg-3.jpg";
 import sustentabilidade from "@/assets/sustentabilidade.jpg";
 import { DEPOIMENTOS, DIFERENCIAIS, STORES, WHATSAPP_PRINCIPAL } from "@/lib/site-data";
 import { Parallax, Reveal, RevealWords } from "@/components/site/motion-primitives";
@@ -31,9 +31,9 @@ import {
 
 const HERO_SLIDES = [
   { type: "video" as const, src: "/videos/hero-homem-oculos.mp4", alt: "Homem usando óculos" },
-  { type: "image" as const, src: moodMulherChapeu, alt: "Cliente usando óculos de sol" },
-  { type: "image" as const, src: lojaAmbiente1, alt: "Interior da loja Ótica Império Glasses" },
-  { type: "image" as const, src: moodMulherTelefone, alt: "Cliente usando óculos de grau" },
+  { type: "image" as const, src: heroBg2, alt: "Cliente sorrindo de óculos escuros à beira do lago" },
+  { type: "image" as const, src: heroBg3, alt: "Casal usando óculos escuros" },
+  { type: "image" as const, src: heroBg1, alt: "Cliente usando óculos de grau" },
   { type: "video" as const, src: "/videos/hero-cliente-oculos.mp4", alt: "Cliente experimentando óculos na loja" },
 ];
 

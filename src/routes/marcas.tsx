@@ -69,7 +69,54 @@ function Marcas() {
         intro="Trabalhamos com grifes internacionais, marcas nacionais premium e linhas acessíveis. A curadoria existe para que você tenha opções reais — e a orientação para escolher entre elas."
       />
 
-      <Section>
+      <section className="grid md:grid-cols-2">
+        {MARCAS_EXCLUSIVAS.map((m, i) => (
+          <motion.div
+            key={m.id}
+            initial={{ opacity: 0, x: i === 0 ? -32 : 32 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className={cn(
+              "grain relative flex min-h-[34rem] flex-col justify-center overflow-hidden px-8 py-20 sm:px-14 md:min-h-[42rem]",
+              m.tone === "dark" ? "bg-ink text-ink-foreground" : "bg-background text-ink",
+            )}
+          >
+            <span
+              className={cn(
+                "label-mono",
+                m.tone === "light" && "text-gold",
+              )}
+            >
+              Marca exclusiva · {m.genero}
+            </span>
+            <h2
+              className={cn(
+                "mt-7 font-display text-7xl uppercase leading-none sm:text-8xl lg:text-9xl",
+                m.tone === "dark" ? "tracking-[0.02em]" : "tracking-[0.22em]",
+              )}
+            >
+              {m.tone === "dark" ? m.nome : m.nome.split("").join(" ")}
+            </h2>
+            <span
+              className={cn(
+                "mt-7 block h-px w-16",
+                m.tone === "dark" ? "bg-gold" : "bg-gold/70",
+              )}
+            />
+            <p
+              className={cn(
+                "mt-8 max-w-md text-pretty text-base leading-relaxed sm:text-lg",
+                m.tone === "dark" ? "text-ink-foreground/70" : "text-muted-foreground",
+              )}
+            >
+              {m.texto}
+            </p>
+          </motion.div>
+        ))}
+      </section>
+
+      <Section className="border-t border-border">
         <div className="grid gap-14 md:grid-cols-2 md:items-center">
           <Parallax>
             <img
@@ -103,59 +150,9 @@ function Marcas() {
                 ))}
               </CarouselContent>
             </Carousel>
-            <p className="mt-4 text-right text-[0.68rem] uppercase tracking-[0.18em] text-muted-foreground/70">
-              Arraste para o lado →
-            </p>
           </div>
         </Reveal>
       </Section>
-
-      <section className="grid border-t border-border md:grid-cols-2">
-        {MARCAS_EXCLUSIVAS.map((m, i) => (
-          <motion.div
-            key={m.id}
-            initial={{ opacity: 0, x: i === 0 ? -32 : 32 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className={cn(
-              "grain relative flex min-h-[26rem] flex-col justify-center overflow-hidden px-8 py-16 sm:px-12 md:min-h-[30rem]",
-              m.tone === "dark" ? "bg-ink text-ink-foreground" : "bg-background text-ink",
-            )}
-          >
-            <span
-              className={cn(
-                "label-mono",
-                m.tone === "light" && "text-gold",
-              )}
-            >
-              Marca exclusiva · {m.genero}
-            </span>
-            <h2
-              className={cn(
-                "mt-6 font-display text-6xl uppercase leading-none sm:text-7xl",
-                m.tone === "dark" ? "tracking-[0.02em]" : "tracking-[0.28em]",
-              )}
-            >
-              {m.tone === "dark" ? m.nome : m.nome.split("").join(" ")}
-            </h2>
-            <span
-              className={cn(
-                "mt-6 block h-px w-14",
-                m.tone === "dark" ? "bg-gold" : "bg-gold/70",
-              )}
-            />
-            <p
-              className={cn(
-                "mt-7 max-w-md text-pretty text-sm leading-relaxed sm:text-base",
-                m.tone === "dark" ? "text-ink-foreground/70" : "text-muted-foreground",
-              )}
-            >
-              {m.texto}
-            </p>
-          </motion.div>
-        ))}
-      </section>
 
       <ClosingCta
         titulo="Prove antes de decidir"

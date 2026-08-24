@@ -191,13 +191,13 @@ export const MARCAS_EXCLUSIVAS: MarcaExclusiva[] = [
     tone: "dark",
   },
   {
-    id: "selene",
-    nome: "Selene",
+    id: "celinne",
+    nome: "Celinne",
     genero: "Feminina",
-    assinatura: "S",
-    // TODO: texto provisório — substituir quando o material completo da Selene chegar.
+    assinatura: "C",
+    // TODO: texto provisório — substituir quando o material completo da Celinne chegar.
     texto:
-      "Um nome que não precisa se explicar. Selene é para a mulher segura da própria presença — discreta, precisa, atemporal. A força não está em chamar atenção, está em ficar.",
+      "Um nome que não precisa se explicar. Celinne é para a mulher segura da própria presença — discreta, precisa, atemporal. A força não está em chamar atenção, está em ficar.",
     tone: "light",
   },
 ];

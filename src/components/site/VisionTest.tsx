@@ -1,8 +1,88 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useMemo, useState } from "react";
-import { AlertTriangle, Check, Eye, Lock, RotateCcw } from "lucide-react";
+import { AlertTriangle, Check, Eye, Lock, Mail, Phone, RotateCcw, User } from "lucide-react";
 import { STORES } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
+
+const field =
+  "w-full border border-border bg-background px-4 py-3 pl-10 text-sm outline-none transition-colors focus:border-gold";
+
+type Lead = { nome: string; whatsapp: string; email: string };
+
+function ResultLeadForm({ onSubmit }: { onSubmit: (lead: Lead) => void }) {
+  const [nome, setNome] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
+  const [email, setEmail] = useState("");
+
+  const valido = nome.trim().length > 1 && whatsapp.trim().length >= 8;
+
+  return (
+    <motion.div
+      key="resultado-form"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <span className="label-mono">Quase lá</span>
+      <h3 className="mt-4 text-2xl sm:text-3xl">Preencha seus dados para ver o resultado</h3>
+      <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
+        Assim conseguimos te enviar a orientação completa e, se fizer sentido, ajudar a agendar uma
+        avaliação presencial com a nossa equipe.
+      </p>
+
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (!valido) return;
+          onSubmit({ nome: nome.trim(), whatsapp: whatsapp.trim(), email: email.trim() });
+        }}
+        className="mt-8 grid max-w-md gap-4"
+      >
+        <div className="relative">
+          <User className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+          <input
+            required
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+            placeholder="Seu nome"
+            className={field}
+            aria-label="Seu nome"
+          />
+        </div>
+        <div className="relative">
+          <Phone className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+          <input
+            required
+            value={whatsapp}
+            onChange={(e) => setWhatsapp(e.target.value)}
+            placeholder="WhatsApp com DDD"
+            className={field}
+            aria-label="WhatsApp"
+          />
+        </div>
+        <div className="relative">
+          <Mail className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="E-mail (opcional)"
+            className={field}
+            aria-label="E-mail"
+          />
+        </div>
+        <button
+          type="submit"
+          disabled={!valido}
+          className="mt-2 inline-flex items-center justify-center gap-2 bg-ink px-7 py-3.5 text-[0.75rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-gold hover:text-ink disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-ink disabled:hover:text-ink-foreground"
+        >
+          <Eye className="size-4" /> Ver meu resultado
+        </button>
+      </form>
+    </motion.div>
+  );
+}
 
 type Question = {
   id: string;
@@ -287,6 +367,7 @@ function scoreOf(questions: Question[], answers: Record<string, number>) {
 export function VisionTest() {
   const [stage, setStage] = useState<Stage>("inicio");
   const [answers, setAnswers] = useState<Record<string, number>>({});
+  const [lead, setLead] = useState<Lead | null>(null);
 
   const overall = scoreOf(ALL_QUESTIONS, answers);
   const completo = overall.answered === overall.total;
@@ -317,7 +398,13 @@ export function VisionTest() {
 
   function reset() {
     setAnswers({});
+    setLead(null);
     setStage("inicio");
+  }
+
+  function handleLeadSubmit(data: Lead) {
+    // TODO: enviar `data` para o destino combinado com o cliente (endpoint/planilha/CRM).
+    setLead(data);
   }
 
   const activeModule = MODULES.find((m) => m.id === stage);
@@ -510,6 +597,8 @@ export function VisionTest() {
                 </button>
               </div>
             </motion.div>
+          ) : completo && !lead ? (
+            <ResultLeadForm onSubmit={handleLeadSubmit} />
           ) : completo ? (
             <motion.div
               key="resultado"

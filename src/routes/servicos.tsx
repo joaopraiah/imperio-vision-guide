@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { Eye, Moon, ShieldCheck, Sparkles } from "lucide-react";
 import lojaDisplay from "@/assets/hero-loja.jpg";
+import digitalMaisLente from "@/assets/digital-mais-lente.jpg";
 import { FloatingRings, Parallax, Reveal, RevealWords } from "@/components/site/motion-primitives";
 import { BtnAnchor, PageHero, Section, SectionHeading } from "@/components/site/ui-bits";
 import { ClosingCta } from "@/components/site/ClosingCta";
@@ -79,7 +80,7 @@ function Servicos() {
 
       <Section>
         <SectionHeading title="Serviços das duas unidades" />
-        <div className="mt-14 grid gap-4 md:auto-rows-[180px] md:grid-cols-4">
+        <div className="mt-14 grid gap-4 md:auto-rows-[minmax(11.5rem,auto)] md:grid-cols-4">
           {SERVICOS.map((s, i) => (
             <Reveal key={s.titulo} delay={i * 0.06} className={BENTO_SPANS[i % BENTO_SPANS.length]!}>
               <article
@@ -106,25 +107,34 @@ function Servicos() {
         </div>
       </Section>
 
-      <Section className="grain relative overflow-hidden border-t border-border bg-ink text-ink-foreground">
+      <section className="grain relative overflow-hidden border-t border-border text-ink-foreground">
+        <div className="absolute inset-0">
+          <img
+            src={digitalMaisLente}
+            alt="Lente com filtro de luz azul da Digital+"
+            loading="lazy"
+            className="size-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/90 to-ink/60" />
+        </div>
         <FloatingRings className="-right-20 top-10 text-gold sm:right-0" />
-        <div className="relative grid gap-14 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+        <div className="relative mx-auto grid w-full max-w-6xl gap-14 px-5 py-24 sm:px-8 md:py-36 lg:grid-cols-[1.1fr_1fr] lg:items-center">
           <div>
             <Reveal>
               <span className="label-mono">Lentes Digital+</span>
             </Reveal>
-            <h2 className="mt-5 max-w-lg text-balance text-3xl leading-[1.1] sm:text-4xl md:text-5xl">
+            <h2 className="mt-5 max-w-lg text-balance text-4xl leading-[1.05] sm:text-5xl md:text-6xl">
               <RevealWords text="O cansaço das 2h da tarde vai embora" />
             </h2>
             <Reveal delay={0.12}>
-              <p className="mt-6 max-w-lg text-pretty leading-relaxed text-ink-foreground/70">
+              <p className="mt-7 max-w-lg text-pretty text-base leading-relaxed text-ink-foreground/75 sm:text-lg">
                 Lentes com filtro de luz azul e antirreflexo premium, pensadas para quem passa horas
                 em frente a telas. Mais foco durante o dia, menos fadiga visual e sono mais tranquilo
                 à noite — com a transparência de uma lente comum, sem o amarelado.
               </p>
             </Reveal>
             <Reveal delay={0.2}>
-              <div className="mt-9 flex flex-wrap gap-3">
+              <div className="mt-10 flex flex-wrap gap-3">
                 <BtnAnchor href="https://digitalmais.oticaimperio.com.br/" variant="gold">
                   Conhecer a Digital+
                 </BtnAnchor>
@@ -141,7 +151,7 @@ function Servicos() {
                 <motion.div
                   whileHover={{ y: -4 }}
                   transition={{ type: "spring", stiffness: 300, damping: 22 }}
-                  className="h-full bg-ink p-7"
+                  className="h-full bg-ink/80 p-7 backdrop-blur-sm"
                 >
                   <b.icon className="size-5 text-gold" />
                   <h3 className="mt-4 text-lg">{b.titulo}</h3>
@@ -151,7 +161,7 @@ function Servicos() {
             ))}
           </div>
         </div>
-      </Section>
+      </section>
 
       <ClosingCta
         titulo="Precisa de um reparo ou de uma orientação?"

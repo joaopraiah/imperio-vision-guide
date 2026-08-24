@@ -68,14 +68,16 @@ function Experiencia() {
 
       <Section>
         <div className="grid gap-14 md:grid-cols-[1fr_1.1fr] md:items-start">
-          <Parallax className="md:sticky md:top-28">
-            <img
-              src={visagismo}
-              alt="Consultoria de visagismo na Ótica Império"
-              loading="lazy"
-              className="aspect-3/4 w-full object-cover"
-            />
-          </Parallax>
+          <div className="md:sticky md:top-28">
+            <Reveal>
+              <img
+                src={visagismo}
+                alt="Consultoria de visagismo na Ótica Império"
+                loading="lazy"
+                className="aspect-3/4 w-full object-cover"
+              />
+            </Reveal>
+          </div>
 
           <ol className="relative border-l border-border pl-8">
             {ETAPAS.map((e, i) => (
