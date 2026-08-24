@@ -84,44 +84,41 @@ function Servicos() {
 
       <section className="grain relative overflow-hidden border-t border-border bg-ink text-ink-foreground">
         <FloatingRings className="-right-20 top-10 text-gold sm:right-0" />
-        <div className="relative mx-auto grid w-full max-w-6xl gap-14 px-5 py-24 sm:px-8 md:py-32 lg:grid-cols-2 lg:items-center">
-          <div>
-            <Reveal>
-              <span className="label-mono">Lentes Digital+</span>
-            </Reveal>
-            <h2 className="mt-5 text-balance text-4xl leading-[1.05] sm:text-5xl md:text-6xl">
-              <RevealWords text="O cansaço das 2h da tarde vai embora" />
-            </h2>
-            <Reveal delay={0.12}>
-              <p className="mt-7 max-w-lg text-pretty text-base leading-relaxed text-ink-foreground/75 sm:text-lg">
-                Lentes com bloqueio de luz azul, antirreflexo premium, alta transparência e
-                resistência superior — pensadas para quem passa horas em frente a telas. Mais foco
-                durante o dia e sono mais tranquilo à noite.
-              </p>
-            </Reveal>
-            <Reveal delay={0.2}>
-              <div className="mt-10 flex flex-wrap gap-3">
-                <BtnAnchor href="https://digitalmais.oticaimperio.com.br/" variant="gold">
-                  Conhecer a Digital+
-                </BtnAnchor>
-                <BtnAnchor href={WHATSAPP_PRINCIPAL} variant="ghostLight">
-                  Falar no WhatsApp
-                </BtnAnchor>
-              </div>
-            </Reveal>
-          </div>
-
-          <Reveal delay={0.15}>
-            <div className="overflow-hidden border border-ink-foreground/10 shadow-2xl shadow-black/40">
-              <img
-                src={digitalMaisLente}
-                alt="Lentes Digital+ da Ótica Império Glasses — bloqueio de luz azul, antirreflexo premium, alta transparência e resistência superior"
-                loading="lazy"
-                className="w-full"
-              />
+        <div className="relative mx-auto max-w-2xl px-5 pt-24 text-center sm:px-8 md:pt-32">
+          <Reveal>
+            <span className="label-mono">Um produto à parte</span>
+          </Reveal>
+          <h2 className="mt-5 text-balance text-4xl leading-[1.05] sm:text-5xl md:text-6xl">
+            <RevealWords text="O cansaço das 2h da tarde vai embora" />
+          </h2>
+          <Reveal delay={0.12}>
+            <p className="mx-auto mt-7 max-w-lg text-pretty text-base leading-relaxed text-ink-foreground/75 sm:text-lg">
+              Lentes Digital+: bloqueio de luz azul, antirreflexo premium, alta transparência e
+              resistência superior — pensadas para quem passa horas em frente a telas.
+            </p>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <div className="mt-10 flex flex-wrap justify-center gap-3">
+              <BtnAnchor href="https://digitalmais.oticaimperio.com.br/" variant="gold">
+                Conhecer a Digital+
+              </BtnAnchor>
+              <BtnAnchor href={WHATSAPP_PRINCIPAL} variant="ghostLight">
+                Falar no WhatsApp
+              </BtnAnchor>
             </div>
           </Reveal>
         </div>
+
+        <Reveal delay={0.2}>
+          <div className="relative mt-16">
+            <img
+              src={digitalMaisLente}
+              alt="Lentes Digital+ da Ótica Império Glasses — bloqueio de luz azul, antirreflexo premium, alta transparência e resistência superior"
+              loading="lazy"
+              className="w-full"
+            />
+          </div>
+        </Reveal>
       </section>
 
       <ClosingCta

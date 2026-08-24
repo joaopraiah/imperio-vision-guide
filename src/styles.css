@@ -180,6 +180,10 @@
     -webkit-text-stroke: 0.35px currentColor;
   }
 
+  #lovable-badge {
+    display: none !important;
+  }
+
   ::selection {
     background: var(--color-gold);
     color: var(--color-ink);

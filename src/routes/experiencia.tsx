@@ -98,7 +98,7 @@ function Experiencia() {
       <Parallax className="h-[45vh] min-h-80 overflow-hidden">
         <img
           src={especialista}
-          alt="Exame de vista realizado com autorrefrator"
+          alt="Profissional realizando exame de refração com armação de prova"
           loading="lazy"
           className="size-full object-cover"
         />

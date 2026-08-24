@@ -1,5 +1,5 @@
 import { motion, useScroll, useSpring, useTransform, type MotionProps } from "motion/react";
-import { useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 export function Reveal({
@@ -75,10 +75,14 @@ export function RevealWords({
  * A `y` translate alone would slide a `size-full` child (typically an
  * `object-cover` image) right off the edge of its box, uncovering a gap.
  * When `cover` is true (the default — use it for images), the moving layer
- * is scaled up a bit more than the translate range and the box always
- * clips (`overflow-hidden`), so it never runs out of image to show. Pass
- * `cover={false}` for non-image content (e.g. a text card) that should
- * just get the subtle translate wobble without scaling or clipping.
+ * is scaled up just enough to cover that translate range and the box
+ * always clips (`overflow-hidden`), so it never runs out of image to show.
+ * The zoom is computed from the box's own measured height rather than a
+ * fixed guess, so a tall image card gets barely any zoom (nothing worth
+ * covering) while a short, wide banner gets exactly what it needs — never
+ * more than that, so well-composed photos don't get needlessly cropped.
+ * Pass `cover={false}` for non-image content (e.g. a text card) that
+ * should just get the subtle translate wobble without scaling or clipping.
  */
 export function Parallax({
   children,
@@ -95,10 +99,24 @@ export function Parallax({
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const raw = useTransform(scrollYProgress, [0, 1], [distance, -distance]);
   const y = useSpring(raw, { stiffness: 80, damping: 20, mass: 0.4 });
-  const scale = cover ? 1 + (distance / 60) * 0.4 : 1;
+  const [zoom, setZoom] = useState(1);
+
+  useEffect(() => {
+    if (!cover || !ref.current) return;
+    const el = ref.current;
+    const measure = () => {
+      const h = el.clientHeight;
+      if (h > 0) setZoom(1 + (distance * 2 + 8) / h);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [cover, distance]);
+
   return (
     <div ref={ref} className={cn(cover && "overflow-hidden", className)}>
-      <motion.div style={{ y, scale }} className="h-full w-full">
+      <motion.div style={{ y, scale: cover ? zoom : 1 }} className="h-full w-full">
         {children}
       </motion.div>
     </div>

@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import atendimento from "@/assets/atendimento.jpg";
-import lojaAmbiente2 from "@/assets/loja-ambiente-2.jpg";
 import sustentabilidade from "@/assets/sustentabilidade.jpg";
 import { DIFERENCIAIS } from "@/lib/site-data";
 import { Parallax, Reveal } from "@/components/site/motion-primitives";
@@ -91,16 +90,7 @@ function AOtica() {
         </div>
       </Section>
 
-      <Parallax className="h-[50vh] min-h-96 overflow-hidden">
-        <img
-          src={lojaAmbiente2}
-          alt="Interior de uma das lojas da Ótica Império Glasses"
-          loading="lazy"
-          className="size-full object-cover"
-        />
-      </Parallax>
-
-      <Section>
+      <Section className="border-t border-border">
         <div className="grid gap-14 md:grid-cols-2 md:items-center">
           <Parallax>
             <img
