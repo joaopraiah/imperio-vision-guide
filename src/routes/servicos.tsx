@@ -1,6 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion } from "motion/react";
-import { Eye, Moon, ShieldCheck, Sparkles } from "lucide-react";
 import lojaDisplay from "@/assets/hero-loja.jpg";
 import digitalMaisLente from "@/assets/digital-mais-lente.jpg";
 import { FloatingRings, Parallax, Reveal, RevealWords } from "@/components/site/motion-primitives";
@@ -16,29 +14,6 @@ const BENTO_SPANS = [
   "md:col-span-1",
   "md:col-span-2",
   "md:col-span-2",
-];
-
-const DIGITAL_MAIS_BENEFICIOS = [
-  {
-    titulo: "Filtro de luz azul",
-    texto: "Reduz a luz HEV emitida por telas, aliviando o cansaço visual do uso prolongado.",
-    icon: Eye,
-  },
-  {
-    titulo: "Antirreflexo premium",
-    texto: "Elimina o reflexo da tela, reduzindo o esforço de foco ao longo do dia.",
-    icon: Sparkles,
-  },
-  {
-    titulo: "Alta transparência",
-    texto: "Mantém a aparência natural da lente, sem o amarelado comum em filtros de luz azul.",
-    icon: ShieldCheck,
-  },
-  {
-    titulo: "Sono mais tranquilo",
-    texto: "Menos supressão de melatonina à noite, ajudando a preservar a qualidade do sono.",
-    icon: Moon,
-  },
 ];
 
 export const Route = createFileRoute("/servicos")({
@@ -107,30 +82,21 @@ function Servicos() {
         </div>
       </Section>
 
-      <section className="grain relative overflow-hidden border-t border-border text-ink-foreground">
-        <div className="absolute inset-0">
-          <img
-            src={digitalMaisLente}
-            alt="Lente com filtro de luz azul da Digital+"
-            loading="lazy"
-            className="size-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/90 to-ink/60" />
-        </div>
+      <section className="grain relative overflow-hidden border-t border-border bg-ink text-ink-foreground">
         <FloatingRings className="-right-20 top-10 text-gold sm:right-0" />
-        <div className="relative mx-auto grid w-full max-w-6xl gap-14 px-5 py-24 sm:px-8 md:py-36 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+        <div className="relative mx-auto grid w-full max-w-6xl gap-14 px-5 py-24 sm:px-8 md:py-32 lg:grid-cols-2 lg:items-center">
           <div>
             <Reveal>
               <span className="label-mono">Lentes Digital+</span>
             </Reveal>
-            <h2 className="mt-5 max-w-lg text-balance text-4xl leading-[1.05] sm:text-5xl md:text-6xl">
+            <h2 className="mt-5 text-balance text-4xl leading-[1.05] sm:text-5xl md:text-6xl">
               <RevealWords text="O cansaço das 2h da tarde vai embora" />
             </h2>
             <Reveal delay={0.12}>
               <p className="mt-7 max-w-lg text-pretty text-base leading-relaxed text-ink-foreground/75 sm:text-lg">
-                Lentes com filtro de luz azul e antirreflexo premium, pensadas para quem passa horas
-                em frente a telas. Mais foco durante o dia, menos fadiga visual e sono mais tranquilo
-                à noite — com a transparência de uma lente comum, sem o amarelado.
+                Lentes com bloqueio de luz azul, antirreflexo premium, alta transparência e
+                resistência superior — pensadas para quem passa horas em frente a telas. Mais foco
+                durante o dia e sono mais tranquilo à noite.
               </p>
             </Reveal>
             <Reveal delay={0.2}>
@@ -145,21 +111,16 @@ function Servicos() {
             </Reveal>
           </div>
 
-          <div className="grid gap-px overflow-hidden bg-ink-foreground/10 sm:grid-cols-2">
-            {DIGITAL_MAIS_BENEFICIOS.map((b, i) => (
-              <Reveal key={b.titulo} delay={0.1 + i * 0.08}>
-                <motion.div
-                  whileHover={{ y: -4 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 22 }}
-                  className="h-full bg-ink/80 p-7 backdrop-blur-sm"
-                >
-                  <b.icon className="size-5 text-gold" />
-                  <h3 className="mt-4 text-lg">{b.titulo}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-foreground/60">{b.texto}</p>
-                </motion.div>
-              </Reveal>
-            ))}
-          </div>
+          <Reveal delay={0.15}>
+            <div className="overflow-hidden border border-ink-foreground/10 shadow-2xl shadow-black/40">
+              <img
+                src={digitalMaisLente}
+                alt="Lentes Digital+ da Ótica Império Glasses — bloqueio de luz azul, antirreflexo premium, alta transparência e resistência superior"
+                loading="lazy"
+                className="w-full"
+              />
+            </div>
+          </Reveal>
         </div>
       </section>
 

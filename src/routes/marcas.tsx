@@ -92,11 +92,13 @@ function Marcas() {
             </span>
             <h2
               className={cn(
-                "mt-7 font-display text-7xl uppercase leading-none sm:text-8xl lg:text-9xl",
-                m.tone === "dark" ? "tracking-[0.02em]" : "tracking-[0.22em]",
+                "mt-7 whitespace-nowrap font-display uppercase leading-none",
+                m.tone === "dark"
+                  ? "text-7xl tracking-[0.02em] sm:text-8xl lg:text-9xl"
+                  : "text-4xl tracking-[0.15em] sm:text-5xl md:text-6xl lg:text-7xl",
               )}
             >
-              {m.tone === "dark" ? m.nome : m.nome.split("").join(" ")}
+              {m.nome}
             </h2>
             <span
               className={cn(

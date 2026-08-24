@@ -214,7 +214,7 @@ function Home() {
             const Icon = ICONS[i % ICONS.length]!;
             return (
               <Reveal key={d.titulo} delay={i * 0.08}>
-                <Parallax distance={18} className="h-full">
+                <Parallax distance={18} cover={false} className="h-full">
                   <article className="group h-full bg-background p-8 transition-colors duration-500 hover:bg-card md:p-10">
                     <span className="grid size-12 place-items-center rounded-full bg-gold/10 transition-colors duration-500 group-hover:bg-gold/20">
                       <Icon className="size-6 text-gold transition-transform duration-500 group-hover:-translate-y-1" />

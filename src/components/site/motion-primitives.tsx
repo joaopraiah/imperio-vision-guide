@@ -69,23 +69,36 @@ export function RevealWords({
   );
 }
 
-/** Subtle parallax wrapper driven by scroll position. */
+/**
+ * Subtle parallax wrapper driven by scroll position.
+ *
+ * A `y` translate alone would slide a `size-full` child (typically an
+ * `object-cover` image) right off the edge of its box, uncovering a gap.
+ * When `cover` is true (the default — use it for images), the moving layer
+ * is scaled up a bit more than the translate range and the box always
+ * clips (`overflow-hidden`), so it never runs out of image to show. Pass
+ * `cover={false}` for non-image content (e.g. a text card) that should
+ * just get the subtle translate wobble without scaling or clipping.
+ */
 export function Parallax({
   children,
   distance = 60,
+  cover = true,
   className,
 }: {
   children: ReactNode;
   distance?: number;
+  cover?: boolean;
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const raw = useTransform(scrollYProgress, [0, 1], [distance, -distance]);
   const y = useSpring(raw, { stiffness: 80, damping: 20, mass: 0.4 });
+  const scale = cover ? 1 + (distance / 60) * 0.4 : 1;
   return (
-    <div ref={ref} className={className}>
-      <motion.div style={{ y }} className="h-full w-full">
+    <div ref={ref} className={cn(cover && "overflow-hidden", className)}>
+      <motion.div style={{ y, scale }} className="h-full w-full">
         {children}
       </motion.div>
     </div>
