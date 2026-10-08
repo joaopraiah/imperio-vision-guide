@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AOticaRouteImport } from './routes/a-otica'
 import { Route as ContatoRouteImport } from './routes/contato'
+import { Route as DigitalMaisRouteImport } from './routes/digital-mais'
 import { Route as ExperienciaRouteImport } from './routes/experiencia'
 import { Route as LojasRouteImport } from './routes/lojas'
 import { Route as MarcasRouteImport } from './routes/marcas'
@@ -32,6 +33,11 @@ const AOticaRoute = AOticaRouteImport.update({
 const ContatoRoute = ContatoRouteImport.update({
   id: '/contato',
   path: '/contato',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DigitalMaisRoute = DigitalMaisRouteImport.update({
+  id: '/digital-mais',
+  path: '/digital-mais',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ExperienciaRoute = ExperienciaRouteImport.update({
@@ -69,6 +75,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/a-otica': typeof AOticaRoute
   '/contato': typeof ContatoRoute
+  '/digital-mais': typeof DigitalMaisRoute
   '/experiencia': typeof ExperienciaRoute
   '/lojas': typeof LojasRoute
   '/marcas': typeof MarcasRoute
@@ -80,6 +87,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/a-otica': typeof AOticaRoute
   '/contato': typeof ContatoRoute
+  '/digital-mais': typeof DigitalMaisRoute
   '/experiencia': typeof ExperienciaRoute
   '/lojas': typeof LojasRoute
   '/marcas': typeof MarcasRoute
@@ -92,6 +100,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/a-otica': typeof AOticaRoute
   '/contato': typeof ContatoRoute
+  '/digital-mais': typeof DigitalMaisRoute
   '/experiencia': typeof ExperienciaRoute
   '/lojas': typeof LojasRoute
   '/marcas': typeof MarcasRoute
@@ -105,6 +114,7 @@ export interface FileRouteTypes {
     | '/'
     | '/a-otica'
     | '/contato'
+    | '/digital-mais'
     | '/experiencia'
     | '/lojas'
     | '/marcas'
@@ -116,6 +126,7 @@ export interface FileRouteTypes {
     | '/'
     | '/a-otica'
     | '/contato'
+    | '/digital-mais'
     | '/experiencia'
     | '/lojas'
     | '/marcas'
@@ -127,6 +138,7 @@ export interface FileRouteTypes {
     | '/'
     | '/a-otica'
     | '/contato'
+    | '/digital-mais'
     | '/experiencia'
     | '/lojas'
     | '/marcas'
@@ -139,6 +151,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AOticaRoute: typeof AOticaRoute
   ContatoRoute: typeof ContatoRoute
+  DigitalMaisRoute: typeof DigitalMaisRoute
   ExperienciaRoute: typeof ExperienciaRoute
   LojasRoute: typeof LojasRoute
   MarcasRoute: typeof MarcasRoute
@@ -168,6 +181,13 @@ declare module '@tanstack/react-router' {
       path: '/contato'
       fullPath: '/contato'
       preLoaderRoute: typeof ContatoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/digital-mais': {
+      id: '/digital-mais'
+      path: '/digital-mais'
+      fullPath: '/digital-mais'
+      preLoaderRoute: typeof DigitalMaisRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/experiencia': {
@@ -219,6 +239,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AOticaRoute: AOticaRoute,
   ContatoRoute: ContatoRoute,
+  DigitalMaisRoute: DigitalMaisRoute,
   ExperienciaRoute: ExperienciaRoute,
   LojasRoute: LojasRoute,
   MarcasRoute: MarcasRoute,

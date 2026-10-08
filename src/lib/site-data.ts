@@ -186,6 +186,72 @@ export const DEPOIMENTOS = [
   },
 ];
 
+export const DIGITAL_PLUS_BENEFICIOS = [
+  {
+    titulo: "Bloqueio de luz azul",
+    texto: "Filtra a luz azul emitida por telas, reduzindo o cansaço visual ao longo do dia.",
+  },
+  {
+    titulo: "18 camadas de antirreflexo",
+    texto:
+      "Blindagem hidrofóbica em 18 camadas que corta o reflexo e deixa a lente quase invisível.",
+  },
+  {
+    titulo: "Hidrofóbico — repele água",
+    texto: "Repele água, poeira e gordura: a lente continua limpa e nítida por mais tempo.",
+  },
+  {
+    titulo: "Resistência superior",
+    texto: "Tratamento resistente a riscos, pensado para o uso diário sem cuidados especiais.",
+  },
+] as const;
+
+export const DIGITAL_PLUS_USO = [
+  {
+    titulo: "Para quem trabalha",
+    texto: "E passa horas em frente às telas, todos os dias.",
+  },
+  {
+    titulo: "Para quem dirige",
+    texto: "Com segurança, em qualquer horário — de dia ou à noite.",
+  },
+  {
+    titulo: "Para quem ama séries",
+    texto: "Estudos e conteúdos digitais, sem pressa de desgrudar da tela.",
+  },
+  {
+    titulo: "Para quem cuida da visão",
+    texto: "E do bem-estar, com o olhar protegido todos os dias.",
+  },
+] as const;
+
+export const DIGITAL_PLUS_FAQ = [
+  {
+    q: "A lente Digital+ serve para qualquer grau?",
+    a: "Sim. O tratamento Digital+ com Bloqueador de Elite pode ser aplicado em lentes de grau — miopia, hipermetropia, astigmatismo — e também em lentes sem grau, para quem só precisa de proteção contra telas.",
+  },
+  {
+    q: "Qual a diferença entre a Digital+ e uma lente antirreflexo comum?",
+    a: "A Digital+ tem 18 camadas de antirreflexo hidrofóbico, bloqueio real de luz azul e alta transparência — uma blindagem completa, não só um revestimento simples.",
+  },
+  {
+    q: "Em quanto tempo eu sinto diferença?",
+    a: "A maioria dos clientes relata menos cansaço visual e menos dor de cabeça em até 7 dias de uso contínuo em frente às telas.",
+  },
+  {
+    q: "Posso colocar a Digital+ na minha armação atual?",
+    a: "Sim, desde que a armação esteja em boas condições. A equipe avalia pessoalmente na loja antes de confirmar.",
+  },
+  {
+    q: "A Digital+ risca fácil?",
+    a: "Não. O tratamento inclui resistência superior a riscos, pensada para o uso diário sem cuidados especiais.",
+  },
+  {
+    q: "Onde eu encontro a Digital+?",
+    a: "Nas duas unidades da Ótica Império, em Sumaré e Hortolândia. A equipe explica pessoalmente qual versão combina com a sua rotina.",
+  },
+] as const;
+
 export type MarcaExclusiva = {
   id: string;
   nome: string;

@@ -7,6 +7,7 @@ import heroBg1 from "@/assets/hero-bg-1.jpg";
 import heroBg2 from "@/assets/hero-bg-2.jpg";
 import heroBg3 from "@/assets/hero-bg-3.jpg";
 import sustentabilidade from "@/assets/sustentabilidade.jpg";
+import digitalPlusHero from "@/assets/digital-plus-hero.jpg";
 import {
   DEPOIMENTOS,
   DEPOIMENTOS_VIDEO,
@@ -224,6 +225,36 @@ function Home() {
           ))}
         </motion.div>
       </div>
+
+      <section className="relative overflow-hidden border-y border-border bg-dp-bg px-5 py-20 text-dp-ink sm:px-8 md:py-24">
+        <div className="absolute inset-0 -z-10 opacity-45">
+          <img src={digitalPlusHero} alt="" aria-hidden="true" className="size-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-dp-bg via-dp-bg/90 to-dp-bg/50" />
+        </div>
+        <div className="relative mx-auto w-full max-w-6xl">
+          <Reveal>
+            <span className="inline-flex items-center gap-2 border border-dp-blue/40 px-3 py-1 text-[0.65rem] uppercase tracking-[0.3em] text-dp-blue-soft">
+              Lente premium
+            </span>
+          </Reveal>
+          <h2 className="mt-5 max-w-lg text-balance text-3xl italic leading-[1.1] sm:text-4xl md:text-5xl">
+            <RevealWords text="Conheça a Digital+" />
+          </h2>
+          <Reveal delay={0.12}>
+            <p className="mt-5 max-w-md text-pretty text-sm leading-relaxed text-dp-ink/70 sm:text-base">
+              18 camadas de antirreflexo hidrofóbico e bloqueio real de luz azul — a lente da Ótica
+              Império para quem vive de olho na tela.
+            </p>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <div className="mt-8">
+              <BtnLink to="/digital-mais" variant="dpBlue">
+                Conhecer a Digital+ <ArrowRight className="size-4" />
+              </BtnLink>
+            </div>
+          </Reveal>
+        </div>
+      </section>
 
       <SplitPhotoSection src={atendimento} alt="Atendimento personalizado na Ótica Império">
         <SectionHeading

@@ -14,6 +14,10 @@ const styles = {
   outline: "border border-ink/25 text-ink hover:border-gold hover:text-gold",
   ghostLight:
     "border border-ink-foreground/30 text-ink-foreground hover:border-gold hover:text-gold",
+  // Digital+ — paleta própria da sub-marca de lentes, usada só na LP /digital-mais
+  // e nos pontos de entrada que apontam para ela.
+  dpBlue: "bg-dp-blue text-dp-ink hover:bg-dp-blue-soft hover:text-dp-bg",
+  dpGhost: "border border-dp-blue/50 text-dp-ink hover:border-dp-blue-soft hover:text-dp-blue-soft",
 };
 
 export type BtnVariant = keyof typeof styles;

@@ -32,7 +32,11 @@ export function Header() {
         )}
       >
         <div className="mx-auto grid w-full max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-4 sm:px-8">
-          <Link to="/" className="flex min-w-0 items-center gap-3" aria-label="Ótica Império Glasses — início">
+          <Link
+            to="/"
+            className="flex min-w-0 items-center gap-3"
+            aria-label="Ótica Império Glasses — início"
+          >
             <Logo />
           </Link>
 
@@ -43,12 +47,25 @@ export function Header() {
                 to={item.to}
                 className={cn(
                   "link-underline text-[0.78rem] uppercase tracking-[0.14em] transition-colors",
-                  pathname === item.to ? "text-gold" : "text-ink-foreground/80 hover:text-ink-foreground",
+                  pathname === item.to
+                    ? "text-gold"
+                    : "text-ink-foreground/80 hover:text-ink-foreground",
                 )}
               >
                 {item.label}
               </Link>
             ))}
+            <Link
+              to="/digital-mais"
+              className={cn(
+                "border px-4 py-2.5 text-[0.72rem] uppercase tracking-[0.16em] transition-colors duration-300",
+                pathname === "/digital-mais"
+                  ? "border-dp-blue bg-dp-blue text-dp-ink"
+                  : "border-dp-blue/60 text-dp-blue-soft hover:bg-dp-blue hover:text-dp-ink",
+              )}
+            >
+              Digital+
+            </Link>
             <a
               href={WHATSAPP_PRINCIPAL}
               target="_blank"
@@ -96,11 +113,17 @@ export function Header() {
                 </motion.div>
               ))}
             </nav>
+            <Link
+              to="/digital-mais"
+              className="mt-8 inline-flex w-fit border border-dp-blue px-7 py-3.5 text-[0.75rem] uppercase tracking-[0.18em] text-dp-blue-soft"
+            >
+              Conhecer a Digital+
+            </Link>
             <a
               href={WHATSAPP_PRINCIPAL}
               target="_blank"
               rel="noreferrer"
-              className="mt-10 inline-flex w-fit border border-gold px-7 py-3.5 text-[0.75rem] uppercase tracking-[0.18em] text-gold"
+              className="mt-4 inline-flex w-fit border border-gold px-7 py-3.5 text-[0.75rem] uppercase tracking-[0.18em] text-gold"
             >
               Pedir orçamento no WhatsApp
             </a>

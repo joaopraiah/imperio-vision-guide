@@ -72,6 +72,12 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+  /* Digital+ — sub-marca das lentes, com paleta azul própria */
+  --color-dp-bg: var(--dp-bg);
+  --color-dp-bg-soft: var(--dp-bg-soft);
+  --color-dp-blue: var(--dp-blue);
+  --color-dp-blue-soft: var(--dp-blue-soft);
+  --color-dp-ink: var(--dp-ink);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -83,6 +89,9 @@
   --font-display: "Caviar Dreams", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Caviar Dreams", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Caviar Dreams", ui-sans-serif, system-ui, sans-serif;
+  /* Carregada só na página /digital-mais (link no head da rota) — nas demais
+     páginas cai no fallback sem baixar a fonte à toa. */
+  --font-serif: "Fraunces", "Caviar Dreams", ui-serif, Georgia, serif;
 }
 
 :root {
@@ -129,6 +138,13 @@
   --sidebar-accent-foreground: #201e1e;
   --sidebar-border: #e3e3e3;
   --sidebar-ring: oklch(0.673 0.077 76.5);
+  /* Digital+ — azul profundo próprio da linha de lentes (mais escuro que um
+     azul genérico de tech), extraído das artes do Bloqueador de Elite. */
+  --dp-bg: #05070f;
+  --dp-bg-soft: #0a0f24;
+  --dp-blue: #3058ff;
+  --dp-blue-soft: #8fabff;
+  --dp-ink: #f4f6ff;
 }
 
 .dark {
@@ -275,6 +291,20 @@ summary::-webkit-details-marker {
   100% {
     transform: translateX(220%);
   }
+}
+
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@utility animate-orbit {
+  animation: orbit-spin 30s linear infinite;
+  transform-origin: center;
 }
 
 @utility shimmer {

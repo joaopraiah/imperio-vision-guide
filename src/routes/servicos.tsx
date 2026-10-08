@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import lojaDisplay from "@/assets/hero-loja.jpg";
 import bloqueadorElite from "@/assets/bloqueador-elite.png";
 import { FloatingRings, Parallax, Reveal, RevealWords } from "@/components/site/motion-primitives";
-import { BtnAnchor, PageHero, Section, SectionHeading } from "@/components/site/ui-bits";
+import { BtnAnchor, BtnLink, PageHero, Section, SectionHeading } from "@/components/site/ui-bits";
 import { ClosingCta } from "@/components/site/ClosingCta";
 import { SERVICOS, WHATSAPP_PRINCIPAL } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
@@ -110,9 +110,9 @@ function Servicos() {
           </Reveal>
           <Reveal delay={0.2}>
             <div className="mt-10 flex flex-wrap justify-center gap-3">
-              <BtnAnchor href="https://digitalmais.oticaimperio.com.br/" variant="gold">
+              <BtnLink to="/digital-mais" variant="gold">
                 Conhecer a Digital+
-              </BtnAnchor>
+              </BtnLink>
               <BtnAnchor href={WHATSAPP_PRINCIPAL} variant="ghostLight">
                 Falar no WhatsApp
               </BtnAnchor>
