@@ -12,7 +12,8 @@ const styles = {
   solid: "bg-ink text-ink-foreground hover:bg-gold hover:text-ink",
   gold: "bg-gold text-ink hover:bg-ink hover:text-ink-foreground",
   outline: "border border-ink/25 text-ink hover:border-gold hover:text-gold",
-  ghostLight: "border border-ink-foreground/30 text-ink-foreground hover:border-gold hover:text-gold",
+  ghostLight:
+    "border border-ink-foreground/30 text-ink-foreground hover:border-gold hover:text-gold",
 };
 
 export type BtnVariant = keyof typeof styles;
@@ -126,6 +127,50 @@ export function Section({
   );
 }
 
+/**
+ * A full-bleed photo that fills exactly half of the section (edge-to-edge,
+ * outside the page's usual padding), dissolving to transparent at the seam
+ * where it meets the copy so the page background shows through underneath
+ * — the outer edge (against the viewport) stays crisp.
+ */
+export function SplitPhotoSection({
+  src,
+  alt,
+  children,
+  reverse = false,
+  className,
+}: {
+  src: string;
+  alt: string;
+  children: ReactNode;
+  reverse?: boolean;
+  className?: string;
+}) {
+  const maskDirection = reverse ? "to left" : "to right";
+  const mask = `linear-gradient(${maskDirection}, black 55%, transparent 92%)`;
+  return (
+    <section className={cn("grid md:grid-cols-2", className)}>
+      <div className={cn("relative min-h-72", reverse && "md:order-2")}>
+        <img
+          src={src}
+          alt={alt}
+          loading="lazy"
+          style={{ WebkitMaskImage: mask, maskImage: mask }}
+          className="absolute inset-0 size-full object-cover"
+        />
+      </div>
+      <div
+        className={cn(
+          "flex items-center px-5 py-16 sm:px-8 md:py-20 lg:px-16",
+          reverse && "md:order-1",
+        )}
+      >
+        <div className="mx-auto w-full max-w-xl">{children}</div>
+      </div>
+    </section>
+  );
+}
+
 export function InitialsAvatar({ name, className }: { name: string; className?: string }) {
   const initials = name
     .split(" ")
@@ -147,7 +192,13 @@ export function InitialsAvatar({ name, className }: { name: string; className?: 
   );
 }
 
-export function GoogleRating({ className, tone = "dark" }: { className?: string; tone?: "dark" | "light" }) {
+export function GoogleRating({
+  className,
+  tone = "dark",
+}: {
+  className?: string;
+  tone?: "dark" | "light";
+}) {
   return (
     <div className={cn("inline-flex items-center gap-2.5", className)}>
       <div className="flex gap-0.5">
@@ -161,21 +212,14 @@ export function GoogleRating({ className, tone = "dark" }: { className?: string;
           tone === "light" ? "text-ink-foreground/70" : "text-muted-foreground",
         )}
       >
-        {GOOGLE_RATING.nota.toFixed(1).replace(".", ",")} · {GOOGLE_RATING.total} avaliações no Google
+        {GOOGLE_RATING.nota.toFixed(1).replace(".", ",")} · {GOOGLE_RATING.total} avaliações no
+        Google
       </span>
     </div>
   );
 }
 
-export function PageHero({
-  label,
-  title,
-  intro,
-}: {
-  label: string;
-  title: string;
-  intro: string;
-}) {
+export function PageHero({ label, title, intro }: { label: string; title: string; intro: string }) {
   return (
     <header className="grain relative overflow-hidden border-b border-border bg-ink px-5 pb-20 pt-36 text-ink-foreground sm:px-8 md:pb-28 md:pt-44">
       <FloatingRings className="-right-16 -top-16 text-gold sm:right-0 sm:top-0" />

@@ -7,7 +7,13 @@ import heroBg1 from "@/assets/hero-bg-1.jpg";
 import heroBg2 from "@/assets/hero-bg-2.jpg";
 import heroBg3 from "@/assets/hero-bg-3.jpg";
 import sustentabilidade from "@/assets/sustentabilidade.jpg";
-import { DEPOIMENTOS, DIFERENCIAIS, STORES, WHATSAPP_PRINCIPAL } from "@/lib/site-data";
+import {
+  DEPOIMENTOS,
+  DEPOIMENTOS_VIDEO,
+  DIFERENCIAIS,
+  STORES,
+  WHATSAPP_PRINCIPAL,
+} from "@/lib/site-data";
 import { Parallax, Reveal, RevealWords } from "@/components/site/motion-primitives";
 import { HeroSlideshow } from "@/components/site/HeroSlideshow";
 import {
@@ -17,6 +23,7 @@ import {
   InitialsAvatar,
   Section,
   SectionHeading,
+  SplitPhotoSection,
 } from "@/components/site/ui-bits";
 import { StoreCard } from "@/components/site/StoreCard";
 import { ClosingCta } from "@/components/site/ClosingCta";
@@ -31,10 +38,18 @@ import {
 
 const HERO_SLIDES = [
   { type: "video" as const, src: "/videos/hero-homem-oculos.mp4", alt: "Homem usando óculos" },
-  { type: "image" as const, src: heroBg2, alt: "Cliente sorrindo de óculos escuros à beira do lago" },
+  {
+    type: "image" as const,
+    src: heroBg2,
+    alt: "Cliente sorrindo de óculos escuros à beira do lago",
+  },
   { type: "image" as const, src: heroBg3, alt: "Casal usando óculos escuros" },
   { type: "image" as const, src: heroBg1, alt: "Cliente usando óculos de grau" },
-  { type: "video" as const, src: "/videos/hero-cliente-oculos.mp4", alt: "Cliente experimentando óculos na loja" },
+  {
+    type: "video" as const,
+    src: "/videos/hero-cliente-oculos.mp4",
+    alt: "Cliente experimentando óculos na loja",
+  },
 ];
 
 export const Route = createFileRoute("/")({
@@ -67,6 +82,36 @@ const MARQUEE = [
 ];
 
 const ICONS = [HeartHandshake, Eye, Glasses, Leaf];
+
+function VideoDepoimentos() {
+  if (DEPOIMENTOS_VIDEO.length === 0) return null;
+  return (
+    <Section className="border-t border-border">
+      <SectionHeading title="Depoimentos em vídeo" align="center" />
+      <div className="mt-14 flex flex-wrap justify-center gap-12">
+        {DEPOIMENTOS_VIDEO.map((d, i) => (
+          <Reveal key={d.autor + i} delay={i * 0.1}>
+            <figure className="w-64">
+              <video
+                src={d.video}
+                controls
+                playsInline
+                preload="metadata"
+                className="aspect-[9/16] w-full bg-ink object-cover"
+              />
+              <figcaption className="mt-5 flex items-center justify-center gap-3">
+                <InitialsAvatar name={d.autor} />
+                <span className="text-[0.68rem] uppercase tracking-[0.18em] text-ink/60">
+                  {d.autor}
+                </span>
+              </figcaption>
+            </figure>
+          </Reveal>
+        ))}
+      </div>
+    </Section>
+  );
+}
 
 function TestimonialCarousel() {
   const apiRef = useRef<CarouselApi | null>(null);
@@ -180,32 +225,20 @@ function Home() {
         </motion.div>
       </div>
 
-      <Section>
-        <div className="grid gap-14 md:grid-cols-[1fr_1fr] md:items-center">
-          <Parallax>
-            <img
-              src={atendimento}
-              alt="Atendimento personalizado na Ótica Império"
-              loading="lazy"
-              className="aspect-4/5 w-full object-cover"
-            />
-          </Parallax>
-          <div>
-            <SectionHeading
-              title="Atendimento que começa por escutar você"
-              intro="Somos uma ótica premium com duas lojas físicas na região de Campinas. Antes de indicar qualquer modelo, a equipe entende a sua necessidade visual, a sua profissão e o seu dia a dia. O digital é a nossa vitrine; a experiência acontece na loja."
-            />
-            <Reveal delay={0.2}>
-              <div className="mt-9 flex flex-wrap gap-3">
-                <BtnLink to="/a-otica">Conhecer a ótica</BtnLink>
-                <BtnLink to="/experiencia" variant="outline">
-                  A experiência
-                </BtnLink>
-              </div>
-            </Reveal>
+      <SplitPhotoSection src={atendimento} alt="Atendimento personalizado na Ótica Império">
+        <SectionHeading
+          title="Atendimento que começa por escutar você"
+          intro="Somos uma ótica premium com duas lojas físicas na região de Campinas. Antes de indicar qualquer modelo, a equipe entende a sua necessidade visual, a sua profissão e o seu dia a dia. O digital é a nossa vitrine; a experiência acontece na loja."
+        />
+        <Reveal delay={0.2}>
+          <div className="mt-9 flex flex-wrap gap-3">
+            <BtnLink to="/a-otica">Conhecer a ótica</BtnLink>
+            <BtnLink to="/experiencia" variant="outline">
+              A experiência
+            </BtnLink>
           </div>
-        </div>
-      </Section>
+        </Reveal>
+      </SplitPhotoSection>
 
       <Section className="border-t border-border bg-secondary/40">
         <SectionHeading title="Por que as pessoas voltam" />
@@ -229,29 +262,23 @@ function Home() {
         </div>
       </Section>
 
-      <Section className="border-t border-border">
-        <div className="grid gap-14 md:grid-cols-2 md:items-center">
-          <Parallax>
-            <img
-              src={sustentabilidade}
-              alt="Sacola reciclável da Ótica Império"
-              loading="lazy"
-              className="aspect-4/3 w-full object-cover"
-            />
-          </Parallax>
-          <div>
-            <Reveal>
-              <Recycle className="size-7 text-gold" />
-            </Reveal>
-            <SectionHeading
-              title="Cuidar da sua visão e do planeta"
-              intro="Estamos substituindo nossas sacolas por versões recicláveis — um passo simples que faz diferença. É também um convite: separe seus óculos antigos, e quando a nossa iniciativa de descarte consciente estiver pronta, ajudamos você a dar o destino certo a eles."
-            />
-          </div>
-        </div>
-      </Section>
+      <SplitPhotoSection
+        src={sustentabilidade}
+        alt="Sacola reciclável da Ótica Império"
+        className="border-t border-border"
+      >
+        <Reveal>
+          <Recycle className="size-7 text-gold" />
+        </Reveal>
+        <SectionHeading
+          title="Cuidar da sua visão e do planeta"
+          intro="Estamos substituindo nossas sacolas por versões recicláveis — um passo simples que faz diferença. É também um convite: separe seus óculos antigos, e quando a nossa iniciativa de descarte consciente estiver pronta, ajudamos você a dar o destino certo a eles."
+        />
+      </SplitPhotoSection>
 
-      <Section>
+      <VideoDepoimentos />
+
+      <Section className="border-t border-border">
         <SectionHeading title="Quem já foi atendido" align="center" />
         <Reveal delay={0.1}>
           <div className="mt-6 flex justify-center">

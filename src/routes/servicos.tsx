@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import lojaDisplay from "@/assets/hero-loja.jpg";
-import digitalMaisLente from "@/assets/digital-mais-lente.jpg";
+import bloqueadorElite from "@/assets/bloqueador-elite.png";
 import { FloatingRings, Parallax, Reveal, RevealWords } from "@/components/site/motion-primitives";
 import { BtnAnchor, PageHero, Section, SectionHeading } from "@/components/site/ui-bits";
 import { ClosingCta } from "@/components/site/ClosingCta";
@@ -28,7 +28,8 @@ export const Route = createFileRoute("/servicos")({
       { property: "og:title", content: "Serviços — Ótica Império Glasses" },
       {
         property: "og:description",
-        content: "Tudo o que fazemos além de vender óculos: reparo, visagismo, exame e acompanhamento.",
+        content:
+          "Tudo o que fazemos além de vender óculos: reparo, visagismo, exame e acompanhamento.",
       },
     ],
   }),
@@ -57,7 +58,11 @@ function Servicos() {
         <SectionHeading title="Serviços das duas unidades" />
         <div className="mt-14 grid gap-4 md:auto-rows-[minmax(11.5rem,auto)] md:grid-cols-4">
           {SERVICOS.map((s, i) => (
-            <Reveal key={s.titulo} delay={i * 0.06} className={BENTO_SPANS[i % BENTO_SPANS.length]!}>
+            <Reveal
+              key={s.titulo}
+              delay={i * 0.06}
+              className={BENTO_SPANS[i % BENTO_SPANS.length]!}
+            >
               <article
                 className={cn(
                   "flex h-full flex-col justify-center border p-8 transition-colors duration-500 md:p-10",
@@ -91,10 +96,16 @@ function Servicos() {
           <h2 className="mt-5 text-balance text-4xl leading-[1.05] sm:text-5xl md:text-6xl">
             <RevealWords text="O cansaço das 2h da tarde vai embora" />
           </h2>
+          <Reveal delay={0.1}>
+            <p className="mt-4 text-sm uppercase tracking-[0.14em] text-gold">
+              Bloqueador de Elite — em até 7 dias, sua dor de cabeça vai embora
+            </p>
+          </Reveal>
           <Reveal delay={0.12}>
             <p className="mx-auto mt-7 max-w-lg text-pretty text-base leading-relaxed text-ink-foreground/75 sm:text-lg">
-              Lentes Digital+: bloqueio de luz azul, antirreflexo premium, alta transparência e
-              resistência superior — pensadas para quem passa horas em frente a telas.
+              Lentes Digital+ com Bloqueador de Elite: blindagem de 18 camadas de antirreflexo e
+              tratamento hidrofóbico, bloqueio de luz azul e alta transparência — pensadas para quem
+              passa horas em frente a telas.
             </p>
           </Reveal>
           <Reveal delay={0.2}>
@@ -109,14 +120,25 @@ function Servicos() {
           </Reveal>
         </div>
 
-        <Reveal delay={0.2}>
+        <Reveal delay={0.22}>
           <div className="relative mt-16">
-            <img
-              src={digitalMaisLente}
-              alt="Lentes Digital+ da Ótica Império Glasses — bloqueio de luz azul, antirreflexo premium, alta transparência e resistência superior"
-              loading="lazy"
-              className="w-full"
-            />
+            <p className="mb-3 px-5 text-center text-[0.65rem] uppercase tracking-[0.14em] text-ink-foreground/50 sm:hidden">
+              Arraste para o lado para ver tudo →
+            </p>
+            <div className="overflow-x-auto sm:overflow-visible">
+              <img
+                src={bloqueadorElite}
+                alt="Bloqueador de Elite — Lentes Digital+ da Ótica Império Glasses, blindagem de 18 camadas de antirreflexo hidrofóbico, e clientes usando no dia a dia"
+                loading="lazy"
+                style={{
+                  WebkitMaskImage:
+                    "linear-gradient(to bottom, transparent, black 14%, black 86%, transparent)",
+                  maskImage:
+                    "linear-gradient(to bottom, transparent, black 14%, black 86%, transparent)",
+                }}
+                className="h-auto w-[900px] max-w-none sm:w-full"
+              />
+            </div>
           </div>
         </Reveal>
       </section>

@@ -1,8 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import visagismo from "@/assets/mood-homem-oculos.jpg";
-import especialista from "@/assets/especialista-exame.jpg";
-import { Parallax, Reveal } from "@/components/site/motion-primitives";
-import { PageHero, Section, SectionHeading } from "@/components/site/ui-bits";
+import { Reveal } from "@/components/site/motion-primitives";
+import { PageHero, Section, SectionHeading, SplitPhotoSection } from "@/components/site/ui-bits";
 import { ClosingCta } from "@/components/site/ClosingCta";
 
 export const Route = createFileRoute("/experiencia")({
@@ -41,9 +40,9 @@ const ETAPAS = [
       "Realizado com equipamentos modernos e profissionais capacitados. O resultado orienta toda a recomendação de lentes.",
   },
   {
-    titulo: "Visagismo",
+    titulo: "Visagismo descomplicado",
     texto:
-      "Formato de rosto, tom de pele e estilo pessoal. Você prova, compara e recebe orientação honesta sobre o que valoriza o seu rosto.",
+      "Você prova, compara e a gente te diz, de forma simples e honesta, o que valoriza o seu rosto.",
   },
   {
     titulo: "Lentes e tratamentos",
@@ -66,43 +65,21 @@ function Experiencia() {
         intro="Um roteiro pensado para que você saia da loja seguro da escolha — e continue bem atendido depois dela."
       />
 
-      <Section>
-        <div className="grid gap-14 md:grid-cols-[1fr_1.1fr] md:items-start">
-          <div className="md:sticky md:top-28">
-            <Reveal>
-              <img
-                src={visagismo}
-                alt="Consultoria de visagismo na Ótica Império"
-                loading="lazy"
-                className="aspect-3/4 w-full object-cover"
-              />
+      <SplitPhotoSection src={visagismo} alt="Consultoria de visagismo na Ótica Império">
+        <ol className="relative border-l border-border pl-8">
+          {ETAPAS.map((e, i) => (
+            <Reveal key={e.titulo} delay={i * 0.06}>
+              <li className="relative pb-12 last:pb-0">
+                <span className="absolute -left-[2.3rem] top-1 grid size-6 place-items-center rounded-full bg-gold font-mono text-[0.6rem] text-ink">
+                  {i + 1}
+                </span>
+                <h3 className="text-2xl">{e.titulo}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{e.texto}</p>
+              </li>
             </Reveal>
-          </div>
-
-          <ol className="relative border-l border-border pl-8">
-            {ETAPAS.map((e, i) => (
-              <Reveal key={e.titulo} delay={i * 0.06}>
-                <li className="relative pb-12 last:pb-0">
-                  <span className="absolute -left-[2.3rem] top-1 grid size-6 place-items-center rounded-full bg-gold font-mono text-[0.6rem] text-ink">
-                    {i + 1}
-                  </span>
-                  <h3 className="text-2xl">{e.titulo}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{e.texto}</p>
-                </li>
-              </Reveal>
-            ))}
-          </ol>
-        </div>
-      </Section>
-
-      <Parallax className="h-[45vh] min-h-80 overflow-hidden">
-        <img
-          src={especialista}
-          alt="Profissional realizando exame de refração com armação de prova"
-          loading="lazy"
-          className="size-full object-cover"
-        />
-      </Parallax>
+          ))}
+        </ol>
+      </SplitPhotoSection>
 
       <Section className="border-t border-border bg-secondary/40">
         <SectionHeading

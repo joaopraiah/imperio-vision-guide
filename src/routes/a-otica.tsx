@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import atendimento from "@/assets/atendimento.jpg";
+import especialistaExame from "@/assets/especialista-exame.jpg";
 import sustentabilidade from "@/assets/sustentabilidade.jpg";
 import { DIFERENCIAIS } from "@/lib/site-data";
-import { Parallax, Reveal } from "@/components/site/motion-primitives";
-import { PageHero, Section, SectionHeading } from "@/components/site/ui-bits";
+import { Reveal } from "@/components/site/motion-primitives";
+import { PageHero, Section, SectionHeading, SplitPhotoSection } from "@/components/site/ui-bits";
 import { ClosingCta } from "@/components/site/ClosingCta";
 import { cn } from "@/lib/utils";
 
@@ -19,7 +19,8 @@ export const Route = createFileRoute("/a-otica")({
       { property: "og:title", content: "A Ótica — Ótica Império Glasses" },
       {
         property: "og:description",
-        content: "Atendimento humanizado, visagismo e responsabilidade ambiental em duas lojas físicas.",
+        content:
+          "Atendimento humanizado, visagismo e responsabilidade ambiental em duas lojas físicas.",
       },
     ],
   }),
@@ -35,31 +36,23 @@ function AOtica() {
         intro="A Ótica Império Glasses nasceu para oferecer na região o que muita gente só encontrava em grandes centros: variedade, orientação de verdade e um atendimento que trata cada cliente pelo nome."
       />
 
-      <Section>
-        <div className="grid gap-14 md:grid-cols-2 md:items-center">
-          <div>
-            <SectionHeading
-              title="A escolha certa vem depois de entender você"
-              intro="Não vendemos óculos por catálogo. A equipe conversa, observa, sugere e ajusta. Esse cuidado continua depois da entrega, no acompanhamento da adaptação e nos pequenos ajustes que fazem toda a diferença."
-            />
-            <Reveal delay={0.15}>
-              <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
-                Hoje somos duas lojas físicas — Sumaré e Hortolândia — e atendemos clientes de toda a
-                região. Cada unidade mantém o mesmo padrão de acolhimento, variedade e orientação
-                técnica.
-              </p>
-            </Reveal>
-          </div>
-          <Parallax>
-            <img
-              src={atendimento}
-              alt="Equipe da Ótica Império atendendo uma cliente"
-              loading="lazy"
-              className="aspect-4/5 w-full object-cover"
-            />
-          </Parallax>
-        </div>
-      </Section>
+      <SplitPhotoSection
+        src={especialistaExame}
+        alt="Exame de vista na Ótica Império, com armação de prova"
+        reverse
+      >
+        <SectionHeading
+          title="A escolha certa vem depois de entender você"
+          intro="Não vendemos óculos por catálogo. A equipe conversa, observa, sugere e ajusta. Esse cuidado continua depois da entrega, no acompanhamento da adaptação e nos pequenos ajustes que fazem toda a diferença."
+        />
+        <Reveal delay={0.15}>
+          <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
+            Hoje somos duas lojas físicas — Sumaré e Hortolândia — e atendemos clientes de toda a
+            região. Cada unidade mantém o mesmo padrão de acolhimento, variedade e orientação
+            técnica.
+          </p>
+        </Reveal>
+      </SplitPhotoSection>
 
       <Section className="border-t border-border bg-secondary/40">
         <SectionHeading title="Quatro compromissos" align="center" />
@@ -90,22 +83,16 @@ function AOtica() {
         </div>
       </Section>
 
-      <Section className="border-t border-border">
-        <div className="grid gap-14 md:grid-cols-2 md:items-center">
-          <Parallax>
-            <img
-              src={sustentabilidade}
-              alt="Iniciativa de responsabilidade ambiental da Ótica Império"
-              loading="lazy"
-              className="aspect-4/3 w-full object-cover"
-            />
-          </Parallax>
-          <SectionHeading
-            title="Passos concretos, sem promessa vazia"
-            intro="Estamos substituindo nossas sacolas por versões recicláveis e estudando uma iniciativa de descarte consciente de óculos antigos. É um caminho em construção, e preferimos contar exatamente onde estamos."
-          />
-        </div>
-      </Section>
+      <SplitPhotoSection
+        src={sustentabilidade}
+        alt="Iniciativa de responsabilidade ambiental da Ótica Império"
+        className="border-t border-border"
+      >
+        <SectionHeading
+          title="Passos concretos, sem promessa vazia"
+          intro="Estamos substituindo nossas sacolas por versões recicláveis e estudando uma iniciativa de descarte consciente de óculos antigos. É um caminho em construção, e preferimos contar exatamente onde estamos."
+        />
+      </SplitPhotoSection>
 
       <ClosingCta />
     </>

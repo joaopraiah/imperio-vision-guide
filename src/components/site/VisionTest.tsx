@@ -1,20 +1,37 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useMemo, useState } from "react";
-import { AlertTriangle, Check, Eye, Lock, Mail, Phone, RotateCcw, User } from "lucide-react";
+import {
+  AlertTriangle,
+  Calendar,
+  Check,
+  Eye,
+  EyeOff,
+  Gift,
+  Lock,
+  Phone,
+  RotateCcw,
+  User,
+  Users,
+} from "lucide-react";
 import { STORES } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
 const field =
   "w-full border border-border bg-background px-4 py-3 pl-10 text-sm outline-none transition-colors focus:border-gold";
 
-type Lead = { nome: string; whatsapp: string; email: string };
+type Lead = { nome: string; whatsapp: string; idade: string; sexo: string };
 
 function ResultLeadForm({ onSubmit }: { onSubmit: (lead: Lead) => void }) {
   const [nome, setNome] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
-  const [email, setEmail] = useState("");
+  const [idade, setIdade] = useState("");
+  const [sexo, setSexo] = useState("");
 
-  const valido = nome.trim().length > 1 && whatsapp.trim().length >= 8;
+  const valido =
+    nome.trim().length > 1 &&
+    whatsapp.trim().length >= 8 &&
+    idade.trim().length > 0 &&
+    sexo.trim().length > 0;
 
   return (
     <motion.div
@@ -35,7 +52,7 @@ function ResultLeadForm({ onSubmit }: { onSubmit: (lead: Lead) => void }) {
         onSubmit={(e) => {
           e.preventDefault();
           if (!valido) return;
-          onSubmit({ nome: nome.trim(), whatsapp: whatsapp.trim(), email: email.trim() });
+          onSubmit({ nome: nome.trim(), whatsapp: whatsapp.trim(), idade: idade.trim(), sexo });
         }}
         className="mt-8 grid max-w-md gap-4"
       >
@@ -62,15 +79,36 @@ function ResultLeadForm({ onSubmit }: { onSubmit: (lead: Lead) => void }) {
           />
         </div>
         <div className="relative">
-          <Mail className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+          <Calendar className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
           <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="E-mail (opcional)"
+            required
+            type="number"
+            min={1}
+            max={120}
+            inputMode="numeric"
+            value={idade}
+            onChange={(e) => setIdade(e.target.value)}
+            placeholder="Sua idade"
             className={field}
-            aria-label="E-mail"
+            aria-label="Sua idade"
           />
+        </div>
+        <div className="relative">
+          <Users className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+          <select
+            required
+            value={sexo}
+            onChange={(e) => setSexo(e.target.value)}
+            className={cn(field, "appearance-none", !sexo && "text-muted-foreground")}
+            aria-label="Sexo"
+          >
+            <option value="" disabled>
+              Sexo
+            </option>
+            <option value="Feminino">Feminino</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Prefiro não informar">Prefiro não informar</option>
+          </select>
         </div>
         <button
           type="submit"
@@ -110,7 +148,12 @@ function DotMosaic({ digit, hue }: { digit: string; hue: number }) {
 
   const maskId = `mask-${digit}-${hue}`;
   return (
-    <svg viewBox="0 0 240 240" className="mx-auto size-56 sm:size-64" role="img" aria-label="Mosaico de pontos coloridos">
+    <svg
+      viewBox="0 0 240 240"
+      className="mx-auto size-56 sm:size-64"
+      role="img"
+      aria-label="Mosaico de pontos coloridos"
+    >
       <defs>
         <mask id={maskId}>
           <rect width="240" height="240" fill="black" />
@@ -129,7 +172,13 @@ function DotMosaic({ digit, hue }: { digit: string; hue: number }) {
       </defs>
       <circle cx="120" cy="120" r="118" fill="oklch(0.93 0.017 88)" />
       {dots.map((d, i) => (
-        <circle key={`b-${i}`} cx={d.x} cy={d.y} r={d.r} fill={`hsl(${hue} 34% ${58 + (i % 5) * 4}%)`} />
+        <circle
+          key={`b-${i}`}
+          cx={d.x}
+          cy={d.y}
+          r={d.r}
+          fill={`hsl(${hue} 34% ${58 + (i % 5) * 4}%)`}
+        />
       ))}
       <g mask={`url(#${maskId})`}>
         {dots.map((d, i) => (
@@ -164,7 +213,13 @@ function AstigmatismChart({ lines, rotate = 0 }: { lines: number; rotate?: numbe
       role="img"
       aria-label="Gráfico de linhas radiais para teste de astigmatismo"
     >
-      <circle cx={cx} cy={cy} r={r + 6} fill="var(--color-background)" stroke="var(--color-border)" />
+      <circle
+        cx={cx}
+        cy={cy}
+        r={r + 6}
+        fill="var(--color-background)"
+        stroke="var(--color-border)"
+      />
       {spokes.map((s, i) => (
         <line
           key={i}
@@ -224,13 +279,16 @@ const MODULES: { id: ModuleId; label: string; intro: string; questions: Question
   {
     id: "perto",
     label: "Teste de Perto",
-    intro: "Letras e textos pensados para avaliar a sua leitura de perto, como ler um rótulo ou uma tela.",
+    intro:
+      "Letras e textos pensados para avaliar a sua leitura de perto, como ler um rótulo ou uma tela.",
     questions: [
       {
         id: "acuidade-1",
         titulo: "Qual letra você consegue ler com clareza?",
-        ajuda: "Fique a cerca de 60 cm da tela, com boa iluminação e sem apertar os olhos.",
-        render: () => <span className="text-[5.5rem] leading-none font-bold tracking-widest">E H</span>,
+        ajuda: "Fique a cerca de 1 metro da tela, com boa iluminação e sem apertar os olhos.",
+        render: () => (
+          <span className="text-[5.5rem] leading-none font-bold tracking-widest">E H</span>
+        ),
         opcoes: [
           { label: "E H", correta: true },
           { label: "F N" },
@@ -242,7 +300,9 @@ const MODULES: { id: ModuleId; label: string; intro: string; questions: Question
         id: "acuidade-2",
         titulo: "Leia a sequência menor",
         ajuda: "Mantenha a mesma distância. Não aproxime o rosto da tela.",
-        render: () => <span className="text-2xl leading-none font-bold tracking-widest">Z V T C</span>,
+        render: () => (
+          <span className="text-2xl leading-none font-bold tracking-widest">Z V T C</span>
+        ),
         opcoes: [
           { label: "Z V T C", correta: true },
           { label: "Z U I G" },
@@ -271,7 +331,8 @@ const MODULES: { id: ModuleId; label: string; intro: string; questions: Question
         ajuda: "Leia a cerca de 35 cm, como leria uma bula ou um rótulo.",
         render: () => (
           <span className="text-[0.7rem] leading-relaxed">
-            A escolha do óculos certo começa por entender a sua rotina, a sua profissão e o seu estilo.
+            A escolha do óculos certo começa por entender a sua rotina, a sua profissão e o seu
+            estilo.
           </span>
         ),
         opcoes: [
@@ -295,28 +356,40 @@ const MODULES: { id: ModuleId; label: string; intro: string; questions: Question
   {
     id: "cromatica",
     label: "Teste Cromática",
-    intro: "Mosaicos de pontos coloridos, no estilo dos testes de percepção de cores. Apenas orientativo.",
+    intro:
+      "Mosaicos de pontos coloridos, no estilo dos testes de percepção de cores. Apenas orientativo.",
     questions: [
       {
         id: "cores-1",
         titulo: "Qual número aparece no mosaico?",
         ajuda: "Olhe o centro do círculo, sem forçar a vista.",
         render: () => <DotMosaic digit="74" hue={95} />,
-        opcoes: [{ label: "74", correta: true }, { label: "21" }, { label: "17" }, { label: "Nenhum número" }],
+        opcoes: [
+          { label: "74", correta: true },
+          { label: "21" },
+          { label: "17" },
+          { label: "Nenhum número" },
+        ],
       },
       {
         id: "cores-2",
         titulo: "E agora, qual número você vê?",
         ajuda: "Se nenhum número for claro, escolha a última opção.",
         render: () => <DotMosaic digit="6" hue={15} />,
-        opcoes: [{ label: "6", correta: true }, { label: "8" }, { label: "5" }, { label: "Nenhum número" }],
+        opcoes: [
+          { label: "6", correta: true },
+          { label: "8" },
+          { label: "5" },
+          { label: "Nenhum número" },
+        ],
       },
     ],
   },
   {
     id: "astigmatismo",
     label: "Teste de Astigmatismo",
-    intro: "Um gráfico de linhas radiais, parecido com o usado em consultórios para uma triagem simples de astigmatismo.",
+    intro:
+      "Um gráfico de linhas radiais, parecido com o usado em consultórios para uma triagem simples de astigmatismo.",
     questions: [
       {
         id: "astig-1",
@@ -427,9 +500,23 @@ export function VisionTest() {
         />
       </div>
 
+      <div className="flex items-center justify-between px-3 pt-3 sm:px-6">
+        <span className="text-[0.65rem] uppercase tracking-[0.14em] text-muted-foreground">
+          {
+            MODULES.filter((m) => scoreOf(m.questions, answers).answered === m.questions.length)
+              .length
+          }{" "}
+          de {MODULES.length} módulos concluídos
+        </span>
+      </div>
+
       <div className="scrollbar-none flex gap-1 overflow-x-auto border-b border-border px-3 py-3 sm:px-6">
         {TABS.map((t) => {
           const isResultLocked = t.id === "resultado" && !completo;
+          const mod = MODULES.find((m) => m.id === t.id);
+          const modDone = mod
+            ? scoreOf(mod.questions, answers).answered === mod.questions.length
+            : false;
           return (
             <button
               key={t.id}
@@ -446,6 +533,7 @@ export function VisionTest() {
               )}
             >
               {isResultLocked ? <Lock className="size-3" /> : null}
+              {modDone ? <Check className="size-3" /> : null}
               {t.label}
             </button>
           );
@@ -456,8 +544,8 @@ export function VisionTest() {
         <div className="mb-8 flex items-start gap-3 border border-gold/40 bg-gold/10 p-4">
           <AlertTriangle className="mt-0.5 size-4 shrink-0 text-gold" />
           <p className="text-xs leading-relaxed text-muted-foreground">
-            Este teste é <strong className="text-ink">educativo e orientativo</strong>. Ele não é um exame,
-            não faz diagnóstico e não substitui a avaliação de um profissional na loja.
+            Este teste é <strong className="text-ink">educativo e orientativo</strong>. Ele não é um
+            exame, não faz diagnóstico e não substitui a avaliação de um profissional na loja.
           </p>
         </div>
 
@@ -473,9 +561,9 @@ export function VisionTest() {
               <span className="label-mono">Teste de visão online</span>
               <h3 className="mt-4 text-3xl">Três módulos, um retrato geral da sua visão</h3>
               <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-                O teste é dividido em três partes — perto, percepção de cores e uma triagem simples de
-                astigmatismo. Leva menos de 5 minutos e, ao final, você recebe uma orientação sobre os
-                próximos passos.
+                O teste é dividido em três partes — perto, percepção de cores e uma triagem simples
+                de astigmatismo. Leva menos de 5 minutos e, ao final, você recebe uma orientação
+                sobre os próximos passos.
               </p>
               <div className="mt-8 grid gap-3 sm:grid-cols-3">
                 {MODULES.map((m) => (
@@ -505,24 +593,35 @@ export function VisionTest() {
               <h3 className="mt-4 text-3xl">Como fazer o teste</h3>
               <ul className="mt-6 space-y-3 text-sm leading-relaxed text-muted-foreground">
                 {[
-                  "Fique a cerca de 60 cm da tela, com o brilho no máximo.",
-                  "Prefira um ambiente bem iluminado, sem reflexo na tela.",
-                  "Se você usa óculos ou lentes no dia a dia, faça o teste com eles.",
-                  "Responda sem apertar os olhos e sem aproximar o rosto.",
-                  "Você pode ir e voltar entre os módulos pelas abas acima.",
+                  "Fique a 1 metro da tela, com o brilho no máximo.",
+                  "Ambiente bem iluminado, sem reflexo na tela.",
+                  "Use seus óculos ou lentes do dia a dia, se for o caso.",
+                  "Não aperte os olhos nem aproxime o rosto da tela.",
                 ].map((t, i) => (
                   <motion.li
                     key={t}
                     initial={{ opacity: 0, x: -12 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 + i * 0.07, duration: 0.5 }}
-                    className="flex gap-3"
+                    className="flex items-center gap-3"
                   >
-                    <Check className="mt-0.5 size-4 shrink-0 text-gold" />
+                    <span className="grid size-5 shrink-0 place-items-center rounded-full bg-gold font-mono text-[0.6rem] text-ink">
+                      {i + 1}
+                    </span>
                     {t}
                   </motion.li>
                 ))}
               </ul>
+
+              <div className="mt-6 flex items-start gap-3 border border-gold/40 bg-gold/10 p-4">
+                <EyeOff className="mt-0.5 size-4 shrink-0 text-gold" />
+                <p className="text-sm leading-relaxed text-ink">
+                  <strong>Faça cada teste 2 vezes:</strong> tampe o olho esquerdo e responda, depois
+                  tampe o direito e responda de novo. Assim conseguimos ver os dois olhos
+                  separadamente.
+                </p>
+              </div>
+
               <button
                 type="button"
                 onClick={() => setStage("perto")}
@@ -540,11 +639,16 @@ export function VisionTest() {
               transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
             >
               <span className="label-mono">{activeModule.label}</span>
-              <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">{activeModule.intro}</p>
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                {activeModule.intro}
+              </p>
 
               <div className="mt-8 space-y-10">
                 {activeModule.questions.map((q) => (
-                  <div key={q.id} className="border-t border-border pt-8 first:border-t-0 first:pt-0">
+                  <div
+                    key={q.id}
+                    className="border-t border-border pt-8 first:border-t-0 first:pt-0"
+                  >
                     <h4 className="text-xl sm:text-2xl">{q.titulo}</h4>
                     <p className="mt-2 text-sm text-muted-foreground">{q.ajuda}</p>
 
@@ -564,7 +668,9 @@ export function VisionTest() {
                             onClick={() => answer(q, i)}
                             className={cn(
                               "group relative flex items-center justify-between overflow-hidden border px-5 py-4 text-left text-sm transition-colors",
-                              selected ? "border-gold bg-gold/10 text-ink" : "border-border hover:border-gold",
+                              selected
+                                ? "border-gold bg-gold/10 text-ink"
+                                : "border-border hover:border-gold",
                             )}
                           >
                             <span className="relative z-10">{o.label}</span>
@@ -579,8 +685,8 @@ export function VisionTest() {
 
               <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6">
                 <span className="text-xs text-muted-foreground">
-                  {scoreOf(activeModule.questions, answers).answered} de {activeModule.questions.length}{" "}
-                  respondidas neste módulo
+                  {scoreOf(activeModule.questions, answers).answered} de{" "}
+                  {activeModule.questions.length} respondidas neste módulo
                 </span>
                 <button
                   type="button"
@@ -650,11 +756,14 @@ export function VisionTest() {
                 })}
               </div>
 
-              <div className="mt-8 border border-border bg-background p-6">
-                <p className="label-mono">Próximo passo</p>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  Fale com a unidade mais próxima para agendar o seu exame e conversar sobre armações e
-                  lentes com a nossa equipe.
+              <div className="mt-8 border border-gold/40 bg-gold/10 p-6">
+                <div className="flex items-center gap-2">
+                  <Gift className="size-4 text-gold" />
+                  <p className="label-mono">Você desbloqueou um benefício</p>
+                </div>
+                <p className="mt-3 text-sm leading-relaxed text-ink">
+                  Por concluir o teste, você ganhou prioridade para uma consulta com o nosso
+                  especialista. Agende agora o seu exame com hora marcada em uma das unidades.
                 </p>
                 <div className="mt-5 flex flex-wrap gap-3">
                   {STORES.map((s) => (
@@ -688,10 +797,12 @@ export function VisionTest() {
               transition={{ duration: 0.5 }}
             >
               <span className="label-mono">Resultado</span>
-              <h3 className="mt-4 text-2xl sm:text-3xl">Responda os três módulos para ver o resultado</h3>
+              <h3 className="mt-4 text-2xl sm:text-3xl">
+                Responda os três módulos para ver o resultado
+              </h3>
               <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
-                Faltam {overall.total - overall.answered} pergunta(s). Use as abas acima para completar o
-                teste de perto, o teste cromática e o teste de astigmatismo.
+                Faltam {overall.total - overall.answered} pergunta(s). Use as abas acima para
+                completar o teste de perto, o teste cromática e o teste de astigmatismo.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 {MODULES.map((m) => {
@@ -704,7 +815,9 @@ export function VisionTest() {
                       onClick={() => setStage(m.id)}
                       className={cn(
                         "border px-5 py-3 text-xs uppercase tracking-[0.14em] transition-colors",
-                        done ? "border-gold/40 bg-gold/10 text-ink" : "border-border hover:border-gold",
+                        done
+                          ? "border-gold/40 bg-gold/10 text-ink"
+                          : "border-border hover:border-gold",
                       )}
                     >
                       {m.label} — {s.answered}/{s.total}

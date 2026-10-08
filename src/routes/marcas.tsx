@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import produtos from "@/assets/visagismo.jpg";
-import { Parallax, Reveal } from "@/components/site/motion-primitives";
-import { PageHero, Section, SectionHeading } from "@/components/site/ui-bits";
+import { Reveal } from "@/components/site/motion-primitives";
+import { PageHero, Section, SectionHeading, SplitPhotoSection } from "@/components/site/ui-bits";
 import { ClosingCta } from "@/components/site/ClosingCta";
 import { MARCAS_EXCLUSIVAS } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
@@ -20,7 +20,8 @@ export const Route = createFileRoute("/marcas")({
       { property: "og:title", content: "Marcas — Ótica Império Glasses" },
       {
         property: "og:description",
-        content: "Do clássico ao autoral: variedade de armações para todos os estilos e orçamentos.",
+        content:
+          "Do clássico ao autoral: variedade de armações para todos os estilos e orçamentos.",
       },
     ],
   }),
@@ -82,12 +83,7 @@ function Marcas() {
               m.tone === "dark" ? "bg-ink text-ink-foreground" : "bg-background text-ink",
             )}
           >
-            <span
-              className={cn(
-                "label-mono",
-                m.tone === "light" && "text-gold",
-              )}
-            >
+            <span className={cn("label-mono", m.tone === "light" && "text-gold")}>
               Marca exclusiva · {m.genero}
             </span>
             <h2
@@ -101,10 +97,7 @@ function Marcas() {
               {m.nome}
             </h2>
             <span
-              className={cn(
-                "mt-7 block h-px w-16",
-                m.tone === "dark" ? "bg-gold" : "bg-gold/70",
-              )}
+              className={cn("mt-7 block h-px w-16", m.tone === "dark" ? "bg-gold" : "bg-gold/70")}
             />
             <p
               className={cn(
@@ -118,22 +111,18 @@ function Marcas() {
         ))}
       </section>
 
-      <Section className="border-t border-border">
-        <div className="grid gap-14 md:grid-cols-2 md:items-center">
-          <Parallax>
-            <img
-              src={produtos}
-              alt="Armações da Ótica Império Glasses"
-              loading="lazy"
-              className="aspect-4/3 w-full object-cover"
-            />
-          </Parallax>
-          <SectionHeading
-            title="O que você encontra nas lojas"
-            intro="O catálogo completo fica nas unidades: provar é parte da escolha. Fale com a equipe para saber o que temos disponível hoje."
-          />
-        </div>
+      <SplitPhotoSection
+        src={produtos}
+        alt="Armações da Ótica Império Glasses"
+        className="border-t border-border"
+      >
+        <SectionHeading
+          title="O que você encontra nas lojas"
+          intro="O catálogo completo fica nas unidades: provar é parte da escolha. Fale com a equipe para saber o que temos disponível hoje."
+        />
+      </SplitPhotoSection>
 
+      <Section>
         <Reveal delay={0.15}>
           <div className="mt-14">
             <Carousel opts={{ align: "start", dragFree: true }}>
@@ -145,7 +134,9 @@ function Marcas() {
                         0{i + 1}
                       </span>
                       <h3 className="mt-5 text-2xl">{l.titulo}</h3>
-                      <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{l.texto}</p>
+                      <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                        {l.texto}
+                      </p>
                       <span className="mt-8 h-px w-10 bg-border transition-all duration-500 group-hover:w-16 group-hover:bg-gold" />
                     </article>
                   </CarouselItem>

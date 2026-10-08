@@ -34,7 +34,8 @@ export const STORES: Store[] = [
     cidade: "Hortolândia",
     bairro: "Centro",
     endereco: "Dentro do Supermercado São Vicente — Centro, Hortolândia/SP",
-    detalhes: "Ao lado da lotérica. Loja ampla e climatizada, fácil de encontrar no centro da cidade.",
+    detalhes:
+      "Ao lado da lotérica. Loja ampla e climatizada, fácil de encontrar no centro da cidade.",
     whatsapp: "https://wa.me/5519981131761",
     telefoneLabel: "(19) 98113-1761",
     maps: "https://www.google.com/maps/search/?api=1&query=Supermercado+S%C3%A3o+Vicente+Centro+Hortol%C3%A2ndia+SP",
@@ -69,13 +70,14 @@ export const DIFERENCIAIS = [
       "Antes de indicar qualquer modelo, a equipe conversa sobre a sua rotina, a sua profissão, o seu estilo de vida e a sua necessidade visual. A recomendação vem depois de entender você.",
   },
   {
-    titulo: "Visagismo",
+    titulo: "Visagismo descomplicado",
     texto:
-      "Orientação sobre o formato de armação que valoriza o seu rosto, as cores que conversam com o seu tom de pele e os modelos que acompanham o seu dia a dia.",
+      "Sem termo técnico, sem complicação: te ajudamos a escolher a armação que valoriza o seu rosto.",
   },
   {
     titulo: "Manutenção de armações",
-    texto: "Precisou reparar sua armação? Podemos ajudar. Traga a sua na loja e a equipe avalia pessoalmente.",
+    texto:
+      "Precisou reparar sua armação? Podemos ajudar. Traga a sua na loja e a equipe avalia pessoalmente.",
   },
   {
     titulo: "Responsabilidade ambiental",
@@ -92,9 +94,15 @@ export const SERVICOS = [
     destaque: true,
   },
   {
-    titulo: "Consultoria de visagismo",
+    titulo: "Elogio Cliente",
     texto:
-      "Uma conversa presencial sobre formato de rosto, tom de pele, estilo pessoal e rotina, para escolher a armação certa com segurança.",
+      "Acompanhamos você por 1 ano após a compra, cuidando da manutenção e da adaptação do seu óculos à sua rotina. No aniversário da compra, você entra no Elogio Cliente e ganha uma armação nova — e, a partir da primeira renovação, nunca mais paga pela armação.",
+    destaque: true,
+  },
+  {
+    titulo: "Visagismo descomplicado",
+    texto:
+      "Uma conversa simples e presencial para escolher, com segurança, a armação que combina com você.",
   },
   {
     titulo: "Exame de vista com hora marcada",
@@ -121,6 +129,13 @@ export const GOOGLE_RATING = {
   nota: 5.0,
   total: 119,
 };
+
+export const DEPOIMENTOS_VIDEO = [
+  {
+    video: "/videos/depoimento-cliente-01.mp4",
+    autor: "Cliente Império", // TODO: ajustar nome do cliente do vídeo
+  },
+];
 
 export const DEPOIMENTOS = [
   {
