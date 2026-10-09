@@ -129,7 +129,7 @@ function Marcas() {
               <CarouselContent>
                 {LINHAS.map((l, i) => (
                   <CarouselItem key={l.titulo} className="basis-[78%] sm:basis-1/2 lg:basis-1/3">
-                    <article className="group flex h-full flex-col border border-border bg-card p-8 transition-colors duration-500 hover:border-cobalt">
+                    <article className="group flex h-full flex-col border border-border bg-card p-8 transition-colors duration-500 hover:border-ink">
                       <span className="font-mono text-[0.68rem] tracking-[0.2em] text-steel">
                         0{i + 1}
                       </span>
@@ -137,7 +137,7 @@ function Marcas() {
                       <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
                         {l.texto}
                       </p>
-                      <span className="mt-8 h-px w-10 bg-border transition-all duration-500 group-hover:w-16 group-hover:bg-cobalt" />
+                      <span className="mt-8 h-px w-10 bg-border transition-all duration-500 group-hover:w-16 group-hover:bg-ink" />
                     </article>
                   </CarouselItem>
                 ))}

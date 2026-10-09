@@ -17,7 +17,7 @@ import { STORES } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
 const field =
-  "w-full border border-border bg-background px-4 py-3 pl-10 text-sm outline-none transition-colors focus:border-cobalt";
+  "w-full border border-border bg-background px-4 py-3 pl-10 text-sm outline-none transition-colors focus:border-ink";
 
 type Lead = { nome: string; whatsapp: string; idade: string; sexo: string };
 
@@ -113,7 +113,7 @@ function ResultLeadForm({ onSubmit }: { onSubmit: (lead: Lead) => void }) {
         <button
           type="submit"
           disabled={!valido}
-          className="mt-2 inline-flex items-center justify-center gap-2 bg-ink px-7 py-3.5 text-[0.75rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-cobalt hover:text-white disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-ink disabled:hover:text-ink-foreground"
+          className="mt-2 inline-flex items-center justify-center gap-2 bg-ink px-7 py-3.5 text-[0.75rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-forest disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-ink disabled:hover:text-ink-foreground"
         >
           <Eye className="size-4" /> Ver meu resultado
         </button>
@@ -254,7 +254,7 @@ function ScoreRing({ pct }: { pct: number }) {
           cy="60"
           r={r}
           fill="none"
-          stroke="var(--color-cobalt)"
+          stroke="var(--color-ink)"
           strokeWidth="4"
           strokeLinecap="round"
           strokeDasharray={c}
@@ -493,7 +493,7 @@ export function VisionTest() {
 
       <div className="h-px w-full bg-border">
         <motion.div
-          className="h-px bg-cobalt"
+          className="h-px bg-ink"
           animate={{ scaleX: overall.total > 0 ? overall.answered / overall.total : 0 }}
           style={{ transformOrigin: "left" }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
@@ -529,7 +529,7 @@ export function VisionTest() {
                   ? "bg-ink text-ink-foreground"
                   : isResultLocked
                     ? "cursor-not-allowed text-muted-foreground/40"
-                    : "text-muted-foreground hover:text-cobalt",
+                    : "text-muted-foreground hover:text-forest",
               )}
             >
               {isResultLocked ? <Lock className="size-3" /> : null}
@@ -576,7 +576,7 @@ export function VisionTest() {
               <button
                 type="button"
                 onClick={() => setStage("instrucoes")}
-                className="mt-9 inline-flex items-center gap-2 bg-ink px-7 py-3.5 text-[0.75rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-cobalt hover:text-white"
+                className="mt-9 inline-flex items-center gap-2 bg-ink px-7 py-3.5 text-[0.75rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-forest"
               >
                 <Eye className="size-4" /> Ver instruções
               </button>
@@ -625,7 +625,7 @@ export function VisionTest() {
               <button
                 type="button"
                 onClick={() => setStage("perto")}
-                className="mt-9 inline-flex items-center gap-2 bg-ink px-7 py-3.5 text-[0.75rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-cobalt hover:text-white"
+                className="mt-9 inline-flex items-center gap-2 bg-ink px-7 py-3.5 text-[0.75rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-forest"
               >
                 <Eye className="size-4" /> Iniciar pelo teste de perto
               </button>
@@ -669,14 +669,12 @@ export function VisionTest() {
                             className={cn(
                               "group relative flex items-center justify-between overflow-hidden border px-5 py-4 text-left text-sm transition-colors",
                               selected
-                                ? "border-cobalt bg-cobalt/10 text-ink"
-                                : "border-border hover:border-cobalt",
+                                ? "border-ink bg-ink/5 text-ink"
+                                : "border-border hover:border-ink",
                             )}
                           >
                             <span className="relative z-10">{o.label}</span>
-                            {selected ? (
-                              <Check className="relative z-10 size-4 text-cobalt" />
-                            ) : null}
+                            {selected ? <Check className="relative z-10 size-4 text-ink" /> : null}
                           </button>
                         );
                       })}
@@ -697,7 +695,7 @@ export function VisionTest() {
                     const next = MODULES[i + 1];
                     setStage(next ? next.id : "resultado");
                   }}
-                  className="inline-flex items-center gap-2 bg-ink px-6 py-3 text-[0.72rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-cobalt hover:text-white"
+                  className="inline-flex items-center gap-2 bg-ink px-6 py-3 text-[0.72rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-forest"
                 >
                   {MODULES[MODULES.findIndex((m) => m.id === activeModule.id) + 1]
                     ? "Próximo módulo"
@@ -746,7 +744,7 @@ export function VisionTest() {
                       <p className="text-sm">{m.label}</p>
                       <div className="mt-3 h-1 w-full bg-border">
                         <motion.div
-                          className="h-1 bg-cobalt"
+                          className="h-1 bg-ink"
                           initial={{ scaleX: 0 }}
                           animate={{ scaleX: modPct }}
                           style={{ transformOrigin: "left" }}
@@ -774,7 +772,7 @@ export function VisionTest() {
                       href={s.whatsapp}
                       target="_blank"
                       rel="noreferrer"
-                      className="bg-ink px-6 py-3 text-[0.72rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-cobalt hover:text-white"
+                      className="bg-ink px-6 py-3 text-[0.72rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-forest"
                     >
                       Agendar em {s.cidade}
                     </a>
@@ -785,7 +783,7 @@ export function VisionTest() {
               <button
                 type="button"
                 onClick={reset}
-                className="mt-7 inline-flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-muted-foreground hover:text-cobalt"
+                className="mt-7 inline-flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-muted-foreground hover:text-forest"
               >
                 <RotateCcw className="size-3.5" /> Refazer o teste
               </button>
@@ -817,9 +815,7 @@ export function VisionTest() {
                       onClick={() => setStage(m.id)}
                       className={cn(
                         "border px-5 py-3 text-xs uppercase tracking-[0.14em] transition-colors",
-                        done
-                          ? "border-cobalt/40 bg-cobalt/10 text-ink"
-                          : "border-border hover:border-cobalt",
+                        done ? "border-ink/40 bg-ink/5 text-ink" : "border-border hover:border-ink",
                       )}
                     >
                       {m.label} — {s.answered}/{s.total}

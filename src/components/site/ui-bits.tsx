@@ -3,19 +3,20 @@ import { Star } from "lucide-react";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { GOOGLE_RATING } from "@/lib/site-data";
+import { motion } from "motion/react";
 import { FloatingRings, Reveal, RevealWords } from "./motion-primitives";
 
 const base =
   "inline-flex items-center justify-center gap-2 rounded-none px-7 py-3.5 text-[0.8rem] font-medium uppercase tracking-[0.16em] transition-all duration-300";
 
 const styles = {
-  solid: "bg-ink text-ink-foreground hover:bg-cobalt hover:text-white",
-  // Destaque: o azul da Digital+ usado como cor de ação no site todo — o
-  // manual fica com preto/branco/cinza e o azul marca só o que é clicável.
-  accent: "bg-cobalt text-white hover:bg-cobalt-soft hover:text-ink",
-  outline: "border border-ink/25 text-ink hover:border-cobalt hover:text-cobalt",
+  solid: "bg-ink text-ink-foreground hover:bg-forest",
+  // Destaque em fundo escuro: botão branco — a Ótica Império é monocromática
+  // (manual); o azul fica exclusivo da Digital+.
+  accent: "bg-ink-foreground text-ink hover:bg-steel-soft",
+  outline: "border border-ink/25 text-ink hover:border-ink hover:bg-ink hover:text-ink-foreground",
   ghostLight:
-    "border border-ink-foreground/30 text-ink-foreground hover:border-cobalt-soft hover:text-cobalt-soft",
+    "border border-ink-foreground/30 text-ink-foreground hover:border-ink-foreground hover:text-ink-foreground",
   // Digital+ — paleta própria da sub-marca de lentes (LP /digital-mais).
   dpBlue: "bg-dp-blue text-dp-ink hover:bg-dp-blue-soft hover:text-dp-bg",
   dpGhost: "border border-dp-blue/50 text-dp-ink hover:border-dp-blue-soft hover:text-dp-blue-soft",
@@ -94,7 +95,7 @@ export function SectionHeading({
       ) : null}
       <h2
         className={cn(
-          "mt-5 text-balance text-3xl leading-[1.1] sm:text-4xl md:text-5xl",
+          "mt-5 text-balance text-3xl font-light uppercase leading-[1.05] sm:text-4xl md:text-5xl",
           tone === "light" ? "text-ink-foreground" : "text-ink",
         )}
       >
@@ -155,15 +156,26 @@ export function SplitPhotoSection({
   const mask = `linear-gradient(${maskDirection}, black 55%, transparent 92%)`;
   return (
     <section className={cn("grid md:grid-cols-2", className)}>
-      <div className={cn("relative min-h-72", reverse && "md:order-2")}>
-        <img
+      <motion.div
+        className={cn("relative min-h-72", reverse && "md:order-2")}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+      >
+        <motion.img
           src={src}
           alt={alt}
           loading="lazy"
+          decoding="async"
           style={{ WebkitMaskImage: mask, maskImage: mask }}
+          variants={{
+            hidden: { clipPath: reverse ? "inset(0 0 0 100%)" : "inset(0 100% 0 0)", scale: 1.12 },
+            visible: { clipPath: "inset(0 0% 0 0%)", scale: 1 },
+          }}
+          transition={{ duration: 1.3, ease: [0.76, 0, 0.24, 1] }}
           className="absolute inset-0 size-full object-cover"
         />
-      </div>
+      </motion.div>
       <div
         className={cn(
           "flex items-center px-5 py-16 sm:px-8 md:py-20 lg:px-16",
@@ -232,7 +244,7 @@ export function PageHero({ label, title, intro }: { label: string; title: string
         <Reveal>
           <SectionLabel>{label}</SectionLabel>
         </Reveal>
-        <h1 className="mt-6 max-w-4xl text-balance text-4xl leading-[1.05] sm:text-5xl md:text-6xl">
+        <h1 className="mt-6 max-w-4xl text-balance text-4xl font-light uppercase leading-[1.02] sm:text-5xl md:text-6xl">
           <RevealWords text={title} />
         </h1>
         <Reveal delay={0.15}>

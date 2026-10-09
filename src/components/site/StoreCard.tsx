@@ -1,22 +1,20 @@
 import { MapPin, MessageCircle } from "lucide-react";
 import type { Store } from "@/lib/site-data";
-import { Reveal } from "./motion-primitives";
+import { ImageReveal, Reveal } from "./motion-primitives";
 
 export function StoreCard({ store, delay = 0 }: { store: Store; delay?: number }) {
   return (
     <Reveal delay={delay}>
-      <article className="group flex h-full flex-col border border-border bg-card transition-colors duration-500 hover:border-cobalt">
-        <div className="aspect-video w-full overflow-hidden">
-          <img
-            src={store.foto}
-            alt={`Interior da ${store.nome}`}
-            loading="lazy"
-            className="size-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-        </div>
+      <article className="group flex h-full flex-col border border-border bg-card transition-colors duration-500 hover:border-ink">
+        <ImageReveal
+          src={store.foto}
+          alt={`Interior da ${store.nome}`}
+          delay={delay}
+          className="aspect-video w-full"
+        />
         <div className="flex h-full flex-col p-8">
           <span className="label-mono">{store.cidade}</span>
-          <h3 className="mt-4 text-2xl">{store.nome}</h3>
+          <h3 className="mt-4 text-2xl font-light uppercase tracking-[0.01em]">{store.nome}</h3>
           <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{store.endereco}</p>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{store.detalhes}</p>
           <div className="mt-auto flex flex-wrap gap-3 pt-8">
@@ -24,7 +22,7 @@ export function StoreCard({ store, delay = 0 }: { store: Store; delay?: number }
               href={store.whatsapp}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 bg-ink px-5 py-3 text-[0.72rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-cobalt hover:text-white"
+              className="inline-flex items-center gap-2 bg-ink px-5 py-3 text-[0.72rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-forest"
             >
               <MessageCircle className="size-4" /> WhatsApp
             </a>
@@ -32,7 +30,7 @@ export function StoreCard({ store, delay = 0 }: { store: Store; delay?: number }
               href={store.maps}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 border border-ink/20 px-5 py-3 text-[0.72rem] uppercase tracking-[0.16em] transition-colors hover:border-cobalt hover:text-cobalt"
+              className="inline-flex items-center gap-2 border border-ink/20 px-5 py-3 text-[0.72rem] uppercase tracking-[0.16em] transition-colors hover:border-ink hover:text-forest"
             >
               <MapPin className="size-4" /> Como chegar
             </a>

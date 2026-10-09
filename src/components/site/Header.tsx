@@ -48,8 +48,8 @@ export function Header() {
                 className={cn(
                   "link-underline text-[0.78rem] uppercase tracking-[0.14em] transition-colors",
                   pathname === item.to
-                    ? "text-cobalt-soft"
-                    : "text-ink-foreground/80 hover:text-ink-foreground",
+                    ? "text-ink-foreground"
+                    : "text-ink-foreground/60 hover:text-ink-foreground",
                 )}
               >
                 {item.label}
@@ -70,7 +70,7 @@ export function Header() {
               href={WHATSAPP_PRINCIPAL}
               target="_blank"
               rel="noreferrer"
-              className="border border-ink-foreground bg-ink-foreground px-5 py-2.5 text-[0.72rem] uppercase tracking-[0.16em] text-ink transition-colors duration-300 hover:border-cobalt hover:bg-cobalt hover:text-white"
+              className="border border-ink-foreground bg-ink-foreground px-5 py-2.5 text-[0.72rem] uppercase tracking-[0.16em] text-ink transition-colors duration-300 hover:border-steel-soft hover:bg-steel-soft"
             >
               Orçamento
             </a>

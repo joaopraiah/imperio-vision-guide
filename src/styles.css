@@ -36,8 +36,6 @@
   --color-ink-foreground: var(--ink-foreground);
   --color-steel: var(--steel);
   --color-steel-soft: var(--steel-soft);
-  --color-cobalt: var(--cobalt);
-  --color-cobalt-soft: var(--cobalt-soft);
   --color-forest: var(--forest);
   --color-forest-foreground: var(--forest-foreground);
   --color-chart-1: var(--chart-1);
@@ -87,9 +85,6 @@
   /* manual da marca — cinza #848688 (ícones, detalhes e acentos) */
   --steel: #848688;
   --steel-soft: #c9cacb;
-  /* azul da Digital+ — cor de ação (botões, hover, foco, seleção) */
-  --cobalt: #3058ff;
-  --cobalt-soft: #8fabff;
   /* manual da marca — cinza #848688 */
   --forest: #6b6d6f;
   --forest-foreground: #fefefe;
@@ -105,7 +100,7 @@
   --destructive-foreground: oklch(0.984 0.003 247.858);
   --border: #e3e3e3;
   --input: #e3e3e3;
-  --ring: #3058ff;
+  --ring: #848688;
   --chart-1: #848688;
   --chart-2: #6b6d6f;
   --chart-3: #201e1e;
@@ -118,7 +113,7 @@
   --sidebar-accent: #f0f0f0;
   --sidebar-accent-foreground: #201e1e;
   --sidebar-border: #e3e3e3;
-  --sidebar-ring: #3058ff;
+  --sidebar-ring: #848688;
   /* Digital+ — azul profundo próprio da linha de lentes (mais escuro que um
      azul genérico de tech), extraído das artes do Bloqueador de Elite. */
   --dp-bg: #05070f;
@@ -145,7 +140,7 @@
   --accent-foreground: #fefefe;
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 15%);
-  --ring: #3058ff;
+  --ring: #848688;
 }
 
 @layer base {
@@ -174,7 +169,7 @@
   }
 
   ::selection {
-    background: var(--color-cobalt);
+    background: var(--color-ink);
     color: #fff;
   }
 
@@ -292,7 +287,7 @@ summary::-webkit-details-marker {
     background: linear-gradient(
       90deg,
       transparent,
-      color-mix(in oklab, var(--color-cobalt-soft) 35%, transparent),
+      color-mix(in oklab, white 35%, transparent),
       transparent
     );
     animation: shimmer-sweep 4.5s ease-in-out infinite;

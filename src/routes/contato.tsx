@@ -58,7 +58,7 @@ function Contato() {
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.endereco}</p>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.detalhes}</p>
                   <div className="mt-7 flex flex-wrap gap-3">
-                    <BtnAnchor href={s.whatsapp} variant="accent">
+                    <BtnAnchor href={s.whatsapp} variant="solid">
                       <MessageCircle className="size-4" /> {s.telefoneLabel}
                     </BtnAnchor>
                     <BtnAnchor href={s.maps} variant="outline">
@@ -78,7 +78,7 @@ function Contato() {
               href={SOCIAL.instagram}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 text-sm transition-colors hover:text-cobalt"
+              className="inline-flex items-center gap-2 text-sm transition-colors hover:text-forest"
             >
               <Instagram className="size-4" /> {SOCIAL.instagramLabel}
             </a>
@@ -86,7 +86,7 @@ function Contato() {
               href={SOCIAL.facebook}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 text-sm transition-colors hover:text-cobalt"
+              className="inline-flex items-center gap-2 text-sm transition-colors hover:text-forest"
             >
               <Facebook className="size-4" /> {SOCIAL.facebookLabel}
             </a>
@@ -100,7 +100,7 @@ function Contato() {
           {FAQ.map((f, i) => (
             <Reveal key={f.q} delay={i * 0.06}>
               <details className="group py-6">
-                <summary className="flex cursor-pointer items-center justify-between gap-6 font-display text-lg leading-snug transition-colors group-open:text-cobalt">
+                <summary className="flex cursor-pointer items-center justify-between gap-6 font-display text-lg leading-snug transition-colors group-open:text-forest">
                   {f.q}
                   <Plus className="size-4 shrink-0 text-steel transition-transform duration-300 group-open:rotate-45" />
                 </summary>

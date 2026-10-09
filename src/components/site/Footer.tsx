@@ -21,7 +21,7 @@ export function Footer() {
               target="_blank"
               rel="noreferrer"
               aria-label="Instagram da Ótica Império"
-              className="border border-ink-foreground/20 p-2.5 text-ink-foreground/70 transition-colors hover:border-cobalt-soft hover:text-cobalt-soft"
+              className="border border-ink-foreground/20 p-2.5 text-ink-foreground/70 transition-colors hover:border-ink-foreground hover:text-ink-foreground"
             >
               <Instagram className="size-4" />
             </a>
@@ -30,7 +30,7 @@ export function Footer() {
               target="_blank"
               rel="noreferrer"
               aria-label="Facebook da Ótica Império"
-              className="border border-ink-foreground/20 p-2.5 text-ink-foreground/70 transition-colors hover:border-cobalt-soft hover:text-cobalt-soft"
+              className="border border-ink-foreground/20 p-2.5 text-ink-foreground/70 transition-colors hover:border-ink-foreground hover:text-ink-foreground"
             >
               <Facebook className="size-4" />
             </a>
@@ -43,14 +43,14 @@ export function Footer() {
             <Link
               key={i.to}
               to={i.to}
-              className="w-fit text-sm text-ink-foreground/70 transition-colors hover:text-cobalt-soft"
+              className="w-fit text-sm text-ink-foreground/70 transition-colors hover:text-ink-foreground"
             >
               {i.label}
             </Link>
           ))}
           <Link
             to="/orcamento"
-            className="w-fit text-sm text-ink-foreground/70 hover:text-cobalt-soft"
+            className="w-fit text-sm text-ink-foreground/70 hover:text-ink-foreground"
           >
             Orçamento
           </Link>

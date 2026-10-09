@@ -37,7 +37,7 @@ export function WhatsAppFab() {
                   href={s.whatsapp}
                   target="_blank"
                   rel="noreferrer"
-                  className="border border-border px-4 py-3 text-sm transition-colors hover:border-cobalt hover:text-cobalt"
+                  className="border border-border px-4 py-3 text-sm transition-colors hover:border-ink hover:text-forest"
                 >
                   <span className="block font-display text-base">{s.cidade}</span>
                   <span className="font-mono text-[0.7rem] tracking-widest text-muted-foreground">

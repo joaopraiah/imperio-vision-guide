@@ -68,7 +68,7 @@ function Servicos() {
                   "flex h-full flex-col justify-center border p-8 transition-colors duration-500 md:p-10",
                   s.destaque
                     ? "grain border-transparent bg-ink text-ink-foreground"
-                    : "border-border bg-card hover:border-cobalt",
+                    : "border-border bg-card hover:border-ink",
                 )}
               >
                 {s.destaque ? <span className="label-mono">Destaque</span> : null}
@@ -93,7 +93,7 @@ function Servicos() {
           <Reveal>
             <span className="label-mono">Um produto à parte</span>
           </Reveal>
-          <h2 className="mt-5 text-balance text-4xl leading-[1.05] sm:text-5xl md:text-6xl">
+          <h2 className="mt-5 text-balance text-4xl font-light uppercase leading-[1.02] sm:text-5xl md:text-6xl">
             <RevealWords text="O cansaço das 2h da tarde vai embora" />
           </h2>
           <Reveal delay={0.1}>
@@ -110,7 +110,7 @@ function Servicos() {
           </Reveal>
           <Reveal delay={0.2}>
             <div className="mt-10 flex flex-wrap justify-center gap-3">
-              <BtnLink to="/digital-mais" variant="accent">
+              <BtnLink to="/digital-mais" variant="dpBlue">
                 Conhecer a Digital+
               </BtnLink>
               <BtnAnchor href={WHATSAPP_PRINCIPAL} variant="ghostLight">

@@ -1,41 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "motion/react";
-import { useEffect, useRef } from "react";
-import { ArrowRight, Eye, Glasses, HeartHandshake, Leaf, Recycle, Star } from "lucide-react";
-import atendimento from "@/assets/atendimento.jpg";
+import { useRef } from "react";
+import { ArrowRight } from "lucide-react";
 import heroBg1 from "@/assets/hero-bg-1.jpg";
 import heroBg2 from "@/assets/hero-bg-2.jpg";
 import heroBg3 from "@/assets/hero-bg-3.jpg";
-import sustentabilidade from "@/assets/sustentabilidade.jpg";
 import digitalPlusHero from "@/assets/digital-plus-hero.jpg";
-import {
-  DEPOIMENTOS,
-  DEPOIMENTOS_VIDEO,
-  DIFERENCIAIS,
-  STORES,
-  WHATSAPP_PRINCIPAL,
-} from "@/lib/site-data";
-import { Parallax, Reveal, RevealWords } from "@/components/site/motion-primitives";
+import { STORES, WHATSAPP_PRINCIPAL } from "@/lib/site-data";
+import { Reveal, RevealWords } from "@/components/site/motion-primitives";
 import { HeroSlideshow } from "@/components/site/HeroSlideshow";
-import {
-  BtnAnchor,
-  BtnLink,
-  GoogleRating,
-  InitialsAvatar,
-  Section,
-  SectionHeading,
-  SplitPhotoSection,
-} from "@/components/site/ui-bits";
+import { BtnAnchor, BtnLink, Section, SectionHeading } from "@/components/site/ui-bits";
 import { StoreCard } from "@/components/site/StoreCard";
 import { ClosingCta } from "@/components/site/ClosingCta";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-  type CarouselApi,
-} from "@/components/ui/carousel";
+import { Billboard } from "@/components/site/Billboard";
+import { GlassesForming } from "@/components/site/GlassesForming";
+import { NumberedCards } from "@/components/site/NumberedCards";
+import { PosterWall } from "@/components/site/PosterWall";
+import { Testimonials } from "@/components/site/Testimonials";
 
 const HERO_SLIDES = [
   {
@@ -88,88 +69,6 @@ const MARQUEE = [
   "Marcas premium",
 ];
 
-const ICONS = [HeartHandshake, Eye, Glasses, Leaf];
-
-function VideoDepoimentos() {
-  if (DEPOIMENTOS_VIDEO.length === 0) return null;
-  return (
-    <Section className="border-t border-border">
-      <SectionHeading title="Depoimentos em vídeo" align="center" />
-      <div className="mt-14 flex flex-wrap justify-center gap-12">
-        {DEPOIMENTOS_VIDEO.map((d, i) => (
-          <Reveal key={d.autor + i} delay={i * 0.1}>
-            <figure className="w-64">
-              <video
-                src={d.video}
-                controls
-                playsInline
-                preload="metadata"
-                className="aspect-[9/16] w-full bg-ink object-cover"
-              />
-              <figcaption className="mt-5 flex items-center justify-center gap-3">
-                <InitialsAvatar name={d.autor} />
-                <span className="text-[0.68rem] uppercase tracking-[0.18em] text-ink/60">
-                  {d.autor}
-                </span>
-              </figcaption>
-            </figure>
-          </Reveal>
-        ))}
-      </div>
-    </Section>
-  );
-}
-
-function TestimonialCarousel() {
-  const apiRef = useRef<CarouselApi | null>(null);
-
-  useEffect(() => {
-    const id = window.setInterval(() => {
-      const api = apiRef.current;
-      if (!api) return;
-      if (api.canScrollNext()) api.scrollNext();
-      else api.scrollTo(0);
-    }, 5000);
-    return () => window.clearInterval(id);
-  }, []);
-
-  return (
-    <Carousel
-      opts={{ align: "start", loop: true }}
-      setApi={(api) => {
-        apiRef.current = api ?? null;
-      }}
-    >
-      <CarouselContent>
-        {DEPOIMENTOS.map((d, i) => (
-          <CarouselItem key={d.autor + i} className="sm:basis-1/2 lg:basis-1/3">
-            <figure className="flex h-full flex-col border border-border bg-card p-8">
-              <div className="flex gap-0.5">
-                {Array.from({ length: d.nota }).map((_, s) => (
-                  <Star key={s} className="size-3.5 fill-current text-current" />
-                ))}
-              </div>
-              <blockquote className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                &ldquo;{d.texto}&rdquo;
-              </blockquote>
-              <figcaption className="mt-auto flex items-center gap-3 pt-7">
-                <InitialsAvatar name={d.autor} />
-                <span className="text-[0.68rem] uppercase tracking-[0.18em] text-ink/60">
-                  {d.autor}
-                </span>
-              </figcaption>
-            </figure>
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-      <div className="mt-8 flex justify-center gap-3">
-        <CarouselPrevious className="static size-10 translate-y-0 rounded-full border-ink/25 bg-transparent text-ink shadow-none hover:border-cobalt hover:bg-transparent hover:text-cobalt" />
-        <CarouselNext className="static size-10 translate-y-0 rounded-full border-ink/25 bg-transparent text-ink shadow-none hover:border-cobalt hover:bg-transparent hover:text-cobalt" />
-      </div>
-    </Carousel>
-  );
-}
-
 function Home() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
@@ -190,7 +89,7 @@ function Home() {
           style={{ opacity: fade }}
           className="relative mx-auto w-full max-w-6xl px-5 pb-20 pt-40 text-ink-foreground [text-shadow:0_2px_28px_rgb(0_0_0/0.5)] sm:px-8 md:pb-28"
         >
-          <h1 className="max-w-4xl text-balance text-4xl leading-[1.03] sm:text-6xl md:text-7xl">
+          <h1 className="max-w-4xl text-balance text-4xl font-light uppercase leading-[1.02] sm:text-6xl md:text-7xl">
             <RevealWords text="Enxergar bem é também" />
             <br />
             <span className="text-steel-soft">
@@ -233,6 +132,12 @@ function Home() {
         </motion.div>
       </div>
 
+      <Billboard />
+
+      <GlassesForming />
+
+      <NumberedCards />
+
       <section className="relative overflow-hidden border-y border-border bg-dp-bg px-5 py-20 text-dp-ink sm:px-8 md:py-24">
         <div className="absolute inset-0 -z-10 opacity-45">
           <img src={digitalPlusHero} alt="" aria-hidden="true" className="size-full object-cover" />
@@ -263,72 +168,9 @@ function Home() {
         </div>
       </section>
 
-      <SplitPhotoSection src={atendimento} alt="Atendimento personalizado na Ótica Império">
-        <SectionHeading
-          title="Atendimento que começa por escutar você"
-          intro="Somos uma ótica premium com duas lojas físicas na região de Campinas. Antes de indicar qualquer modelo, a equipe entende a sua necessidade visual, a sua profissão e o seu dia a dia. O digital é a nossa vitrine; a experiência acontece na loja."
-        />
-        <Reveal delay={0.2}>
-          <div className="mt-9 flex flex-wrap gap-3">
-            <BtnLink to="/a-otica">Conhecer a ótica</BtnLink>
-            <BtnLink to="/experiencia" variant="outline">
-              A experiência
-            </BtnLink>
-          </div>
-        </Reveal>
-      </SplitPhotoSection>
+      <PosterWall />
 
-      <Section className="border-t border-border bg-secondary/40">
-        <SectionHeading title="Por que as pessoas voltam" />
-        <div className="mt-14 grid gap-px bg-border sm:grid-cols-2">
-          {DIFERENCIAIS.map((d, i) => {
-            const Icon = ICONS[i % ICONS.length]!;
-            return (
-              <Reveal key={d.titulo} delay={i * 0.08}>
-                <Parallax distance={18} cover={false} className="h-full">
-                  <article className="group h-full bg-background p-8 transition-colors duration-500 hover:bg-card md:p-10">
-                    <span className="grid size-12 place-items-center rounded-full bg-steel/10 transition-colors duration-500 group-hover:bg-cobalt/20">
-                      <Icon className="size-6 text-steel transition-transform duration-500 group-hover:-translate-y-1" />
-                    </span>
-                    <h3 className="mt-6 text-2xl">{d.titulo}</h3>
-                    <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{d.texto}</p>
-                  </article>
-                </Parallax>
-              </Reveal>
-            );
-          })}
-        </div>
-      </Section>
-
-      <SplitPhotoSection
-        src={sustentabilidade}
-        alt="Sacola reciclável da Ótica Império"
-        className="border-t border-border"
-      >
-        <Reveal>
-          <Recycle className="size-7 text-steel" />
-        </Reveal>
-        <SectionHeading
-          title="Cuidar da sua visão e do planeta"
-          intro="Estamos substituindo nossas sacolas por versões recicláveis — um passo simples que faz diferença. É também um convite: separe seus óculos antigos, e quando a nossa iniciativa de descarte consciente estiver pronta, ajudamos você a dar o destino certo a eles."
-        />
-      </SplitPhotoSection>
-
-      <VideoDepoimentos />
-
-      <Section className="border-t border-border">
-        <SectionHeading title="Quem já foi atendido" align="center" />
-        <Reveal delay={0.1}>
-          <div className="mt-6 flex justify-center">
-            <GoogleRating />
-          </div>
-        </Reveal>
-        <Reveal delay={0.18}>
-          <div className="mt-10">
-            <TestimonialCarousel />
-          </div>
-        </Reveal>
-      </Section>
+      <Testimonials />
 
       <Section className="border-t border-border">
         <SectionHeading title="Duas unidades para receber você" />

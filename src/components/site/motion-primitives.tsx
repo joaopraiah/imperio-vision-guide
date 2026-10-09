@@ -16,8 +16,10 @@ export function Reveal({
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y, filter: "blur(6px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      // Só opacity/transform: blur via filter repinta a cada frame e pesa em
+      // páginas com dezenas de Reveals.
+      initial={{ opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.85, delay, ease: [0.16, 1, 0.3, 1] }}
     >
@@ -123,6 +125,58 @@ export function Parallax({
   );
 }
 
+/**
+ * Foto que "abre" como uma cortina (clip-path) enquanto o zoom assenta —
+ * entrada editorial para imagens, sem custo de layout (só clip + transform).
+ */
+export function ImageReveal({
+  src,
+  alt,
+  className,
+  imgClassName,
+  delay = 0,
+  from = "bottom",
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  imgClassName?: string;
+  delay?: number;
+  from?: "bottom" | "left" | "right";
+}) {
+  const hidden = {
+    bottom: "inset(100% 0% 0% 0%)",
+    left: "inset(0% 100% 0% 0%)",
+    right: "inset(0% 0% 0% 100%)",
+  }[from];
+  // O gatilho fica no wrapper sem clip: um alvo com clip-path inset(100%)
+  // conta como 0% visível no IntersectionObserver e nunca dispararia.
+  return (
+    <motion.div
+      className={className}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.25 }}
+    >
+      <motion.div
+        className="size-full overflow-hidden"
+        variants={{ hidden: { clipPath: hidden }, visible: { clipPath: "inset(0% 0% 0% 0%)" } }}
+        transition={{ duration: 1.2, delay, ease: [0.76, 0, 0.24, 1] }}
+      >
+        <motion.img
+          src={src}
+          alt={alt}
+          loading="lazy"
+          decoding="async"
+          className={cn("size-full object-cover", imgClassName)}
+          variants={{ hidden: { scale: 1.18 }, visible: { scale: 1 } }}
+          transition={{ duration: 1.6, delay, ease: [0.16, 1, 0.3, 1] }}
+        />
+      </motion.div>
+    </motion.div>
+  );
+}
+
 export function Magnetic({ children, ...rest }: { children: ReactNode } & MotionProps) {
   return (
     <motion.div
@@ -165,7 +219,7 @@ export function ScrollProgressBar() {
   return (
     <motion.div
       style={{ scaleX }}
-      className="fixed inset-x-0 top-0 z-[60] h-px origin-left bg-cobalt"
+      className="fixed inset-x-0 top-0 z-[60] h-px origin-left bg-steel"
       aria-hidden
     />
   );

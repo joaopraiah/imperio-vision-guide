@@ -36,7 +36,7 @@ export function OrcamentoForm() {
 
   const link = `${store.whatsapp}?text=${mensagem}`;
   const field =
-    "w-full border border-border bg-background px-4 py-3 text-sm outline-none transition-colors focus:border-cobalt";
+    "w-full border border-border bg-background px-4 py-3 text-sm outline-none transition-colors focus:border-ink";
 
   const completo = [nome, unidade, interesse, receita].filter(Boolean).length / 4;
 
@@ -65,7 +65,7 @@ export function OrcamentoForm() {
 
       <div className="mt-7 h-px w-full bg-border">
         <motion.div
-          className="h-px origin-left bg-cobalt"
+          className="h-px origin-left bg-ink"
           animate={{ scaleX: completo }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         />
@@ -95,9 +95,7 @@ export function OrcamentoForm() {
                 onClick={() => setUnidade(s.id)}
                 className={cn(
                   "border px-4 py-3 text-left text-sm transition-colors",
-                  unidade === s.id
-                    ? "border-cobalt bg-cobalt/10"
-                    : "border-border hover:border-cobalt",
+                  unidade === s.id ? "border-ink bg-ink/5" : "border-border hover:border-ink",
                 )}
               >
                 <span className="block font-display text-base">{s.cidade}</span>
@@ -120,8 +118,8 @@ export function OrcamentoForm() {
                 className={cn(
                   "border px-4 py-2 text-xs transition-colors",
                   interesse === i
-                    ? "border-cobalt bg-cobalt/10 text-ink"
-                    : "border-border hover:border-cobalt",
+                    ? "border-ink bg-ink/5 text-ink"
+                    : "border-border hover:border-ink",
                 )}
               >
                 {i}
@@ -168,7 +166,7 @@ export function OrcamentoForm() {
         rel="noreferrer"
         whileHover={{ y: -2 }}
         whileTap={{ scale: 0.98 }}
-        className="mt-9 inline-flex items-center gap-2 bg-cobalt px-7 py-4 text-[0.75rem] uppercase tracking-[0.16em] text-white transition-colors hover:bg-ink hover:text-ink-foreground"
+        className="mt-9 inline-flex items-center gap-2 bg-ink px-7 py-4 text-[0.75rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-forest"
       >
         <MessageCircle className="size-4" /> Continuar no WhatsApp — {store.cidade}
       </motion.a>

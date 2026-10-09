@@ -40,7 +40,9 @@ function Orcamento() {
           <Reveal>
             <div>
               <span className="label-mono">Como funciona</span>
-              <h2 className="mt-5 text-3xl leading-[1.1] sm:text-4xl">Três passos simples</h2>
+              <h2 className="mt-5 text-3xl font-light uppercase leading-[1.05] sm:text-4xl">
+                Três passos simples
+              </h2>
               <ol className="mt-8 space-y-7">
                 {[
                   {
