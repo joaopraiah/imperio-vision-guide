@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m as motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { Play, Quote, Star } from "lucide-react";
 import { DEPOIMENTOS, DEPOIMENTOS_VIDEO, GOOGLE_RATING } from "@/lib/site-data";
@@ -9,7 +9,7 @@ const ROTATE_MS = 6500;
 
 function Stars({ className = "size-3.5" }: { className?: string }) {
   return (
-    <div className="flex gap-0.5" aria-label="5 estrelas">
+    <div className="flex gap-0.5" role="img" aria-label="5 estrelas">
       {Array.from({ length: 5 }).map((_, i) => (
         <Star key={i} className={`${className} fill-current`} />
       ))}
@@ -31,7 +31,6 @@ function PhoneVideo() {
         <video
           ref={ref}
           src={v.video}
-          poster={v.video.replace(".mp4", ".jpg")}
           playsInline
           preload="none"
           controls={playing}
@@ -43,9 +42,17 @@ function PhoneVideo() {
           <button
             type="button"
             onClick={() => ref.current?.play()}
-            className="group absolute inset-0 flex flex-col justify-between bg-gradient-to-t from-black/70 via-transparent to-black/30 p-5 text-left text-white"
+            className="group absolute inset-0 isolate flex flex-col justify-between bg-gradient-to-t from-black/70 via-transparent to-black/30 p-5 text-left text-white"
             aria-label="Assistir depoimento em vídeo"
           >
+            {/* capa como <img lazy>: o atributo poster do vídeo baixaria já no carregamento */}
+            <img
+              src={v.video.replace(".mp4", ".webp")}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-0 -z-10 size-full object-cover"
+            />
             <span className="flex justify-between text-[0.65rem] font-medium">
               <span>9:41</span>
               <span>●●●</span>
@@ -124,7 +131,7 @@ function FeaturedQuote() {
               <InitialsAvatar name={d.autor} className="text-ink-foreground" />
               <span>
                 <span className="block text-sm text-ink">{d.autor}</span>
-                <span className="flex items-center gap-2 text-[0.68rem] uppercase tracking-[0.16em] text-steel">
+                <span className="flex items-center gap-2 text-[0.68rem] uppercase tracking-[0.16em] text-forest">
                   <Stars className="size-3 text-ink" /> Google
                 </span>
               </span>
@@ -143,7 +150,7 @@ function ReviewChip({ texto, autor }: { texto: string; autor: string }) {
       <blockquote className="mt-3 line-clamp-3 text-sm leading-relaxed text-ink/75">
         {texto}
       </blockquote>
-      <figcaption className="mt-4 text-[0.65rem] uppercase tracking-[0.18em] text-steel">
+      <figcaption className="mt-4 text-[0.65rem] uppercase tracking-[0.18em] text-forest">
         {autor}
       </figcaption>
     </figure>
@@ -170,13 +177,15 @@ function ReviewRow({ reverse = false, offset = 0 }: { reverse?: boolean; offset?
 export function Testimonials() {
   const nota = GOOGLE_RATING.nota.toFixed(1).replace(".", ",");
   return (
-    <section className="overflow-hidden border-t border-border bg-background py-24 md:py-32">
+    <section className="cv-auto overflow-hidden border-t border-border bg-background py-24 md:py-32">
       <div className="mx-auto grid max-w-6xl items-center gap-16 px-5 sm:px-8 lg:grid-cols-[0.9fr_1.1fr]">
         <Reveal>
           <PhoneVideo />
         </Reveal>
         <div>
-          <span className="text-[0.68rem] uppercase tracking-[0.22em] text-steel">Depoimentos</span>
+          <span className="text-[0.68rem] uppercase tracking-[0.22em] text-forest">
+            Depoimentos
+          </span>
           <h2 className="mt-4 text-balance text-3xl font-light uppercase leading-[1.05] text-ink sm:text-4xl md:text-5xl">
             <RevealWords text="Quem já foi atendido conta." />
           </h2>
@@ -187,7 +196,7 @@ export function Testimonials() {
               </span>
               <span className="pb-2">
                 <Stars className="size-4 text-ink" />
-                <span className="mt-2 block text-[0.7rem] uppercase tracking-[0.16em] text-steel">
+                <span className="mt-2 block text-[0.7rem] uppercase tracking-[0.16em] text-forest">
                   {GOOGLE_RATING.total} avaliações no Google
                 </span>
               </span>

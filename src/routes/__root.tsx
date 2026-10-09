@@ -8,10 +8,13 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
-import { MotionConfig } from "motion/react";
+import { LazyMotion, MotionConfig } from "motion/react";
+
+const loadMotionFeatures = () => import("@/lib/motion-features").then((r) => r.default);
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { ORGANIZATION_JSON_LD, WEBSITE_JSON_LD } from "@/lib/seo";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFab } from "@/components/site/WhatsAppFab";
@@ -19,23 +22,26 @@ import { ScrollProgressBar } from "@/components/site/motion-primitives";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="font-display text-7xl text-ink">404</h1>
-        <h2 className="mt-4 text-xl">Página não encontrada</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          O endereço que você acessou não existe ou foi movido.
-        </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center bg-ink px-5 py-3 text-[0.72rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-forest"
-          >
-            Voltar para a home
-          </Link>
+    <>
+      <meta name="robots" content="noindex" />
+      <div className="flex min-h-screen items-center justify-center bg-background px-4">
+        <div className="max-w-md text-center">
+          <h1 className="font-display text-7xl text-ink">404</h1>
+          <h2 className="mt-4 text-xl">Página não encontrada</h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            O endereço que você acessou não existe ou foi movido.
+          </p>
+          <div className="mt-6">
+            <Link
+              to="/"
+              className="inline-flex items-center justify-center bg-ink px-5 py-3 text-[0.72rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-forest"
+            >
+              Voltar para a home
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -89,20 +95,24 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Ótica premium em Sumaré e Hortolândia: atendimento humanizado, visagismo e exame de vista com hora marcada.",
       },
       { name: "author", content: "Ótica Império Glasses" },
+      { name: "robots", content: "index, follow, max-image-preview:large" },
+      { name: "theme-color", content: "#201e1e" },
+      { name: "format-detection", content: "telephone=no" },
+      { name: "geo.region", content: "BR-SP" },
+      { name: "geo.placename", content: "Sumaré, Hortolândia" },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Ótica Império Glasses" },
+      { property: "og:locale", content: "pt_BR" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    scripts: [ORGANIZATION_JSON_LD, WEBSITE_JSON_LD].map((j) => ({
+      type: "application/ld+json",
+      children: JSON.stringify(j),
+    })),
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      // Inter só é baixada onde a SF Pro (Apple) não existe — o navegador
-      // resolve -apple-system primeiro e nunca pede o arquivo da Inter.
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
-      },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/favicon.png" },
     ],
   }),
   shellComponent: RootShell,
@@ -131,16 +141,18 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       {/* Respeita "reduzir movimento" do sistema em todas as animações. */}
-      <MotionConfig reducedMotion="user">
-        <ScrollProgressBar />
-        <Header />
-        <main>
-          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-          <Outlet />
-        </main>
-        <Footer />
-        <WhatsAppFab />
-      </MotionConfig>
+      <LazyMotion features={loadMotionFeatures} strict>
+        <MotionConfig reducedMotion="user">
+          <ScrollProgressBar />
+          <Header />
+          <main>
+            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+            <Outlet />
+          </main>
+          <Footer />
+          <WhatsAppFab />
+        </MotionConfig>
+      </LazyMotion>
     </QueryClientProvider>
   );
 }

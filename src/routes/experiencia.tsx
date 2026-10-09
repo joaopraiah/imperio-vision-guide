@@ -1,25 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
-import visagismo from "@/assets/mood-homem-oculos.jpg";
+import { seo } from "@/lib/seo";
+import visagismo from "@/assets/mood-homem-oculos.webp";
 import { Reveal } from "@/components/site/motion-primitives";
 import { PageHero, Section, SectionHeading, SplitPhotoSection } from "@/components/site/ui-bits";
 import { ClosingCta } from "@/components/site/ClosingCta";
 
 export const Route = createFileRoute("/experiencia")({
-  head: () => ({
-    meta: [
-      { title: "A Experiência na loja — Ótica Império Glasses" },
-      {
-        name: "description",
-        content:
-          "Como é ser atendido na Ótica Império: conversa inicial, exame com hora marcada, visagismo, escolha da armação e acompanhamento após a entrega.",
-      },
-      { property: "og:title", content: "A Experiência na loja — Ótica Império Glasses" },
-      {
-        property: "og:description",
-        content: "Passo a passo do atendimento presencial: da conversa inicial ao acompanhamento.",
-      },
-    ],
-  }),
+  head: () =>
+    seo({
+      path: "/experiencia",
+      title: "Como é o atendimento na loja | Ótica Império Glasses",
+      description:
+        "Como é ser atendido na Ótica Império: conversa inicial, exame com hora marcada, visagismo, escolha da armação e acompanhamento após a entrega.",
+      breadcrumb: "A Experiência",
+    }),
   component: Experiencia,
 });
 
@@ -68,15 +62,15 @@ function Experiencia() {
       <SplitPhotoSection src={visagismo} alt="Consultoria de visagismo na Ótica Império">
         <ol className="relative border-l border-border pl-8">
           {ETAPAS.map((e, i) => (
-            <Reveal key={e.titulo} delay={i * 0.06}>
-              <li className="relative pb-12 last:pb-0">
+            <li key={e.titulo} className="relative pb-12 last:pb-0">
+              <Reveal delay={i * 0.06}>
                 <span className="absolute -left-[2.3rem] top-1 grid size-6 place-items-center rounded-full bg-steel font-mono text-[0.6rem] text-ink">
                   {i + 1}
                 </span>
-                <h3 className="text-2xl">{e.titulo}</h3>
+                <h2 className="text-2xl">{e.titulo}</h2>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{e.texto}</p>
-              </li>
-            </Reveal>
+              </Reveal>
+            </li>
           ))}
         </ol>
       </SplitPhotoSection>

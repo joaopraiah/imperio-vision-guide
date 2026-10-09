@@ -4,6 +4,41 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Fontes hospedadas no próprio site (subset latino, variáveis): sem ida ao
+   Google Fonts, que bloqueava a primeira pintura. Inter só é baixada onde a
+   SF Pro (Apple) não existe; Fraunces só nas páginas que a usam. */
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-latin.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+/* Arial com as métricas da Inter: enquanto a Inter baixa, o texto já ocupa o
+   mesmo espaço — a troca de fonte não empurra o layout (CLS zero). */
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial");
+  size-adjust: 107.06%;
+  ascent-override: 90.49%;
+  descent-override: 22.56%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Fraunces";
+  src: url("/fonts/Fraunces-latin.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Fraunces";
+  src: url("/fonts/Fraunces-latin-italic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -60,13 +95,11 @@
   /* Tipografia no estilo Apple: SF Pro nativa em iPhone/Mac; Inter (a
      equivalente aberta mais próxima, carregada no __root) nos demais. */
   --font-display:
-    -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Helvetica Neue", Arial,
+    -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Inter Fallback", "Helvetica Neue", Arial,
     sans-serif;
   --font-sans:
-    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Helvetica Neue", Arial, sans-serif;
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Inter Fallback", "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
-  /* Carregada só na página /digital-mais (link no head da rota) — nas demais
-     páginas cai no fallback sem baixar a fonte à toa. */
   --font-serif: "Fraunces", ui-serif, Georgia, serif;
 }
 
@@ -93,7 +126,7 @@
   --secondary: #f0f0f0;
   --secondary-foreground: #201e1e;
   --muted: #f0f0f0;
-  --muted-foreground: #6f7173;
+  --muted-foreground: #626466;
   --accent: #f0f0f0;
   --accent-foreground: #201e1e;
   --destructive: oklch(0.577 0.245 27.325);
@@ -184,7 +217,8 @@
   font-size: 0.6875rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-steel);
+  /* cinza do manual escurecido conforme o fundo — legível (AA) no claro e no escuro */
+  color: color-mix(in oklab, currentColor 72%, transparent);
 }
 
 @utility rule-steel {
@@ -317,4 +351,111 @@ summary::-webkit-details-marker {
 .range-dp:focus-visible {
   outline: 2px solid var(--dp-blue-soft);
   outline-offset: 6px;
+}
+
+/* ── Animações contínuas em CSS ────────────────────────────────────────────
+   Só transform/opacity: rodam no compositor da GPU, sem custo de JS nem de
+   layout por frame (antes eram loops do motion em JS e um box-shadow
+   animado, que repintava a tela inteira 60x por segundo). */
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 0.9;
+  }
+}
+@keyframes pulse-ring {
+  from {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  to {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+@keyframes scan-y {
+  0% {
+    transform: translateY(-100%);
+  }
+  80%,
+  100% {
+    transform: translateY(var(--scan-distance, 600%));
+  }
+}
+@keyframes grid-move {
+  from {
+    transform: translateY(-56px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* "Fóton" atravessando o trilho: o wrapper tem a largura do trilho e anda
+   100% da própria largura, então o ponto percorre tudo só com transform. */
+@keyframes photon {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  12%,
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@utility animate-photon {
+  animation: photon 2.4s linear infinite;
+}
+@utility animate-float {
+  animation: float-y 3.4s ease-in-out infinite;
+}
+@utility animate-breathe {
+  animation: breathe 9s ease-in-out infinite;
+}
+@utility animate-pulse-ring {
+  animation: pulse-ring 2.2s ease-out infinite;
+}
+@utility animate-scan {
+  animation: scan-y 3.4s ease-in-out infinite;
+}
+@utility animate-grid {
+  animation: grid-move 2.2s linear infinite;
+}
+
+/* Seções abaixo da dobra só são desenhadas quando chegam perto da tela. */
+@utility cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-breathe,
+  .animate-pulse-ring,
+  .animate-scan,
+  .animate-grid,
+  .animate-photon,
+  .animate-marquee,
+  .animate-orbit {
+    animation: none;
+  }
 }

@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { seo, storesJsonLd } from "@/lib/seo";
 import { Clock } from "lucide-react";
 import { PageHero, Section, SectionHeading } from "@/components/site/ui-bits";
 import { StoreCard } from "@/components/site/StoreCard";
@@ -7,21 +8,15 @@ import { STORES } from "@/lib/site-data";
 import { ClosingCta } from "@/components/site/ClosingCta";
 
 export const Route = createFileRoute("/lojas")({
-  head: () => ({
-    meta: [
-      { title: "Nossas lojas em Sumaré e Hortolândia — Ótica Império Glasses" },
-      {
-        name: "description",
-        content:
-          "Endereços, WhatsApp e como chegar às unidades da Ótica Império Glasses em Sumaré (Matão) e Hortolândia (Centro).",
-      },
-      { property: "og:title", content: "Nossas lojas — Ótica Império Glasses" },
-      {
-        property: "og:description",
-        content: "Duas unidades na região: Sumaré (Matão) e Hortolândia (Centro).",
-      },
-    ],
-  }),
+  head: () =>
+    seo({
+      path: "/lojas",
+      title: "Lojas em Sumaré e Hortolândia | Ótica Império Glasses",
+      description:
+        "Endereços, WhatsApp e como chegar às unidades da Ótica Império Glasses em Sumaré (Matão) e Hortolândia (Centro).",
+      breadcrumb: "Lojas",
+      jsonLd: [...storesJsonLd()],
+    }),
   component: Lojas,
 });
 
@@ -37,7 +32,7 @@ function Lojas() {
       <Section>
         <div className="grid gap-6 md:grid-cols-2">
           {STORES.map((s, i) => (
-            <StoreCard key={s.id} store={s} delay={i * 0.1} />
+            <StoreCard key={s.id} store={s} delay={i * 0.1} as="h2" />
           ))}
         </div>
 

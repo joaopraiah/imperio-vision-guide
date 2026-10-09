@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import lojaDisplay from "@/assets/hero-loja.jpg";
-import bloqueadorElite from "@/assets/bloqueador-elite.png";
+import { seo } from "@/lib/seo";
+import lojaDisplay from "@/assets/hero-loja.webp";
+import bloqueadorElite from "@/assets/bloqueador-elite.webp";
 import { FloatingRings, Parallax, Reveal, RevealWords } from "@/components/site/motion-primitives";
 import { BtnAnchor, BtnLink, PageHero, Section, SectionHeading } from "@/components/site/ui-bits";
 import { ClosingCta } from "@/components/site/ClosingCta";
@@ -17,22 +18,14 @@ const BENTO_SPANS = [
 ];
 
 export const Route = createFileRoute("/servicos")({
-  head: () => ({
-    meta: [
-      { title: "Serviços — Ótica Império Glasses" },
-      {
-        name: "description",
-        content:
-          "Manutenção de armações, consultoria de visagismo, exame de vista com hora marcada, orientação sobre lentes e garantia de adaptação.",
-      },
-      { property: "og:title", content: "Serviços — Ótica Império Glasses" },
-      {
-        property: "og:description",
-        content:
-          "Tudo o que fazemos além de vender óculos: reparo, visagismo, exame e acompanhamento.",
-      },
-    ],
-  }),
+  head: () =>
+    seo({
+      path: "/servicos",
+      title: "Exame de vista, visagismo e ajustes | Ótica Império Glasses",
+      description:
+        "Manutenção de armações, consultoria de visagismo, exame de vista com hora marcada, orientação sobre lentes e garantia de adaptação.",
+      breadcrumb: "Serviços",
+    }),
   component: Servicos,
 });
 

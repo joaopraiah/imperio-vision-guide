@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "motion/react";
+import { m as motion } from "motion/react";
 import { MessageCircle } from "lucide-react";
 import { STORES } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
@@ -50,11 +50,10 @@ export function OrcamentoForm() {
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
-      <motion.div
+      <div
         aria-hidden
-        className="pointer-events-none absolute -left-24 -top-24 size-64 rounded-full bg-steel/10 blur-3xl"
-        animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0.8, 0.4] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        className="animate-breathe pointer-events-none absolute -left-24 -top-24 size-64 rounded-full bg-steel/10 blur-3xl"
+        style={{ animationDuration: "10s" }}
       />
       <span className="label-mono">Solicitar orçamento</span>
       <h3 className="mt-4 text-2xl sm:text-3xl">Conte o que você precisa</h3>

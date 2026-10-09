@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion } from "motion/react";
-import produtos from "@/assets/visagismo.jpg";
+import { seo } from "@/lib/seo";
+import { m as motion } from "motion/react";
+import produtos from "@/assets/visagismo.webp";
 import { Reveal } from "@/components/site/motion-primitives";
 import { PageHero, Section, SectionHeading, SplitPhotoSection } from "@/components/site/ui-bits";
 import { ClosingCta } from "@/components/site/ClosingCta";
@@ -9,22 +10,14 @@ import { cn } from "@/lib/utils";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 
 export const Route = createFileRoute("/marcas")({
-  head: () => ({
-    meta: [
-      { title: "Marcas — Ótica Império Glasses" },
-      {
-        name: "description",
-        content:
-          "Grifes internacionais, marcas nacionais de qualidade e linhas acessíveis: variedade de armações e lentes para provar nas lojas de Sumaré e Hortolândia.",
-      },
-      { property: "og:title", content: "Marcas — Ótica Império Glasses" },
-      {
-        property: "og:description",
-        content:
-          "Do clássico ao autoral: variedade de armações para todos os estilos e orçamentos.",
-      },
-    ],
-  }),
+  head: () =>
+    seo({
+      path: "/marcas",
+      title: "Marcas de óculos e armações | Ótica Império Glasses",
+      description:
+        "Grifes internacionais, marcas nacionais de qualidade e linhas acessíveis: variedade de armações e lentes para provar nas lojas de Sumaré e Hortolândia.",
+      breadcrumb: "Marcas",
+    }),
   component: Marcas,
 });
 
@@ -130,7 +123,7 @@ function Marcas() {
                 {LINHAS.map((l, i) => (
                   <CarouselItem key={l.titulo} className="basis-[78%] sm:basis-1/2 lg:basis-1/3">
                     <article className="group flex h-full flex-col border border-border bg-card p-8 transition-colors duration-500 hover:border-ink">
-                      <span className="font-mono text-[0.68rem] tracking-[0.2em] text-steel">
+                      <span className="font-mono text-[0.68rem] tracking-[0.2em] text-forest">
                         0{i + 1}
                       </span>
                       <h3 className="mt-5 text-2xl">{l.titulo}</h3>

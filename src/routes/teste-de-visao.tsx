@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { seo } from "@/lib/seo";
 import { AlertTriangle } from "lucide-react";
 import { Reveal } from "@/components/site/motion-primitives";
 import { PageHero, Section } from "@/components/site/ui-bits";
@@ -6,22 +7,14 @@ import { VisionTest } from "@/components/site/VisionTest";
 import { ClosingCta } from "@/components/site/ClosingCta";
 
 export const Route = createFileRoute("/teste-de-visao")({
-  head: () => ({
-    meta: [
-      { title: "Teste de visão online — Ótica Império Glasses" },
-      {
-        name: "description",
-        content:
-          "Teste de visão online, gratuito e orientativo. Não substitui a avaliação profissional: use o resultado como ponto de partida para o exame na loja.",
-      },
-      { property: "og:title", content: "Teste de visão online — Ótica Império Glasses" },
-      {
-        property: "og:description",
-        content:
-          "Um teste rápido e educativo para entender se está na hora de avaliar a sua visão.",
-      },
-    ],
-  }),
+  head: () =>
+    seo({
+      path: "/teste-de-visao",
+      title: "Teste de visão online grátis | Ótica Império Glasses",
+      description:
+        "Teste de visão online, gratuito e orientativo. Não substitui a avaliação profissional: use o resultado como ponto de partida para o exame na loja.",
+      breadcrumb: "Teste de visão",
+    }),
   component: TesteDeVisao,
 });
 

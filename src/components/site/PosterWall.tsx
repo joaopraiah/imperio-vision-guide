@@ -1,10 +1,10 @@
-import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { m as motion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useRef } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import posterHomem from "@/assets/poster-homem.jpg";
-import posterProduto from "@/assets/poster-produto.jpg";
-import posterCasal from "@/assets/poster-casal.jpg";
+import posterHomem from "@/assets/poster-homem.webp";
+import posterProduto from "@/assets/poster-produto.webp";
+import posterCasal from "@/assets/poster-casal.webp";
 import { Reveal, RevealWords } from "./motion-primitives";
 
 type Poster = {
@@ -127,7 +127,7 @@ export function PosterWall() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-[#ece9e4] px-5 py-24 sm:px-8 md:py-32"
+      className="cv-auto relative overflow-hidden bg-[#ece9e4] px-5 py-24 sm:px-8 md:py-32"
       style={{
         backgroundImage:
           "repeating-linear-gradient(90deg, #f3f1ed 0 18px, #e4e0da 18px 21px, #ece9e4 21px 36px)",

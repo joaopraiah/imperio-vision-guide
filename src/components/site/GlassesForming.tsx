@@ -1,7 +1,7 @@
-import { motion, useScroll, useSpring, useTransform, type MotionValue } from "motion/react";
+import { m as motion, useScroll, useSpring, useTransform, type MotionValue } from "motion/react";
 import { useRef } from "react";
-import semOculos from "@/assets/retrato-sem-oculos.jpg";
-import comOculos from "@/assets/retrato-com-oculos.jpg";
+import semOculos from "@/assets/retrato-sem-oculos.webp";
+import comOculos from "@/assets/retrato-com-oculos.webp";
 
 /*
  * As duas fotos são o MESMO retrato (2048×1152): a com óculos foi gerada por
@@ -80,12 +80,14 @@ export function GlassesForming() {
           <img
             src={semOculos}
             alt="Homem sem óculos"
+            loading="lazy"
             decoding="async"
             className="absolute inset-0 size-full"
           />
           <motion.img
             src={comOculos}
             alt="O mesmo homem usando uma armação preta"
+            loading="lazy"
             decoding="async"
             style={{ maskImage: mask, WebkitMaskImage: mask }}
             className="absolute inset-0 size-full"

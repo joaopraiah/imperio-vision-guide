@@ -3,7 +3,7 @@ import { Star } from "lucide-react";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { GOOGLE_RATING } from "@/lib/site-data";
-import { motion } from "motion/react";
+import { m as motion } from "motion/react";
 import { FloatingRings, Reveal, RevealWords } from "./motion-primitives";
 
 const base =

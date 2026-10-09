@@ -1,4 +1,4 @@
-import { motion, useScroll, useSpring, useTransform, type MotionProps } from "motion/react";
+import { m as motion, useScroll, useSpring, useTransform, type MotionProps } from "motion/react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
@@ -194,20 +194,17 @@ export function Magnetic({ children, ...rest }: { children: ReactNode } & Motion
 export function FloatingRings({ className }: { className?: string }) {
   return (
     <div className={cn("pointer-events-none absolute size-64", className)} aria-hidden="true">
-      <motion.div
-        className="absolute inset-0 rounded-full border border-steel/25"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+      <div
+        className="animate-orbit absolute inset-0 rounded-full border border-steel/25"
+        style={{ animationDuration: "60s" }}
       />
-      <motion.div
-        className="absolute inset-0 m-10 rounded-full border border-steel/15"
-        animate={{ rotate: -360 }}
-        transition={{ duration: 44, repeat: Infinity, ease: "linear" }}
+      <div
+        className="animate-orbit absolute inset-0 m-10 rounded-full border border-steel/15"
+        style={{ animationDuration: "44s", animationDirection: "reverse" }}
       />
-      <motion.div
-        className="absolute inset-0 -m-4 rounded-full bg-steel/10 blur-3xl"
-        animate={{ opacity: [0.5, 0.9, 0.5], scale: [1, 1.08, 1] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      <div
+        className="animate-breathe absolute inset-0 -m-4 rounded-full bg-steel/10 blur-3xl"
+        style={{ animationDuration: "8s" }}
       />
     </div>
   );

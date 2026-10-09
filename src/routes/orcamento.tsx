@@ -1,28 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { seo } from "@/lib/seo";
 import { PageHero, Section } from "@/components/site/ui-bits";
 import { Reveal } from "@/components/site/motion-primitives";
 import { OrcamentoForm } from "@/components/site/OrcamentoForm";
 import { ClosingCta } from "@/components/site/ClosingCta";
 
 export const Route = createFileRoute("/orcamento")({
-  head: () => ({
-    meta: [
-      { title: "Solicitar orçamento — Ótica Império Glasses" },
-      {
-        name: "description",
-        content:
-          "Conte o que você precisa e continue a conversa no WhatsApp da unidade de Sumaré ou Hortolândia. Orçamento sem compromisso.",
-      },
-      { property: "og:title", content: "Solicitar orçamento — Ótica Império Glasses" },
-      {
-        property: "og:description",
-        content:
-          "Formulário simples de orçamento com continuidade no WhatsApp da loja mais próxima.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () =>
+    seo({
+      path: "/orcamento",
+      title: "Orçamento de óculos e lentes | Ótica Império Glasses",
+      description:
+        "Conte o que você precisa e continue a conversa no WhatsApp da unidade de Sumaré ou Hortolândia. Orçamento sem compromisso.",
+      breadcrumb: "Orçamento",
+    }),
   component: Orcamento,
 });
 
@@ -59,7 +50,7 @@ function Orcamento() {
                   },
                 ].map((s, i) => (
                   <li key={s.t} className="flex gap-5">
-                    <span className="font-mono text-xs tracking-widest text-steel">0{i + 1}</span>
+                    <span className="font-mono text-xs tracking-widest text-forest">0{i + 1}</span>
                     <div>
                       <p className="font-display text-lg">{s.t}</p>
                       <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{s.d}</p>

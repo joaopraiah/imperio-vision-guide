@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m as motion } from "motion/react";
 import { useState } from "react";
 import { X } from "lucide-react";
 import { STORES } from "@/lib/site-data";
@@ -56,11 +56,13 @@ export function WhatsAppFab() {
         aria-label={open ? "Fechar contatos" : "Falar no WhatsApp"}
         whileHover={{ scale: 1.06 }}
         whileTap={{ scale: 0.94 }}
-        animate={{ boxShadow: ["0 0 0 0 rgba(37,211,102,0.45)", "0 0 0 14px rgba(37,211,102,0)"] }}
-        transition={{ boxShadow: { duration: 2.2, repeat: Infinity, ease: "easeOut" } }}
-        className="grid size-14 place-items-center rounded-full bg-gradient-to-b from-[#2CE65B] to-[#00B92E] text-white"
+        className="relative grid size-14 place-items-center rounded-full bg-gradient-to-b from-[#2CE65B] to-[#00B92E] text-white"
       >
-        {open ? <X className="size-6" /> : <WhatsAppIcon className="size-7" />}
+        <span
+          aria-hidden="true"
+          className="animate-pulse-ring pointer-events-none absolute inset-0 rounded-full bg-[#25D366]"
+        />
+        {open ? <X className="relative size-6" /> : <WhatsAppIcon className="relative size-7" />}
       </motion.button>
     </div>
   );

@@ -6,7 +6,7 @@ import { NAV, SOCIAL, STORES } from "@/lib/site-data";
 
 export function Footer() {
   return (
-    <footer className="grain bg-ink px-5 py-16 text-ink-foreground sm:px-8">
+    <footer className="cv-auto grain bg-ink px-5 py-16 text-ink-foreground [contain-intrinsic-size:auto_420px] sm:px-8">
       <div className="mx-auto grid w-full max-w-6xl gap-12 md:grid-cols-[1.2fr_1fr_1.2fr]">
         <div>
           <Logo className="scale-110 origin-left" />

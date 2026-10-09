@@ -1,4 +1,4 @@
-import logo from "@/assets/logo-imperio.png";
+import logo from "@/assets/logo-imperio.webp";
 import { cn } from "@/lib/utils";
 
 export function Logo({ className }: { className?: string }) {
@@ -6,8 +6,8 @@ export function Logo({ className }: { className?: string }) {
     <img
       src={logo}
       alt="Ótica Império Glasses"
-      width={220}
-      height={132}
+      width={240}
+      height={160}
       className={cn("h-10 w-auto sm:h-11", className)}
     />
   );

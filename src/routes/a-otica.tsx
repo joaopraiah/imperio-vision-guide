@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import especialistaExame from "@/assets/especialista-exame.jpg";
-import sustentabilidade from "@/assets/sustentabilidade.jpg";
+import { seo } from "@/lib/seo";
+import especialistaExame from "@/assets/especialista-exame.webp";
+import sustentabilidade from "@/assets/sustentabilidade.webp";
 import { DIFERENCIAIS } from "@/lib/site-data";
 import { Reveal } from "@/components/site/motion-primitives";
 import { PageHero, Section, SectionHeading, SplitPhotoSection } from "@/components/site/ui-bits";
@@ -8,22 +9,14 @@ import { ClosingCta } from "@/components/site/ClosingCta";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/a-otica")({
-  head: () => ({
-    meta: [
-      { title: "A Ótica — Ótica Império Glasses" },
-      {
-        name: "description",
-        content:
-          "Conheça a história e a filosofia da Ótica Império Glasses: atendimento humanizado, visagismo e cuidado com cada cliente em Sumaré e Hortolândia.",
-      },
-      { property: "og:title", content: "A Ótica — Ótica Império Glasses" },
-      {
-        property: "og:description",
-        content:
-          "Atendimento humanizado, visagismo e responsabilidade ambiental em duas lojas físicas.",
-      },
-    ],
-  }),
+  head: () =>
+    seo({
+      path: "/a-otica",
+      title: "Sobre a Ótica Império Glasses | Ótica em Sumaré e Hortolândia",
+      description:
+        "Conheça a história e a filosofia da Ótica Império Glasses: atendimento humanizado, visagismo e cuidado com cada cliente em Sumaré e Hortolândia.",
+      breadcrumb: "A Ótica",
+    }),
   component: AOtica,
 });
 

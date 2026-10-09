@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m as motion } from "motion/react";
 import { useEffect, useState } from "react";
 
 type Slide =
@@ -19,6 +19,17 @@ const MEDIA_OPACITY = 0.92;
 export function HeroSlideshow({ slides, className }: { slides: Slide[]; className?: string }) {
   const [index, setIndex] = useState(0);
   const slide = slides[index]!;
+  // O vídeo só começa a baixar depois que a página terminou de carregar: até
+  // lá o poster (idêntico ao 1º frame) ocupa o lugar, e CSS/JS/fontes não
+  // disputam banda com 1 MB de vídeo. No celular entra a versão mais leve.
+  const [videoSuffix, setVideoSuffix] = useState<string | null>(null);
+
+  useEffect(() => {
+    const ready = () => setVideoSuffix(window.innerWidth < 768 ? "-mobile" : "");
+    if (document.readyState === "complete") ready();
+    else window.addEventListener("load", ready, { once: true });
+    return () => window.removeEventListener("load", ready);
+  }, []);
 
   useEffect(() => {
     if (slides.length < 2 || slide.type === "video") return;
@@ -32,7 +43,7 @@ export function HeroSlideshow({ slides, className }: { slides: Slide[]; classNam
         {slide.type === "video" ? (
           <motion.video
             key={slide.src}
-            src={slide.src}
+            src={videoSuffix === null ? undefined : slide.src.replace(".mp4", `${videoSuffix}.mp4`)}
             poster={slide.poster}
             autoPlay
             muted

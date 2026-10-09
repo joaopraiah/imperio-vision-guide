@@ -1,4 +1,4 @@
-import { animate, motion, useMotionValue, useTransform } from "motion/react";
+import { animate, m as motion, useMotionValue, useTransform } from "motion/react";
 import { useEffect, useId, useState } from "react";
 import { ArrowUpRight, Droplets, Layers, ShieldCheck, Sparkles } from "lucide-react";
 import { STORES } from "@/lib/site-data";
@@ -50,27 +50,29 @@ function LensHud({ src }: { src: string }) {
       />
       <div className="absolute inset-[9%] rounded-full border border-dashed border-dp-blue/40" />
       <div className="absolute inset-[15%] overflow-hidden rounded-full border border-dp-blue/50 shadow-[0_0_80px_-10px] shadow-dp-blue/70">
-        <img src={src} alt="" aria-hidden="true" className="size-full object-cover" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,transparent_30%,var(--dp-bg)_95%)]" />
-        <motion.div
-          className="absolute inset-x-0 h-16 bg-gradient-to-b from-transparent via-dp-blue-soft/35 to-transparent"
-          animate={{ top: ["-20%", "100%"] }}
-          transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", repeatDelay: 0.6 }}
+        <img
+          src={src}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+          className="size-full object-cover"
         />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,transparent_30%,var(--dp-bg)_95%)]" />
+        <div className="animate-scan absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-transparent via-dp-blue-soft/35 to-transparent [--scan-distance:520%]" />
         {/* mira */}
         <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-dp-blue-soft/20" />
         <div className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-dp-blue-soft/20" />
       </div>
       {SPECS.map((s, i) => (
-        <motion.span
+        <span
           key={s.label}
-          className={`absolute inline-flex items-center gap-2 border border-dp-blue/40 bg-dp-bg/80 px-3 py-1.5 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-dp-ink backdrop-blur ${s.className}`}
-          animate={{ y: [0, -6, 0] }}
-          transition={{ duration: 3.2 + i * 0.4, repeat: Infinity, ease: "easeInOut" }}
+          style={{ animationDuration: `${3.2 + i * 0.4}s` }}
+          className={`animate-float absolute inline-flex items-center gap-2 border border-dp-blue/40 bg-dp-bg/80 px-3 py-1.5 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-dp-ink backdrop-blur ${s.className}`}
         >
           <s.icon className="size-3.5 text-dp-blue-soft" />
           {s.label}
-        </motion.span>
+        </span>
       ))}
     </div>
   );
@@ -87,17 +89,16 @@ export function DigitalPlusCta({ lensSrc }: { lensSrc: string }) {
   const pct = ((hours - 1) / 15) * 100;
 
   return (
-    <section className="relative isolate overflow-hidden border-t border-dp-blue/20 bg-dp-bg px-5 py-24 sm:px-8 md:py-32">
+    <section className="cv-auto relative isolate overflow-hidden border-t border-dp-blue/20 bg-dp-bg px-5 py-24 sm:px-8 md:py-32">
       {/* grade em perspectiva que "anda" em direção ao leitor */}
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[70%] [perspective:600px]"
         aria-hidden="true"
       >
-        <motion.div
-          className="absolute inset-x-[-50%] bottom-0 h-[160%] origin-bottom [transform:rotateX(62deg)] [background-image:linear-gradient(to_right,color-mix(in_oklab,var(--dp-blue)_30%,transparent)_1px,transparent_1px),linear-gradient(to_bottom,color-mix(in_oklab,var(--dp-blue)_30%,transparent)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:linear-gradient(to_top,black_20%,transparent_85%)]"
-          animate={{ backgroundPositionY: ["0px", "56px"] }}
-          transition={{ duration: 2.2, repeat: Infinity, ease: "linear" }}
-        />
+        <div className="absolute inset-x-[-50%] bottom-0 h-[160%] origin-bottom overflow-hidden [transform:rotateX(62deg)] [mask-image:linear-gradient(to_top,black_20%,transparent_85%)]">
+          {/* a camada (não o background-position) é que anda: só transform, na GPU */}
+          <div className="animate-grid absolute inset-x-0 -top-14 bottom-0 [background-image:linear-gradient(to_right,color-mix(in_oklab,var(--dp-blue)_30%,transparent)_1px,transparent_1px),linear-gradient(to_bottom,color-mix(in_oklab,var(--dp-blue)_30%,transparent)_1px,transparent_1px)] [background-size:56px_56px]" />
+        </div>
       </div>
       <div
         className="pointer-events-none absolute left-1/2 top-0 -z-10 h-96 w-[48rem] -translate-x-1/2 rounded-full bg-dp-blue/25 blur-[120px]"

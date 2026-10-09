@@ -2,7 +2,16 @@ import { MapPin, MessageCircle } from "lucide-react";
 import type { Store } from "@/lib/site-data";
 import { ImageReveal, Reveal } from "./motion-primitives";
 
-export function StoreCard({ store, delay = 0 }: { store: Store; delay?: number }) {
+export function StoreCard({
+  store,
+  delay = 0,
+  as: Heading = "h3",
+}: {
+  store: Store;
+  delay?: number;
+  /** nível do título: h2 quando os cards vêm logo abaixo do h1 da página */
+  as?: "h2" | "h3";
+}) {
   return (
     <Reveal delay={delay}>
       <article className="group flex h-full flex-col border border-border bg-card transition-colors duration-500 hover:border-ink">
@@ -14,7 +23,9 @@ export function StoreCard({ store, delay = 0 }: { store: Store; delay?: number }
         />
         <div className="flex h-full flex-col p-8">
           <span className="label-mono">{store.cidade}</span>
-          <h3 className="mt-4 text-2xl font-light uppercase tracking-[0.01em]">{store.nome}</h3>
+          <Heading className="mt-4 text-2xl font-light uppercase tracking-[0.01em]">
+            {store.nome}
+          </Heading>
           <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{store.endereco}</p>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{store.detalhes}</p>
           <div className="mt-auto flex flex-wrap gap-3 pt-8">

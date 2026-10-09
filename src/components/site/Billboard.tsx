@@ -1,7 +1,7 @@
-import { motion, useScroll, useTransform } from "motion/react";
+import { m as motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
-import retrato from "@/assets/poster-mulher.jpg";
-import armacao from "@/assets/poster-produto.jpg";
+import retrato from "@/assets/poster-mulher.webp";
+import armacao from "@/assets/poster-produto.webp";
 import { BtnLink } from "./ui-bits";
 import { Reveal } from "./motion-primitives";
 

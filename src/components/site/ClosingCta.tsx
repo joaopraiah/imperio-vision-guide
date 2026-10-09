@@ -10,7 +10,7 @@ export function ClosingCta({
   texto?: string;
 }) {
   return (
-    <section className="grain relative overflow-hidden bg-ink px-5 py-24 text-ink-foreground sm:px-8 md:py-32">
+    <section className="cv-auto grain relative overflow-hidden bg-ink px-5 py-24 text-ink-foreground sm:px-8 md:py-32">
       <FloatingRings className="-left-20 top-1/2 -translate-y-1/2 sm:left-0" />
       <div className="relative mx-auto w-full max-w-4xl text-center">
         <h2 className="text-balance text-3xl font-light uppercase leading-[1.05] sm:text-4xl md:text-5xl">

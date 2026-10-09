@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m as motion } from "motion/react";
 import { useMemo, useState } from "react";
 import {
   AlertTriangle,
@@ -484,11 +484,9 @@ export function VisionTest() {
 
   return (
     <div className="relative overflow-hidden border border-border bg-card">
-      <motion.div
+      <div
         aria-hidden
-        className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-steel/10 blur-3xl"
-        animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.9, 0.5] }}
-        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+        className="animate-breathe pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-steel/10 blur-3xl"
       />
 
       <div className="h-px w-full bg-border">
@@ -559,7 +557,7 @@ export function VisionTest() {
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             >
               <span className="label-mono">Teste de visão online</span>
-              <h3 className="mt-4 text-3xl">Três módulos, um retrato geral da sua visão</h3>
+              <h2 className="mt-4 text-3xl">Três módulos, um retrato geral da sua visão</h2>
               <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground">
                 O teste é dividido em três partes — perto, percepção de cores e uma triagem simples
                 de astigmatismo. Leva menos de 5 minutos e, ao final, você recebe uma orientação
@@ -590,7 +588,7 @@ export function VisionTest() {
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             >
               <span className="label-mono">Antes de começar</span>
-              <h3 className="mt-4 text-3xl">Como fazer o teste</h3>
+              <h2 className="mt-4 text-3xl">Como fazer o teste</h2>
               <ul className="mt-6 space-y-3 text-sm leading-relaxed text-muted-foreground">
                 {[
                   "Fique a 1 metro da tela, com o brilho no máximo.",

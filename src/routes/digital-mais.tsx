@@ -1,12 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion } from "motion/react";
+import { seo, faqJsonLd } from "@/lib/seo";
+import { m as motion } from "motion/react";
 import { ArrowRight, Plus, ScanEye } from "lucide-react";
-import heroImg from "@/assets/digital-plus-hero.jpg";
-import lensMacro from "@/assets/digital-plus-lens-macro.jpg";
-import usoTrabalho from "@/assets/digital-plus-trabalho.jpg";
-import usoDirecao from "@/assets/digital-plus-direcao.jpg";
-import usoStreaming from "@/assets/digital-plus-streaming.jpg";
-import usoLeitura from "@/assets/digital-plus-leitura.jpg";
+import heroImg from "@/assets/digital-plus-hero.webp";
+import lensMacro from "@/assets/digital-plus-lens-macro.webp";
+import usoTrabalho from "@/assets/digital-plus-trabalho.webp";
+import usoDirecao from "@/assets/digital-plus-direcao.webp";
+import usoStreaming from "@/assets/digital-plus-streaming.webp";
+import usoLeitura from "@/assets/digital-plus-leitura.webp";
 import { Parallax, Reveal, RevealWords } from "@/components/site/motion-primitives";
 import { cn } from "@/lib/utils";
 import { BtnAnchor, BtnLink } from "@/components/site/ui-bits";
@@ -21,30 +22,17 @@ import {
 } from "@/lib/site-data";
 
 export const Route = createFileRoute("/digital-mais")({
-  head: () => ({
-    meta: [
-      { title: "Digital+ — Lentes com Bloqueador de Elite | Ótica Império Glasses" },
-      {
-        name: "description",
-        content:
-          "Digital+: a lente da Ótica Império com Bloqueador de Elite. 18 camadas de antirreflexo hidrofóbico e bloqueio real de luz azul para quem vive de olho em telas.",
-      },
-      { property: "og:title", content: "Digital+ — Ótica Império Glasses" },
-      {
-        property: "og:description",
-        content:
-          "18 camadas de antirreflexo hidrofóbico e bloqueio real de luz azul, numa lente quase invisível.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-    links: [
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,460;0,9..144,600;1,9..144,420;1,9..144,520&display=swap",
-      },
-    ],
-  }),
+  head: () =>
+    seo({
+      path: "/digital-mais",
+      title: "Lente Digital+ com bloqueio de luz azul | Ótica Império",
+      description:
+        "Digital+: a lente da Ótica Império com Bloqueador de Elite. 18 camadas de antirreflexo hidrofóbico e bloqueio real de luz azul para quem vive de olho em telas.",
+      image: "/og-digital-mais.jpg",
+      imageAlt: "Lente Digital+ da Ótica Império",
+      breadcrumb: "Digital+",
+      jsonLd: [faqJsonLd(DIGITAL_PLUS_FAQ)],
+    }),
   component: DigitalMais,
 });
 
@@ -83,6 +71,7 @@ function DigitalMais() {
             src={heroImg}
             alt=""
             aria-hidden="true"
+            fetchPriority="high"
             className="size-full object-cover opacity-60"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-dp-bg via-dp-bg/75 to-dp-bg/30" />
@@ -90,45 +79,37 @@ function DigitalMais() {
         </div>
         <GlowOrb className="-right-20 -top-20 size-80" />
         <div className="relative mx-auto w-full max-w-6xl">
-          <Reveal>
-            <span className="inline-flex items-center gap-2 border border-dp-blue/40 px-3 py-1 text-[0.65rem] uppercase tracking-[0.3em] text-dp-blue-soft">
-              Tecnologia de Elite
-            </span>
-          </Reveal>
-          <h1 className="mt-7 flex items-baseline gap-1 text-balance font-serif text-6xl italic leading-[1.02] sm:text-7xl md:text-8xl">
-            <RevealWords text="Digital" />
+          {/* Entrada em CSS (sem esperar o JS): o topo pinta já no primeiro frame. */}
+          <span className="inline-flex items-center gap-2 border border-dp-blue/40 px-3 py-1 text-[0.65rem] uppercase tracking-[0.3em] text-dp-blue-soft animate-in fade-in slide-in-from-bottom-3 fill-mode-both duration-700">
+            Tecnologia de Elite
+          </span>
+          <h1 className="mt-7 flex items-baseline gap-1 text-balance font-serif text-6xl italic leading-[1.02] sm:text-7xl md:text-8xl animate-in fade-in slide-in-from-bottom-3 fill-mode-both duration-700 delay-100">
+            Digital
             <span className="not-italic text-dp-blue-soft">+</span>
           </h1>
-          <Reveal delay={0.14}>
-            <p className="mt-4 max-w-xl text-pretty text-sm uppercase tracking-[0.22em] text-dp-blue-soft">
-              Lentes com Bloqueador de Elite
-            </p>
-          </Reveal>
-          <Reveal delay={0.22}>
-            <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-dp-ink/70 sm:text-lg">
-              A blindagem da Ótica Império para quem vive em frente a telas: 18 camadas de
-              antirreflexo hidrofóbico e bloqueio real de luz azul, numa lente quase invisível.
-            </p>
-          </Reveal>
-          <Reveal delay={0.3}>
-            <div className="mt-10 flex flex-wrap gap-3">
-              <BtnAnchor href={WHATSAPP_PRINCIPAL} variant="dpBlue">
-                Quero a Digital+ <ArrowRight className="size-4" />
-              </BtnAnchor>
-              <BtnLink to="/servicos" variant="dpGhost">
-                Ver outros serviços
-              </BtnLink>
-            </div>
-          </Reveal>
+          <p className="mt-4 max-w-xl text-pretty text-sm uppercase tracking-[0.22em] text-dp-blue-soft animate-in fade-in slide-in-from-bottom-3 fill-mode-both duration-700 delay-200">
+            Lentes com Bloqueador de Elite
+          </p>
+          <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-dp-ink/70 sm:text-lg">
+            A blindagem da Ótica Império para quem vive em frente a telas: 18 camadas de
+            antirreflexo hidrofóbico e bloqueio real de luz azul, numa lente quase invisível.
+          </p>
+          <div className="mt-10 flex flex-wrap gap-3 animate-in fade-in slide-in-from-bottom-3 fill-mode-both duration-700 delay-300">
+            <BtnAnchor href={WHATSAPP_PRINCIPAL} variant="dpBlue">
+              Quero a Digital+ <ArrowRight className="size-4" />
+            </BtnAnchor>
+            <BtnLink to="/servicos" variant="dpGhost">
+              Ver outros serviços
+            </BtnLink>
+          </div>
         </div>
       </section>
 
       {/* MARQUEE */}
       <div className="overflow-hidden border-y border-dp-blue/15 bg-dp-bg-soft py-4">
-        <motion.div
-          className="flex w-max gap-10 whitespace-nowrap"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        <div
+          className="animate-marquee flex w-max gap-10 whitespace-nowrap"
+          style={{ animationDuration: "30s" }}
         >
           {[...MARQUEE, ...MARQUEE].map((m, i) => (
             <span
@@ -138,7 +119,7 @@ function DigitalMais() {
               {m} <span className="text-dp-blue">◆</span>
             </span>
           ))}
-        </motion.div>
+        </div>
       </div>
 
       {/* O PROBLEMA */}
@@ -164,7 +145,7 @@ function DigitalMais() {
       </section>
 
       {/* POR QUE A DIGITAL+ — orbit */}
-      <section className="border-t border-dp-blue/15 bg-dp-bg-soft/50 px-5 py-24 sm:px-8 md:py-32">
+      <section className="cv-auto border-t border-dp-blue/15 bg-dp-bg-soft/50 px-5 py-24 sm:px-8 md:py-32">
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-xl text-center">
             <Reveal>
@@ -214,7 +195,7 @@ function DigitalMais() {
       </div>
 
       {/* PARA QUEM */}
-      <section className="px-5 py-24 sm:px-8 md:py-32">
+      <section className="cv-auto px-5 py-24 sm:px-8 md:py-32">
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-xl text-center">
             <Reveal>
@@ -250,7 +231,7 @@ function DigitalMais() {
 
       {/* DEPOIMENTO EM VÍDEO */}
       {DEPOIMENTOS_VIDEO.length > 0 ? (
-        <section className="border-t border-dp-blue/15 bg-dp-bg-soft/50 px-5 py-24 text-center sm:px-8 md:py-32">
+        <section className="cv-auto border-t border-dp-blue/15 bg-dp-bg-soft/50 px-5 py-24 text-center sm:px-8 md:py-32">
           <Reveal>
             <span className="font-mono text-[0.6875rem] font-bold uppercase tracking-[0.16em] text-dp-blue-soft">
               Depoimento
@@ -274,7 +255,7 @@ function DigitalMais() {
       ) : null}
 
       {/* FAQ */}
-      <section className="border-t border-dp-blue/15 px-5 py-24 sm:px-8 md:py-32">
+      <section className="cv-auto border-t border-dp-blue/15 px-5 py-24 sm:px-8 md:py-32">
         <div className="mx-auto max-w-3xl">
           <div className="text-center">
             <Reveal>

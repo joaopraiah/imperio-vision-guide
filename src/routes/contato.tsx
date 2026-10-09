@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { seo, faqJsonLd } from "@/lib/seo";
 import { Instagram, Facebook, MessageCircle, Plus } from "lucide-react";
 import { PageHero, Section, SectionHeading, BtnAnchor, BtnLink } from "@/components/site/ui-bits";
 import { Reveal } from "@/components/site/motion-primitives";
@@ -6,23 +7,15 @@ import { FAQ, SOCIAL, STORES } from "@/lib/site-data";
 import { ClosingCta } from "@/components/site/ClosingCta";
 
 export const Route = createFileRoute("/contato")({
-  head: () => ({
-    meta: [
-      { title: "Contato e dúvidas frequentes — Ótica Império Glasses" },
-      {
-        name: "description",
-        content:
-          "Fale com a Ótica Império Glasses pelo WhatsApp de Sumaré ou Hortolândia e veja as respostas para as dúvidas mais comuns.",
-      },
-      { property: "og:title", content: "Contato — Ótica Império Glasses" },
-      {
-        property: "og:description",
-        content: "WhatsApp das duas unidades, redes sociais e perguntas frequentes.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () =>
+    seo({
+      path: "/contato",
+      title: "Contato e WhatsApp | Ótica Império Glasses",
+      description:
+        "Fale com a Ótica Império Glasses pelo WhatsApp de Sumaré ou Hortolândia e veja as respostas para as dúvidas mais comuns.",
+      breadcrumb: "Contato",
+      jsonLd: [faqJsonLd(FAQ)],
+    }),
   component: Contato,
 });
 

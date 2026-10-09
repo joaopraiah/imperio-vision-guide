@@ -1,9 +1,9 @@
-import { motion, useScroll, useTransform } from "motion/react";
+import { m as motion, useScroll, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import atendimento from "@/assets/atendimento.jpg";
-import visagismo from "@/assets/visagismo.jpg";
-import ajuste from "@/assets/mood-homem-oculos.jpg";
-import sustentabilidade from "@/assets/sustentabilidade.jpg";
+import atendimento from "@/assets/atendimento.webp";
+import visagismo from "@/assets/visagismo.webp";
+import ajuste from "@/assets/mood-homem-oculos.webp";
+import sustentabilidade from "@/assets/sustentabilidade.webp";
 import { DIFERENCIAIS } from "@/lib/site-data";
 import { RevealWords } from "./motion-primitives";
 
@@ -72,7 +72,7 @@ export function NumberedCards() {
     <section ref={section} className="relative bg-background lg:h-[220vh]">
       <div className="flex flex-col justify-center overflow-hidden py-20 md:py-28 lg:sticky lg:top-0 lg:h-svh lg:py-0">
         <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
-          <span className="text-[0.68rem] uppercase tracking-[0.22em] text-steel">
+          <span className="text-[0.68rem] uppercase tracking-[0.22em] text-forest">
             Diferenciais
           </span>
           <h2 className="mt-4 max-w-2xl text-balance text-3xl font-light uppercase leading-[1.05] text-ink sm:text-4xl md:text-5xl">

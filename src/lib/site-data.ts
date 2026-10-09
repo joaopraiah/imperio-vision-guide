@@ -1,5 +1,5 @@
-import lojaSumare from "@/assets/loja-sumare.jpg";
-import lojaHortolandia from "@/assets/loja-hortolandia.jpg";
+import lojaSumare from "@/assets/loja-sumare.webp";
+import lojaHortolandia from "@/assets/loja-hortolandia.webp";
 
 export type Store = {
   id: string;
