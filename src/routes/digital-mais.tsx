@@ -11,12 +11,12 @@ import { Parallax, Reveal, RevealWords } from "@/components/site/motion-primitiv
 import { cn } from "@/lib/utils";
 import { BtnAnchor, BtnLink } from "@/components/site/ui-bits";
 import { BenefitOrbit, OrbitRing } from "@/components/site/DigitalPlusKit";
+import { DigitalPlusCta } from "@/components/site/DigitalPlusCta";
 import {
   DEPOIMENTOS_VIDEO,
   DIGITAL_PLUS_BENEFICIOS,
   DIGITAL_PLUS_FAQ,
   DIGITAL_PLUS_USO,
-  STORES,
   WHATSAPP_PRINCIPAL,
 } from "@/lib/site-data";
 
@@ -60,7 +60,7 @@ const MARQUEE = [
 const USO_IMAGES = [usoTrabalho, usoDirecao, usoStreaming, usoLeitura];
 
 /** Soft ambient glow — the Digital+ page's own accent, independent of the
- * site-wide FloatingRings (which is hard-coded to the gold brand color). */
+ * site-wide FloatingRings (which uses the neutral steel brand color). */
 function GlowOrb({ className }: { className?: string }) {
   return (
     <div
@@ -303,31 +303,7 @@ function DigitalMais() {
       </section>
 
       {/* CTA FINAL */}
-      <section className="relative overflow-hidden border-t border-dp-blue/15 bg-dp-bg-soft px-5 py-24 text-center sm:px-8 md:py-32">
-        <GlowOrb className="-left-20 top-1/2 size-96 -translate-y-1/2" />
-        <div className="relative mx-auto max-w-3xl">
-          <h2 className="text-balance font-serif text-3xl italic leading-[1.1] sm:text-4xl md:text-5xl">
-            <RevealWords text="Seus olhos merecem essa proteção" />
-          </h2>
-          <Reveal delay={0.12}>
-            <p className="mx-auto mt-6 max-w-xl text-pretty leading-relaxed text-dp-ink/70">
-              Fale com a loja mais próxima e leve a Digital+ para dentro da sua rotina.
-            </p>
-          </Reveal>
-          <Reveal delay={0.2}>
-            <div className="mt-10 flex flex-wrap justify-center gap-3">
-              {STORES.map((s) => (
-                <BtnAnchor key={s.id} href={s.whatsapp} variant="dpBlue">
-                  Falar com {s.cidade}
-                </BtnAnchor>
-              ))}
-              <BtnLink to="/servicos" variant="dpGhost">
-                Ver outros serviços
-              </BtnLink>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <DigitalPlusCta lensSrc={lensMacro} />
     </div>
   );
 }

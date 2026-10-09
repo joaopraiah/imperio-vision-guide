@@ -67,7 +67,7 @@ function AOtica() {
               >
                 <span
                   aria-hidden="true"
-                  className="shrink-0 font-display text-7xl leading-none text-gold/15 md:text-8xl"
+                  className="shrink-0 font-display text-7xl leading-none text-steel/15 md:text-8xl"
                 >
                   0{i + 1}
                 </span>

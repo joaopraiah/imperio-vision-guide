@@ -68,7 +68,7 @@ function Servicos() {
                   "flex h-full flex-col justify-center border p-8 transition-colors duration-500 md:p-10",
                   s.destaque
                     ? "grain border-transparent bg-ink text-ink-foreground"
-                    : "border-border bg-card hover:border-gold",
+                    : "border-border bg-card hover:border-cobalt",
                 )}
               >
                 {s.destaque ? <span className="label-mono">Destaque</span> : null}
@@ -88,7 +88,7 @@ function Servicos() {
       </Section>
 
       <section className="grain relative overflow-hidden border-t border-border bg-ink text-ink-foreground">
-        <FloatingRings className="-right-20 top-10 text-gold sm:right-0" />
+        <FloatingRings className="-right-20 top-10 text-steel sm:right-0" />
         <div className="relative mx-auto max-w-2xl px-5 pt-24 text-center sm:px-8 md:pt-32">
           <Reveal>
             <span className="label-mono">Um produto à parte</span>
@@ -97,7 +97,7 @@ function Servicos() {
             <RevealWords text="O cansaço das 2h da tarde vai embora" />
           </h2>
           <Reveal delay={0.1}>
-            <p className="mt-4 text-sm uppercase tracking-[0.14em] text-gold">
+            <p className="mt-4 text-sm uppercase tracking-[0.14em] text-steel">
               Bloqueador de Elite — em até 7 dias, sua dor de cabeça vai embora
             </p>
           </Reveal>
@@ -110,7 +110,7 @@ function Servicos() {
           </Reveal>
           <Reveal delay={0.2}>
             <div className="mt-10 flex flex-wrap justify-center gap-3">
-              <BtnLink to="/digital-mais" variant="gold">
+              <BtnLink to="/digital-mais" variant="accent">
                 Conhecer a Digital+
               </BtnLink>
               <BtnAnchor href={WHATSAPP_PRINCIPAL} variant="ghostLight">

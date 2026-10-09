@@ -4,35 +4,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@font-face {
-  font-family: "Caviar Dreams";
-  src: url("/fonts/CaviarDreams-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Caviar Dreams";
-  src: url("/fonts/CaviarDreams-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Caviar Dreams";
-  src: url("/fonts/CaviarDreams-Italic.woff2") format("woff2");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Caviar Dreams";
-  src: url("/fonts/CaviarDreams-BoldItalic.woff2") format("woff2");
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
-}
-
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -63,8 +34,10 @@
   --color-ring-offset-background: var(--background);
   --color-ink: var(--ink);
   --color-ink-foreground: var(--ink-foreground);
-  --color-gold: var(--gold);
-  --color-gold-soft: var(--gold-soft);
+  --color-steel: var(--steel);
+  --color-steel-soft: var(--steel-soft);
+  --color-cobalt: var(--cobalt);
+  --color-cobalt-soft: var(--cobalt-soft);
   --color-forest: var(--forest);
   --color-forest-foreground: var(--forest-foreground);
   --color-chart-1: var(--chart-1);
@@ -86,12 +59,17 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --font-display: "Caviar Dreams", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Caviar Dreams", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Caviar Dreams", ui-sans-serif, system-ui, sans-serif;
+  /* Tipografia no estilo Apple: SF Pro nativa em iPhone/Mac; Inter (a
+     equivalente aberta mais próxima, carregada no __root) nos demais. */
+  --font-display:
+    -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Helvetica Neue", Arial,
+    sans-serif;
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
   /* Carregada só na página /digital-mais (link no head da rota) — nas demais
      páginas cai no fallback sem baixar a fonte à toa. */
-  --font-serif: "Fraunces", "Caviar Dreams", ui-serif, Georgia, serif;
+  --font-serif: "Fraunces", ui-serif, Georgia, serif;
 }
 
 :root {
@@ -106,9 +84,12 @@
   /* manual da marca — preto #201E1E */
   --ink: #201e1e;
   --ink-foreground: #fefefe;
-  /* dourado — destaque premium (fora do manual, aplicado como acento) */
-  --gold: oklch(0.673 0.077 76.5);
-  --gold-soft: oklch(0.86 0.045 82);
+  /* manual da marca — cinza #848688 (ícones, detalhes e acentos) */
+  --steel: #848688;
+  --steel-soft: #c9cacb;
+  /* azul da Digital+ — cor de ação (botões, hover, foco, seleção) */
+  --cobalt: #3058ff;
+  --cobalt-soft: #8fabff;
   /* manual da marca — cinza #848688 */
   --forest: #6b6d6f;
   --forest-foreground: #fefefe;
@@ -118,17 +99,17 @@
   --secondary-foreground: #201e1e;
   --muted: #f0f0f0;
   --muted-foreground: #6f7173;
-  --accent: oklch(0.673 0.077 76.5);
+  --accent: #f0f0f0;
   --accent-foreground: #201e1e;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
   --border: #e3e3e3;
   --input: #e3e3e3;
-  --ring: oklch(0.673 0.077 76.5);
-  --chart-1: oklch(0.673 0.077 76.5);
+  --ring: #3058ff;
+  --chart-1: #848688;
   --chart-2: #6b6d6f;
   --chart-3: #201e1e;
-  --chart-4: oklch(0.86 0.045 82);
+  --chart-4: #c9cacb;
   --chart-5: #848688;
   --sidebar: #fefefe;
   --sidebar-foreground: #201e1e;
@@ -137,7 +118,7 @@
   --sidebar-accent: #f0f0f0;
   --sidebar-accent-foreground: #201e1e;
   --sidebar-border: #e3e3e3;
-  --sidebar-ring: oklch(0.673 0.077 76.5);
+  --sidebar-ring: #3058ff;
   /* Digital+ — azul profundo próprio da linha de lentes (mais escuro que um
      azul genérico de tech), extraído das artes do Bloqueador de Elite. */
   --dp-bg: #05070f;
@@ -160,11 +141,11 @@
   --secondary-foreground: #fefefe;
   --muted: #333030;
   --muted-foreground: #a8a8a8;
-  --accent: oklch(0.673 0.077 76.5);
-  --accent-foreground: #201e1e;
+  --accent: #333030;
+  --accent-foreground: #fefefe;
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.673 0.077 76.5);
+  --ring: #3058ff;
 }
 
 @layer base {
@@ -184,16 +165,8 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    font-weight: 700;
-  }
-
-  /* Caviar Dreams só existe em Regular/Bold — sem peso intermediário para
-     "engrossar" o texto corrido sem sintetizar um bold falso. Um stroke sutil
-     reforça o traço das letras e ganha legibilidade mantendo o peso 400. */
-  p {
-    font-weight: 400;
-    letter-spacing: 0.005em;
-    -webkit-text-stroke: 0.35px currentColor;
+    font-weight: 600;
+    letter-spacing: -0.022em;
   }
 
   #lovable-badge {
@@ -201,8 +174,8 @@
   }
 
   ::selection {
-    background: var(--color-gold);
-    color: var(--color-ink);
+    background: var(--color-cobalt);
+    color: #fff;
   }
 
   html {
@@ -212,14 +185,14 @@
 
 @utility label-mono {
   font-family: var(--font-sans);
-  font-weight: 700;
+  font-weight: 600;
   font-size: 0.6875rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-steel);
 }
 
-@utility rule-gold {
+@utility rule-steel {
   position: relative;
   &::after {
     content: "";
@@ -227,7 +200,7 @@
     width: 3rem;
     height: 1px;
     margin-top: 1.25rem;
-    background: var(--color-gold);
+    background: var(--color-steel);
   }
 }
 
@@ -319,9 +292,34 @@ summary::-webkit-details-marker {
     background: linear-gradient(
       90deg,
       transparent,
-      color-mix(in oklab, var(--color-gold) 35%, transparent),
+      color-mix(in oklab, var(--color-cobalt-soft) 35%, transparent),
       transparent
     );
     animation: shimmer-sweep 4.5s ease-in-out infinite;
   }
+}
+
+/* Slider do medidor de tela (CTA Digital+) — appearance-none some com o
+   polegar nativo, então ele é redesenhado aqui. */
+.range-dp::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 9999px;
+  background: var(--dp-ink);
+  border: 4px solid var(--dp-blue);
+  box-shadow: 0 0 0 6px color-mix(in oklab, var(--dp-blue) 25%, transparent);
+}
+.range-dp::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background: var(--dp-ink);
+  border: 4px solid var(--dp-blue);
+  box-shadow: 0 0 0 6px color-mix(in oklab, var(--dp-blue) 25%, transparent);
+}
+.range-dp:focus-visible {
+  outline: 2px solid var(--dp-blue-soft);
+  outline-offset: 6px;
 }

@@ -83,7 +83,7 @@ function Marcas() {
               m.tone === "dark" ? "bg-ink text-ink-foreground" : "bg-background text-ink",
             )}
           >
-            <span className={cn("label-mono", m.tone === "light" && "text-gold")}>
+            <span className={cn("label-mono", m.tone === "light" && "text-steel")}>
               Marca exclusiva · {m.genero}
             </span>
             <h2
@@ -97,7 +97,7 @@ function Marcas() {
               {m.nome}
             </h2>
             <span
-              className={cn("mt-7 block h-px w-16", m.tone === "dark" ? "bg-gold" : "bg-gold/70")}
+              className={cn("mt-7 block h-px w-16", m.tone === "dark" ? "bg-steel" : "bg-steel/70")}
             />
             <p
               className={cn(
@@ -129,15 +129,15 @@ function Marcas() {
               <CarouselContent>
                 {LINHAS.map((l, i) => (
                   <CarouselItem key={l.titulo} className="basis-[78%] sm:basis-1/2 lg:basis-1/3">
-                    <article className="group flex h-full flex-col border border-border bg-card p-8 transition-colors duration-500 hover:border-gold">
-                      <span className="font-mono text-[0.68rem] tracking-[0.2em] text-gold">
+                    <article className="group flex h-full flex-col border border-border bg-card p-8 transition-colors duration-500 hover:border-cobalt">
+                      <span className="font-mono text-[0.68rem] tracking-[0.2em] text-steel">
                         0{i + 1}
                       </span>
                       <h3 className="mt-5 text-2xl">{l.titulo}</h3>
                       <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
                         {l.texto}
                       </p>
-                      <span className="mt-8 h-px w-10 bg-border transition-all duration-500 group-hover:w-16 group-hover:bg-gold" />
+                      <span className="mt-8 h-px w-10 bg-border transition-all duration-500 group-hover:w-16 group-hover:bg-cobalt" />
                     </article>
                   </CarouselItem>
                 ))}

@@ -38,7 +38,12 @@ import {
 } from "@/components/ui/carousel";
 
 const HERO_SLIDES = [
-  { type: "video" as const, src: "/videos/hero-homem-oculos.mp4", alt: "Homem usando óculos" },
+  {
+    type: "video" as const,
+    src: "/videos/hero-homem-oculos.mp4",
+    poster: "/videos/hero-homem-oculos.jpg",
+    alt: "Homem usando óculos",
+  },
   {
     type: "image" as const,
     src: heroBg2,
@@ -49,6 +54,7 @@ const HERO_SLIDES = [
   {
     type: "video" as const,
     src: "/videos/hero-cliente-oculos.mp4",
+    poster: "/videos/hero-cliente-oculos.jpg",
     alt: "Cliente experimentando óculos na loja",
   },
 ];
@@ -140,7 +146,7 @@ function TestimonialCarousel() {
             <figure className="flex h-full flex-col border border-border bg-card p-8">
               <div className="flex gap-0.5">
                 {Array.from({ length: d.nota }).map((_, s) => (
-                  <Star key={s} className="size-3.5 fill-gold text-gold" />
+                  <Star key={s} className="size-3.5 fill-current text-current" />
                 ))}
               </div>
               <blockquote className="mt-4 text-sm leading-relaxed text-muted-foreground">
@@ -157,8 +163,8 @@ function TestimonialCarousel() {
         ))}
       </CarouselContent>
       <div className="mt-8 flex justify-center gap-3">
-        <CarouselPrevious className="static size-10 translate-y-0 rounded-full border-ink/25 bg-transparent text-ink shadow-none hover:border-gold hover:bg-transparent hover:text-gold" />
-        <CarouselNext className="static size-10 translate-y-0 rounded-full border-ink/25 bg-transparent text-ink shadow-none hover:border-gold hover:bg-transparent hover:text-gold" />
+        <CarouselPrevious className="static size-10 translate-y-0 rounded-full border-ink/25 bg-transparent text-ink shadow-none hover:border-cobalt hover:bg-transparent hover:text-cobalt" />
+        <CarouselNext className="static size-10 translate-y-0 rounded-full border-ink/25 bg-transparent text-ink shadow-none hover:border-cobalt hover:bg-transparent hover:text-cobalt" />
       </div>
     </Carousel>
   );
@@ -177,28 +183,29 @@ function Home() {
         <motion.div style={{ y, scale }} className="absolute inset-0">
           <HeroSlideshow slides={HERO_SLIDES} className="absolute inset-0" />
         </motion.div>
-        <div className="grain absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/30" />
+        <div className="grain absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/25 to-ink/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/55 via-ink/10 to-transparent" />
 
         <motion.div
           style={{ opacity: fade }}
-          className="relative mx-auto w-full max-w-6xl px-5 pb-20 pt-40 text-ink-foreground sm:px-8 md:pb-28"
+          className="relative mx-auto w-full max-w-6xl px-5 pb-20 pt-40 text-ink-foreground [text-shadow:0_2px_28px_rgb(0_0_0/0.5)] sm:px-8 md:pb-28"
         >
           <h1 className="max-w-4xl text-balance text-4xl leading-[1.03] sm:text-6xl md:text-7xl">
             <RevealWords text="Enxergar bem é também" />
             <br />
-            <span className="text-gold">
+            <span className="text-steel-soft">
               <RevealWords text="se reconhecer no espelho" delay={0.25} />
             </span>
           </h1>
           <Reveal delay={0.5}>
-            <p className="mt-8 max-w-xl text-pretty text-base leading-relaxed text-ink-foreground/70 sm:text-lg">
+            <p className="mt-8 max-w-xl text-pretty text-base leading-relaxed text-ink-foreground/85 sm:text-lg">
               Uma ótica premium onde a escolha do seu óculos começa por uma conversa sobre a sua
               rotina, o seu rosto e o seu estilo — e termina pessoalmente, na loja.
             </p>
           </Reveal>
           <Reveal delay={0.62}>
             <div className="mt-10 flex flex-wrap gap-3">
-              <BtnAnchor href={WHATSAPP_PRINCIPAL} variant="gold">
+              <BtnAnchor href={WHATSAPP_PRINCIPAL} variant="accent">
                 Agendar atendimento
               </BtnAnchor>
               <BtnLink to="/teste-de-visao" variant="ghostLight">
@@ -220,7 +227,7 @@ function Home() {
               key={`${m}-${i}`}
               className="font-mono text-[0.7rem] uppercase tracking-[0.24em] text-muted-foreground"
             >
-              {m} <span className="text-gold">◆</span>
+              {m} <span className="text-steel">◆</span>
             </span>
           ))}
         </motion.div>
@@ -280,8 +287,8 @@ function Home() {
               <Reveal key={d.titulo} delay={i * 0.08}>
                 <Parallax distance={18} cover={false} className="h-full">
                   <article className="group h-full bg-background p-8 transition-colors duration-500 hover:bg-card md:p-10">
-                    <span className="grid size-12 place-items-center rounded-full bg-gold/10 transition-colors duration-500 group-hover:bg-gold/20">
-                      <Icon className="size-6 text-gold transition-transform duration-500 group-hover:-translate-y-1" />
+                    <span className="grid size-12 place-items-center rounded-full bg-steel/10 transition-colors duration-500 group-hover:bg-cobalt/20">
+                      <Icon className="size-6 text-steel transition-transform duration-500 group-hover:-translate-y-1" />
                     </span>
                     <h3 className="mt-6 text-2xl">{d.titulo}</h3>
                     <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{d.texto}</p>
@@ -299,7 +306,7 @@ function Home() {
         className="border-t border-border"
       >
         <Reveal>
-          <Recycle className="size-7 text-gold" />
+          <Recycle className="size-7 text-steel" />
         </Reveal>
         <SectionHeading
           title="Cuidar da sua visão e do planeta"

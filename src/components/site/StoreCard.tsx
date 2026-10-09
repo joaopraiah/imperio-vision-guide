@@ -5,7 +5,7 @@ import { Reveal } from "./motion-primitives";
 export function StoreCard({ store, delay = 0 }: { store: Store; delay?: number }) {
   return (
     <Reveal delay={delay}>
-      <article className="group flex h-full flex-col border border-border bg-card transition-colors duration-500 hover:border-gold">
+      <article className="group flex h-full flex-col border border-border bg-card transition-colors duration-500 hover:border-cobalt">
         <div className="aspect-video w-full overflow-hidden">
           <img
             src={store.foto}
@@ -24,7 +24,7 @@ export function StoreCard({ store, delay = 0 }: { store: Store; delay?: number }
               href={store.whatsapp}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 bg-ink px-5 py-3 text-[0.72rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-gold hover:text-ink"
+              className="inline-flex items-center gap-2 bg-ink px-5 py-3 text-[0.72rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-cobalt hover:text-white"
             >
               <MessageCircle className="size-4" /> WhatsApp
             </a>
@@ -32,7 +32,7 @@ export function StoreCard({ store, delay = 0 }: { store: Store; delay?: number }
               href={store.maps}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 border border-ink/20 px-5 py-3 text-[0.72rem] uppercase tracking-[0.16em] transition-colors hover:border-gold hover:text-gold"
+              className="inline-flex items-center gap-2 border border-ink/20 px-5 py-3 text-[0.72rem] uppercase tracking-[0.16em] transition-colors hover:border-cobalt hover:text-cobalt"
             >
               <MapPin className="size-4" /> Como chegar
             </a>

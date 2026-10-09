@@ -1,9 +1,14 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 
-type Slide = { type: "video"; src: string; poster?: string; alt: string } | { type: "image"; src: string; alt: string };
+type Slide =
+  | { type: "video"; src: string; poster?: string; alt: string }
+  | { type: "image"; src: string; alt: string };
 
 const IMAGE_DURATION = 5200;
+// Mídia quase opaca: quem garante a leitura do texto é o degradê do hero,
+// concentrado embaixo/à esquerda, para os vídeos aparecerem bem.
+const MEDIA_OPACITY = 0.92;
 
 /**
  * Crossfading hero slideshow: a video opener followed by photos, each with a
@@ -35,7 +40,7 @@ export function HeroSlideshow({ slides, className }: { slides: Slide[]; classNam
             playsInline
             onEnded={() => setIndex((i) => (i + 1) % slides.length)}
             initial={{ opacity: 0 }}
-            animate={{ opacity: 0.55 }}
+            animate={{ opacity: MEDIA_OPACITY }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
             className="absolute inset-0 size-full object-cover"
@@ -46,7 +51,7 @@ export function HeroSlideshow({ slides, className }: { slides: Slide[]; classNam
             src={slide.src}
             alt={slide.alt}
             initial={{ opacity: 0, scale: 1.06 }}
-            animate={{ opacity: 0.55, scale: 1 }}
+            animate={{ opacity: MEDIA_OPACITY, scale: 1 }}
             exit={{ opacity: 0 }}
             transition={{
               opacity: { duration: 1.4, ease: [0.16, 1, 0.3, 1] },

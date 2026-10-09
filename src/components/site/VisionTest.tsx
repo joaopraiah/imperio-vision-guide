@@ -17,7 +17,7 @@ import { STORES } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
 const field =
-  "w-full border border-border bg-background px-4 py-3 pl-10 text-sm outline-none transition-colors focus:border-gold";
+  "w-full border border-border bg-background px-4 py-3 pl-10 text-sm outline-none transition-colors focus:border-cobalt";
 
 type Lead = { nome: string; whatsapp: string; idade: string; sexo: string };
 
@@ -113,7 +113,7 @@ function ResultLeadForm({ onSubmit }: { onSubmit: (lead: Lead) => void }) {
         <button
           type="submit"
           disabled={!valido}
-          className="mt-2 inline-flex items-center justify-center gap-2 bg-ink px-7 py-3.5 text-[0.75rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-gold hover:text-ink disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-ink disabled:hover:text-ink-foreground"
+          className="mt-2 inline-flex items-center justify-center gap-2 bg-ink px-7 py-3.5 text-[0.75rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-cobalt hover:text-white disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-ink disabled:hover:text-ink-foreground"
         >
           <Eye className="size-4" /> Ver meu resultado
         </button>
@@ -232,7 +232,7 @@ function AstigmatismChart({ lines, rotate = 0 }: { lines: number; rotate?: numbe
           strokeLinecap="round"
         />
       ))}
-      <circle cx={cx} cy={cy} r={4} fill="var(--color-gold)" />
+      <circle cx={cx} cy={cy} r={4} fill="var(--color-steel)" />
     </svg>
   );
 }
@@ -254,7 +254,7 @@ function ScoreRing({ pct }: { pct: number }) {
           cy="60"
           r={r}
           fill="none"
-          stroke="var(--color-gold)"
+          stroke="var(--color-cobalt)"
           strokeWidth="4"
           strokeLinecap="round"
           strokeDasharray={c}
@@ -486,14 +486,14 @@ export function VisionTest() {
     <div className="relative overflow-hidden border border-border bg-card">
       <motion.div
         aria-hidden
-        className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-gold/10 blur-3xl"
+        className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-steel/10 blur-3xl"
         animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.9, 0.5] }}
         transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
       />
 
       <div className="h-px w-full bg-border">
         <motion.div
-          className="h-px bg-gold"
+          className="h-px bg-cobalt"
           animate={{ scaleX: overall.total > 0 ? overall.answered / overall.total : 0 }}
           style={{ transformOrigin: "left" }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
@@ -529,7 +529,7 @@ export function VisionTest() {
                   ? "bg-ink text-ink-foreground"
                   : isResultLocked
                     ? "cursor-not-allowed text-muted-foreground/40"
-                    : "text-muted-foreground hover:text-gold",
+                    : "text-muted-foreground hover:text-cobalt",
               )}
             >
               {isResultLocked ? <Lock className="size-3" /> : null}
@@ -541,8 +541,8 @@ export function VisionTest() {
       </div>
 
       <div className="p-7 sm:p-10">
-        <div className="mb-8 flex items-start gap-3 border border-gold/40 bg-gold/10 p-4">
-          <AlertTriangle className="mt-0.5 size-4 shrink-0 text-gold" />
+        <div className="mb-8 flex items-start gap-3 border border-steel/40 bg-steel/10 p-4">
+          <AlertTriangle className="mt-0.5 size-4 shrink-0 text-steel" />
           <p className="text-xs leading-relaxed text-muted-foreground">
             Este teste é <strong className="text-ink">educativo e orientativo</strong>. Ele não é um
             exame, não faz diagnóstico e não substitui a avaliação de um profissional na loja.
@@ -576,7 +576,7 @@ export function VisionTest() {
               <button
                 type="button"
                 onClick={() => setStage("instrucoes")}
-                className="mt-9 inline-flex items-center gap-2 bg-ink px-7 py-3.5 text-[0.75rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-gold hover:text-ink"
+                className="mt-9 inline-flex items-center gap-2 bg-ink px-7 py-3.5 text-[0.75rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-cobalt hover:text-white"
               >
                 <Eye className="size-4" /> Ver instruções
               </button>
@@ -605,7 +605,7 @@ export function VisionTest() {
                     transition={{ delay: 0.1 + i * 0.07, duration: 0.5 }}
                     className="flex items-center gap-3"
                   >
-                    <span className="grid size-5 shrink-0 place-items-center rounded-full bg-gold font-mono text-[0.6rem] text-ink">
+                    <span className="grid size-5 shrink-0 place-items-center rounded-full bg-steel font-mono text-[0.6rem] text-ink">
                       {i + 1}
                     </span>
                     {t}
@@ -613,8 +613,8 @@ export function VisionTest() {
                 ))}
               </ul>
 
-              <div className="mt-6 flex items-start gap-3 border border-gold/40 bg-gold/10 p-4">
-                <EyeOff className="mt-0.5 size-4 shrink-0 text-gold" />
+              <div className="mt-6 flex items-start gap-3 border border-steel/40 bg-steel/10 p-4">
+                <EyeOff className="mt-0.5 size-4 shrink-0 text-steel" />
                 <p className="text-sm leading-relaxed text-ink">
                   <strong>Faça cada teste 2 vezes:</strong> tampe o olho esquerdo e responda, depois
                   tampe o direito e responda de novo. Assim conseguimos ver os dois olhos
@@ -625,7 +625,7 @@ export function VisionTest() {
               <button
                 type="button"
                 onClick={() => setStage("perto")}
-                className="mt-9 inline-flex items-center gap-2 bg-ink px-7 py-3.5 text-[0.75rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-gold hover:text-ink"
+                className="mt-9 inline-flex items-center gap-2 bg-ink px-7 py-3.5 text-[0.75rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-cobalt hover:text-white"
               >
                 <Eye className="size-4" /> Iniciar pelo teste de perto
               </button>
@@ -669,12 +669,14 @@ export function VisionTest() {
                             className={cn(
                               "group relative flex items-center justify-between overflow-hidden border px-5 py-4 text-left text-sm transition-colors",
                               selected
-                                ? "border-gold bg-gold/10 text-ink"
-                                : "border-border hover:border-gold",
+                                ? "border-cobalt bg-cobalt/10 text-ink"
+                                : "border-border hover:border-cobalt",
                             )}
                           >
                             <span className="relative z-10">{o.label}</span>
-                            {selected ? <Check className="relative z-10 size-4 text-gold" /> : null}
+                            {selected ? (
+                              <Check className="relative z-10 size-4 text-cobalt" />
+                            ) : null}
                           </button>
                         );
                       })}
@@ -695,7 +697,7 @@ export function VisionTest() {
                     const next = MODULES[i + 1];
                     setStage(next ? next.id : "resultado");
                   }}
-                  className="inline-flex items-center gap-2 bg-ink px-6 py-3 text-[0.72rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-gold hover:text-ink"
+                  className="inline-flex items-center gap-2 bg-ink px-6 py-3 text-[0.72rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-cobalt hover:text-white"
                 >
                   {MODULES[MODULES.findIndex((m) => m.id === activeModule.id) + 1]
                     ? "Próximo módulo"
@@ -744,7 +746,7 @@ export function VisionTest() {
                       <p className="text-sm">{m.label}</p>
                       <div className="mt-3 h-1 w-full bg-border">
                         <motion.div
-                          className="h-1 bg-gold"
+                          className="h-1 bg-cobalt"
                           initial={{ scaleX: 0 }}
                           animate={{ scaleX: modPct }}
                           style={{ transformOrigin: "left" }}
@@ -756,9 +758,9 @@ export function VisionTest() {
                 })}
               </div>
 
-              <div className="mt-8 border border-gold/40 bg-gold/10 p-6">
+              <div className="mt-8 border border-steel/40 bg-steel/10 p-6">
                 <div className="flex items-center gap-2">
-                  <Gift className="size-4 text-gold" />
+                  <Gift className="size-4 text-steel" />
                   <p className="label-mono">Você desbloqueou um benefício</p>
                 </div>
                 <p className="mt-3 text-sm leading-relaxed text-ink">
@@ -772,7 +774,7 @@ export function VisionTest() {
                       href={s.whatsapp}
                       target="_blank"
                       rel="noreferrer"
-                      className="bg-ink px-6 py-3 text-[0.72rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-gold hover:text-ink"
+                      className="bg-ink px-6 py-3 text-[0.72rem] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-cobalt hover:text-white"
                     >
                       Agendar em {s.cidade}
                     </a>
@@ -783,7 +785,7 @@ export function VisionTest() {
               <button
                 type="button"
                 onClick={reset}
-                className="mt-7 inline-flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-muted-foreground hover:text-gold"
+                className="mt-7 inline-flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-muted-foreground hover:text-cobalt"
               >
                 <RotateCcw className="size-3.5" /> Refazer o teste
               </button>
@@ -816,8 +818,8 @@ export function VisionTest() {
                       className={cn(
                         "border px-5 py-3 text-xs uppercase tracking-[0.14em] transition-colors",
                         done
-                          ? "border-gold/40 bg-gold/10 text-ink"
-                          : "border-border hover:border-gold",
+                          ? "border-cobalt/40 bg-cobalt/10 text-ink"
+                          : "border-border hover:border-cobalt",
                       )}
                     >
                       {m.label} — {s.answered}/{s.total}

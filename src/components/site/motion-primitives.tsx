@@ -141,17 +141,17 @@ export function FloatingRings({ className }: { className?: string }) {
   return (
     <div className={cn("pointer-events-none absolute size-64", className)} aria-hidden="true">
       <motion.div
-        className="absolute inset-0 rounded-full border border-gold/25"
+        className="absolute inset-0 rounded-full border border-steel/25"
         animate={{ rotate: 360 }}
         transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
       />
       <motion.div
-        className="absolute inset-0 m-10 rounded-full border border-gold/15"
+        className="absolute inset-0 m-10 rounded-full border border-steel/15"
         animate={{ rotate: -360 }}
         transition={{ duration: 44, repeat: Infinity, ease: "linear" }}
       />
       <motion.div
-        className="absolute inset-0 -m-4 rounded-full bg-gold/10 blur-3xl"
+        className="absolute inset-0 -m-4 rounded-full bg-steel/10 blur-3xl"
         animate={{ opacity: [0.5, 0.9, 0.5], scale: [1, 1.08, 1] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
@@ -165,7 +165,7 @@ export function ScrollProgressBar() {
   return (
     <motion.div
       style={{ scaleX }}
-      className="fixed inset-x-0 top-0 z-[60] h-px origin-left bg-gold"
+      className="fixed inset-x-0 top-0 z-[60] h-px origin-left bg-cobalt"
       aria-hidden
     />
   );

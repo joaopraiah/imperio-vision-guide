@@ -48,7 +48,7 @@ export function Header() {
                 className={cn(
                   "link-underline text-[0.78rem] uppercase tracking-[0.14em] transition-colors",
                   pathname === item.to
-                    ? "text-gold"
+                    ? "text-cobalt-soft"
                     : "text-ink-foreground/80 hover:text-ink-foreground",
                 )}
               >
@@ -70,7 +70,7 @@ export function Header() {
               href={WHATSAPP_PRINCIPAL}
               target="_blank"
               rel="noreferrer"
-              className="border border-gold px-5 py-2.5 text-[0.72rem] uppercase tracking-[0.16em] text-gold transition-colors duration-300 hover:bg-gold hover:text-ink"
+              className="border border-ink-foreground bg-ink-foreground px-5 py-2.5 text-[0.72rem] uppercase tracking-[0.16em] text-ink transition-colors duration-300 hover:border-cobalt hover:bg-cobalt hover:text-white"
             >
               Orçamento
             </a>
@@ -123,7 +123,7 @@ export function Header() {
               href={WHATSAPP_PRINCIPAL}
               target="_blank"
               rel="noreferrer"
-              className="mt-4 inline-flex w-fit border border-gold px-7 py-3.5 text-[0.75rem] uppercase tracking-[0.18em] text-gold"
+              className="mt-4 inline-flex w-fit border border-ink-foreground bg-ink-foreground px-7 py-3.5 text-[0.75rem] uppercase tracking-[0.18em] text-ink"
             >
               Pedir orçamento no WhatsApp
             </a>

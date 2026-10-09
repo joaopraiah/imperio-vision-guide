@@ -16,7 +16,8 @@ export const Route = createFileRoute("/orcamento")({
       { property: "og:title", content: "Solicitar orçamento — Ótica Império Glasses" },
       {
         property: "og:description",
-        content: "Formulário simples de orçamento com continuidade no WhatsApp da loja mais próxima.",
+        content:
+          "Formulário simples de orçamento com continuidade no WhatsApp da loja mais próxima.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -56,7 +57,7 @@ function Orcamento() {
                   },
                 ].map((s, i) => (
                   <li key={s.t} className="flex gap-5">
-                    <span className="font-mono text-xs tracking-widest text-gold">0{i + 1}</span>
+                    <span className="font-mono text-xs tracking-widest text-steel">0{i + 1}</span>
                     <div>
                       <p className="font-display text-lg">{s.t}</p>
                       <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{s.d}</p>

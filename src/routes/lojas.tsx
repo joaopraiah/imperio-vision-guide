@@ -43,12 +43,12 @@ function Lojas() {
 
         <Reveal delay={0.2}>
           <div className="mt-12 flex items-start gap-4 border border-border bg-card p-8">
-            <Clock className="mt-0.5 size-5 shrink-0 text-gold" />
+            <Clock className="mt-0.5 size-5 shrink-0 text-steel" />
             <div>
               <h2 className="text-xl">Atendimento com hora marcada</h2>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Recomendamos agendar pelo WhatsApp da unidade. Assim garantimos tempo dedicado a você,
-                sem espera — inclusive para o exame de vista.
+                Recomendamos agendar pelo WhatsApp da unidade. Assim garantimos tempo dedicado a
+                você, sem espera — inclusive para o exame de vista.
               </p>
             </div>
           </div>

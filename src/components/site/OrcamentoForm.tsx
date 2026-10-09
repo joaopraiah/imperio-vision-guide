@@ -36,7 +36,7 @@ export function OrcamentoForm() {
 
   const link = `${store.whatsapp}?text=${mensagem}`;
   const field =
-    "w-full border border-border bg-background px-4 py-3 text-sm outline-none transition-colors focus:border-gold";
+    "w-full border border-border bg-background px-4 py-3 text-sm outline-none transition-colors focus:border-cobalt";
 
   const completo = [nome, unidade, interesse, receita].filter(Boolean).length / 4;
 
@@ -52,26 +52,26 @@ export function OrcamentoForm() {
     >
       <motion.div
         aria-hidden
-        className="pointer-events-none absolute -left-24 -top-24 size-64 rounded-full bg-gold/10 blur-3xl"
+        className="pointer-events-none absolute -left-24 -top-24 size-64 rounded-full bg-steel/10 blur-3xl"
         animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0.8, 0.4] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
       <span className="label-mono">Solicitar orçamento</span>
       <h3 className="mt-4 text-2xl sm:text-3xl">Conte o que você precisa</h3>
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-        Preencha os campos e continue a conversa no WhatsApp da unidade mais próxima. Sem compromisso.
+        Preencha os campos e continue a conversa no WhatsApp da unidade mais próxima. Sem
+        compromisso.
       </p>
 
       <div className="mt-7 h-px w-full bg-border">
         <motion.div
-          className="h-px origin-left bg-gold"
+          className="h-px origin-left bg-cobalt"
           animate={{ scaleX: completo }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         />
       </div>
 
       <div className="mt-8 grid gap-5">
-
         <div>
           <label htmlFor="nome" className="label-mono">
             Seu nome
@@ -95,7 +95,9 @@ export function OrcamentoForm() {
                 onClick={() => setUnidade(s.id)}
                 className={cn(
                   "border px-4 py-3 text-left text-sm transition-colors",
-                  unidade === s.id ? "border-gold bg-gold/10" : "border-border hover:border-gold",
+                  unidade === s.id
+                    ? "border-cobalt bg-cobalt/10"
+                    : "border-border hover:border-cobalt",
                 )}
               >
                 <span className="block font-display text-base">{s.cidade}</span>
@@ -117,7 +119,9 @@ export function OrcamentoForm() {
                 onClick={() => setInteresse(i)}
                 className={cn(
                   "border px-4 py-2 text-xs transition-colors",
-                  interesse === i ? "border-gold bg-gold/10 text-ink" : "border-border hover:border-gold",
+                  interesse === i
+                    ? "border-cobalt bg-cobalt/10 text-ink"
+                    : "border-border hover:border-cobalt",
                 )}
               >
                 {i}
@@ -164,7 +168,7 @@ export function OrcamentoForm() {
         rel="noreferrer"
         whileHover={{ y: -2 }}
         whileTap={{ scale: 0.98 }}
-        className="mt-9 inline-flex items-center gap-2 bg-gold px-7 py-4 text-[0.75rem] uppercase tracking-[0.16em] text-ink transition-colors hover:bg-ink hover:text-ink-foreground"
+        className="mt-9 inline-flex items-center gap-2 bg-cobalt px-7 py-4 text-[0.75rem] uppercase tracking-[0.16em] text-white transition-colors hover:bg-ink hover:text-ink-foreground"
       >
         <MessageCircle className="size-4" /> Continuar no WhatsApp — {store.cidade}
       </motion.a>

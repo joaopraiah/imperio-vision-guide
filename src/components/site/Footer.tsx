@@ -11,8 +11,8 @@ export function Footer() {
         <div>
           <Logo className="scale-110 origin-left" />
           <p className="mt-7 max-w-xs text-sm leading-relaxed text-ink-foreground/60">
-            Ótica premium com atendimento personalizado em Sumaré e Hortolândia. Aqui, a escolha do seu
-            óculos começa por uma conversa.
+            Ótica premium com atendimento personalizado em Sumaré e Hortolândia. Aqui, a escolha do
+            seu óculos começa por uma conversa.
           </p>
           <GoogleRating tone="light" className="mt-5" />
           <div className="mt-6 flex gap-4">
@@ -21,7 +21,7 @@ export function Footer() {
               target="_blank"
               rel="noreferrer"
               aria-label="Instagram da Ótica Império"
-              className="border border-ink-foreground/20 p-2.5 text-ink-foreground/70 transition-colors hover:border-gold hover:text-gold"
+              className="border border-ink-foreground/20 p-2.5 text-ink-foreground/70 transition-colors hover:border-cobalt-soft hover:text-cobalt-soft"
             >
               <Instagram className="size-4" />
             </a>
@@ -30,7 +30,7 @@ export function Footer() {
               target="_blank"
               rel="noreferrer"
               aria-label="Facebook da Ótica Império"
-              className="border border-ink-foreground/20 p-2.5 text-ink-foreground/70 transition-colors hover:border-gold hover:text-gold"
+              className="border border-ink-foreground/20 p-2.5 text-ink-foreground/70 transition-colors hover:border-cobalt-soft hover:text-cobalt-soft"
             >
               <Facebook className="size-4" />
             </a>
@@ -43,12 +43,15 @@ export function Footer() {
             <Link
               key={i.to}
               to={i.to}
-              className="w-fit text-sm text-ink-foreground/70 transition-colors hover:text-gold"
+              className="w-fit text-sm text-ink-foreground/70 transition-colors hover:text-cobalt-soft"
             >
               {i.label}
             </Link>
           ))}
-          <Link to="/orcamento" className="w-fit text-sm text-ink-foreground/70 hover:text-gold">
+          <Link
+            to="/orcamento"
+            className="w-fit text-sm text-ink-foreground/70 hover:text-cobalt-soft"
+          >
             Orçamento
           </Link>
         </nav>
@@ -63,7 +66,7 @@ export function Footer() {
                 href={s.whatsapp}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-1 inline-block font-mono text-xs tracking-widest text-gold"
+                className="mt-1 inline-block font-mono text-xs tracking-widest text-steel"
               >
                 {s.telefoneLabel}
               </a>

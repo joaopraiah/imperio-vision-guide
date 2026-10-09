@@ -70,7 +70,7 @@ function Experiencia() {
           {ETAPAS.map((e, i) => (
             <Reveal key={e.titulo} delay={i * 0.06}>
               <li className="relative pb-12 last:pb-0">
-                <span className="absolute -left-[2.3rem] top-1 grid size-6 place-items-center rounded-full bg-gold font-mono text-[0.6rem] text-ink">
+                <span className="absolute -left-[2.3rem] top-1 grid size-6 place-items-center rounded-full bg-steel font-mono text-[0.6rem] text-ink">
                   {i + 1}
                 </span>
                 <h3 className="text-2xl">{e.titulo}</h3>

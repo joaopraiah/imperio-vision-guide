@@ -58,7 +58,7 @@ function Contato() {
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.endereco}</p>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.detalhes}</p>
                   <div className="mt-7 flex flex-wrap gap-3">
-                    <BtnAnchor href={s.whatsapp} variant="gold">
+                    <BtnAnchor href={s.whatsapp} variant="accent">
                       <MessageCircle className="size-4" /> {s.telefoneLabel}
                     </BtnAnchor>
                     <BtnAnchor href={s.maps} variant="outline">
@@ -78,7 +78,7 @@ function Contato() {
               href={SOCIAL.instagram}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 text-sm transition-colors hover:text-gold"
+              className="inline-flex items-center gap-2 text-sm transition-colors hover:text-cobalt"
             >
               <Instagram className="size-4" /> {SOCIAL.instagramLabel}
             </a>
@@ -86,7 +86,7 @@ function Contato() {
               href={SOCIAL.facebook}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 text-sm transition-colors hover:text-gold"
+              className="inline-flex items-center gap-2 text-sm transition-colors hover:text-cobalt"
             >
               <Facebook className="size-4" /> {SOCIAL.facebookLabel}
             </a>
@@ -100,11 +100,13 @@ function Contato() {
           {FAQ.map((f, i) => (
             <Reveal key={f.q} delay={i * 0.06}>
               <details className="group py-6">
-                <summary className="flex cursor-pointer items-center justify-between gap-6 font-display text-lg leading-snug transition-colors group-open:text-gold">
+                <summary className="flex cursor-pointer items-center justify-between gap-6 font-display text-lg leading-snug transition-colors group-open:text-cobalt">
                   {f.q}
-                  <Plus className="size-4 shrink-0 text-gold transition-transform duration-300 group-open:rotate-45" />
+                  <Plus className="size-4 shrink-0 text-steel transition-transform duration-300 group-open:rotate-45" />
                 </summary>
-                <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+                <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+                  {f.a}
+                </p>
               </details>
             </Reveal>
           ))}

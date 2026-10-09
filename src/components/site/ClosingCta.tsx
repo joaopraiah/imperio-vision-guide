@@ -24,7 +24,7 @@ export function ClosingCta({
         <Reveal delay={0.2}>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             {STORES.map((s) => (
-              <BtnAnchor key={s.id} href={s.whatsapp} variant="gold">
+              <BtnAnchor key={s.id} href={s.whatsapp} variant="accent">
                 Falar com {s.cidade}
               </BtnAnchor>
             ))}

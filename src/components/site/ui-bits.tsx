@@ -9,13 +9,14 @@ const base =
   "inline-flex items-center justify-center gap-2 rounded-none px-7 py-3.5 text-[0.8rem] font-medium uppercase tracking-[0.16em] transition-all duration-300";
 
 const styles = {
-  solid: "bg-ink text-ink-foreground hover:bg-gold hover:text-ink",
-  gold: "bg-gold text-ink hover:bg-ink hover:text-ink-foreground",
-  outline: "border border-ink/25 text-ink hover:border-gold hover:text-gold",
+  solid: "bg-ink text-ink-foreground hover:bg-cobalt hover:text-white",
+  // Destaque: o azul da Digital+ usado como cor de ação no site todo — o
+  // manual fica com preto/branco/cinza e o azul marca só o que é clicável.
+  accent: "bg-cobalt text-white hover:bg-cobalt-soft hover:text-ink",
+  outline: "border border-ink/25 text-ink hover:border-cobalt hover:text-cobalt",
   ghostLight:
-    "border border-ink-foreground/30 text-ink-foreground hover:border-gold hover:text-gold",
-  // Digital+ — paleta própria da sub-marca de lentes, usada só na LP /digital-mais
-  // e nos pontos de entrada que apontam para ela.
+    "border border-ink-foreground/30 text-ink-foreground hover:border-cobalt-soft hover:text-cobalt-soft",
+  // Digital+ — paleta própria da sub-marca de lentes (LP /digital-mais).
   dpBlue: "bg-dp-blue text-dp-ink hover:bg-dp-blue-soft hover:text-dp-bg",
   dpGhost: "border border-dp-blue/50 text-dp-ink hover:border-dp-blue-soft hover:text-dp-blue-soft",
 };
@@ -187,7 +188,7 @@ export function InitialsAvatar({ name, className }: { name: string; className?: 
     <span
       aria-hidden="true"
       className={cn(
-        "grid size-9 shrink-0 place-items-center rounded-full bg-ink font-display text-[0.7rem] text-gold",
+        "grid size-9 shrink-0 place-items-center rounded-full bg-ink font-display text-[0.7rem] text-steel",
         className,
       )}
     >
@@ -207,7 +208,7 @@ export function GoogleRating({
     <div className={cn("inline-flex items-center gap-2.5", className)}>
       <div className="flex gap-0.5">
         {Array.from({ length: 5 }).map((_, i) => (
-          <Star key={i} className="size-3.5 fill-gold text-gold" />
+          <Star key={i} className="size-3.5 fill-current text-current" />
         ))}
       </div>
       <span
@@ -226,7 +227,7 @@ export function GoogleRating({
 export function PageHero({ label, title, intro }: { label: string; title: string; intro: string }) {
   return (
     <header className="grain relative overflow-hidden border-b border-border bg-ink px-5 pb-20 pt-36 text-ink-foreground sm:px-8 md:pb-28 md:pt-44">
-      <FloatingRings className="-right-16 -top-16 text-gold sm:right-0 sm:top-0" />
+      <FloatingRings className="-right-16 -top-16 text-steel sm:right-0 sm:top-0" />
       <div className="relative mx-auto w-full max-w-6xl">
         <Reveal>
           <SectionLabel>{label}</SectionLabel>

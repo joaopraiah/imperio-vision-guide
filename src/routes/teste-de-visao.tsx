@@ -17,7 +17,8 @@ export const Route = createFileRoute("/teste-de-visao")({
       { property: "og:title", content: "Teste de visão online — Ótica Império Glasses" },
       {
         property: "og:description",
-        content: "Um teste rápido e educativo para entender se está na hora de avaliar a sua visão.",
+        content:
+          "Um teste rápido e educativo para entender se está na hora de avaliar a sua visão.",
       },
     ],
   }),
@@ -35,11 +36,11 @@ function TesteDeVisao() {
 
       <Section>
         <Reveal>
-          <div className="mb-10 flex gap-4 border border-gold/40 bg-gold-soft/20 p-6">
-            <AlertTriangle className="mt-0.5 size-5 shrink-0 text-gold" />
+          <div className="mb-10 flex gap-4 border border-steel/40 bg-steel-soft/20 p-6">
+            <AlertTriangle className="mt-0.5 size-5 shrink-0 text-steel" />
             <p className="text-sm leading-relaxed text-muted-foreground">
-              <strong className="text-ink">Importante:</strong> este teste é educativo e orientativo.
-              Ele <strong className="text-ink">não é um diagnóstico</strong> e{" "}
+              <strong className="text-ink">Importante:</strong> este teste é educativo e
+              orientativo. Ele <strong className="text-ink">não é um diagnóstico</strong> e{" "}
               <strong className="text-ink">não substitui</strong> a avaliação de um profissional
               habilitado. Fatores como brilho da tela, distância e iluminação afetam o resultado.
             </p>
