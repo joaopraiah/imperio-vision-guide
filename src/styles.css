@@ -405,26 +405,6 @@ summary::-webkit-details-marker {
   }
 }
 
-/* "Fóton" atravessando o trilho: o wrapper tem a largura do trilho e anda
-   100% da própria largura, então o ponto percorre tudo só com transform. */
-@keyframes photon {
-  0% {
-    transform: translateX(0);
-    opacity: 0;
-  }
-  12%,
-  85% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-}
-
-@utility animate-photon {
-  animation: photon 2.4s linear infinite;
-}
 @utility animate-float {
   animation: float-y 3.4s ease-in-out infinite;
 }
@@ -453,7 +433,6 @@ summary::-webkit-details-marker {
   .animate-pulse-ring,
   .animate-scan,
   .animate-grid,
-  .animate-photon,
   .animate-marquee,
   .animate-orbit {
     animation: none;

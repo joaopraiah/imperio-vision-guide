@@ -6,7 +6,6 @@ import { ArrowRight } from "lucide-react";
 import heroBg1 from "@/assets/hero-bg-1.webp";
 import heroBg2 from "@/assets/hero-bg-2.webp";
 import heroBg3 from "@/assets/hero-bg-3.webp";
-import digitalPlusHero from "@/assets/digital-plus-hero.webp";
 import { STORES, WHATSAPP_PRINCIPAL } from "@/lib/site-data";
 import { Reveal, RevealWords } from "@/components/site/motion-primitives";
 import { HeroSlideshow } from "@/components/site/HeroSlideshow";
@@ -18,7 +17,7 @@ import { GlassesForming } from "@/components/site/GlassesForming";
 import { NumberedCards } from "@/components/site/NumberedCards";
 import { PosterWall } from "@/components/site/PosterWall";
 import { Testimonials } from "@/components/site/Testimonials";
-import { BlueLightFilter } from "@/components/site/BlueLightFilter";
+import { DigitalPlusLens } from "@/components/site/DigitalPlusLens";
 
 const HERO_SLIDES = [
   {
@@ -130,44 +129,51 @@ function Home() {
 
       <NumberedCards />
 
-      <section className="relative isolate overflow-hidden border-y border-border bg-dp-bg px-5 py-20 text-dp-ink sm:px-8 md:py-24">
-        <div className="absolute inset-0 -z-10 opacity-45">
-          <img
-            src={digitalPlusHero}
-            alt=""
-            aria-hidden="true"
-            loading="lazy"
-            decoding="async"
-            className="size-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-dp-bg via-dp-bg/90 to-dp-bg/50" />
-        </div>
-        <div className="relative mx-auto grid w-full max-w-6xl items-center gap-14 lg:grid-cols-[0.9fr_1.1fr]">
+      <section className="relative isolate overflow-hidden border-y border-border bg-dp-bg px-5 py-24 text-dp-ink sm:px-8 md:py-32">
+        <div
+          className="pointer-events-none absolute -right-40 top-1/4 -z-10 size-[36rem] rounded-full bg-dp-blue/20 blur-[140px]"
+          aria-hidden="true"
+        />
+        <div className="relative mx-auto grid w-full max-w-6xl items-center gap-16 lg:grid-cols-[1fr_minmax(0,28rem)] lg:gap-24">
           <div>
             <Reveal>
               <span className="inline-flex items-center gap-2 border border-dp-blue/40 px-3 py-1 text-[0.65rem] uppercase tracking-[0.3em] text-dp-blue-soft">
-                Lente premium
+                Tecnologia de Elite
               </span>
             </Reveal>
-            <h2 className="mt-5 max-w-lg text-balance text-3xl italic leading-[1.1] sm:text-4xl md:text-5xl">
-              <RevealWords text="Conheça a Digital+" />
+            <h2 className="mt-7 font-serif text-5xl italic leading-[1.02] sm:text-6xl md:text-7xl">
+              <RevealWords text="Digital+" />
             </h2>
-            <Reveal delay={0.12}>
-              <p className="mt-5 max-w-md text-pretty text-sm leading-relaxed text-dp-ink/70 sm:text-base">
-                18 camadas de antirreflexo hidrofóbico e bloqueio real de luz azul — a lente da
-                Ótica Império para quem vive de olho na tela.
+            <Reveal delay={0.1}>
+              <p className="mt-6 max-w-md text-balance font-serif text-2xl leading-snug text-dp-ink/85 sm:text-3xl">
+                A tela continua acesa. O cansaço, não.
               </p>
             </Reveal>
-            <Reveal delay={0.2}>
-              <div className="mt-8">
+            <Reveal delay={0.16}>
+              <p className="mt-6 max-w-md text-pretty text-sm leading-relaxed text-dp-ink/65 sm:text-base">
+                18 camadas de antirreflexo hidrofóbico e bloqueio real de luz azul, numa lente quase
+                invisível. Role e veja a diferença que ela faz na luz que chega aos seus olhos.
+              </p>
+            </Reveal>
+            <Reveal delay={0.22}>
+              <ul className="mt-8 grid max-w-md grid-cols-3 border-y border-dp-blue/15 font-mono text-[0.6rem] uppercase tracking-[0.16em] text-dp-blue-soft/80">
+                {["18 camadas", "Hidrofóbica", "Anti luz azul"].map((item, i) => (
+                  <li key={item} className={`py-4 ${i ? "border-l border-dp-blue/15 pl-4" : ""}`}>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+            <Reveal delay={0.28}>
+              <div className="mt-10">
                 <BtnLink to="/digital-mais" variant="dpBlue">
                   Conhecer a Digital+ <ArrowRight className="size-4" />
                 </BtnLink>
               </div>
             </Reveal>
           </div>
-          <Reveal delay={0.15}>
-            <BlueLightFilter />
+          <Reveal delay={0.1}>
+            <DigitalPlusLens />
           </Reveal>
         </div>
       </section>
